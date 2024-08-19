@@ -1,0 +1,3 @@
+isinya untuk front end, bisa langsung view aja atau dibagi lagi menjadi 2 folder
+- Page => keseluruhan halaman
+- Widget => Widget yang bisa di implementasikan ke lebih dari 1 page
