@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tarali/home.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/splash/splash_screen.dart';
+import 'package:tarali/views/screen/splash/splash_screen.dart';
 
 class RoutePages {
   List<GetPage<dynamic>> routes = [
