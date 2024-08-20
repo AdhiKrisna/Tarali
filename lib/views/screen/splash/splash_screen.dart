@@ -14,12 +14,11 @@ class SplashScreen extends StatelessWidget {
           () => AnimatedOpacity(
             duration: const Duration(milliseconds: 1500),
             opacity: splashController.opacity.value,
-            child: SizedBox(
-              child: Image(
-                image: const AssetImage('assets/images/splash_logo.jpg'),
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: MediaQuery.of(context).size.height * 0.4,
-              ),
+            child: const Image(
+              image: AssetImage('assets/images/splash_screen.jpg'),
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
         ),
