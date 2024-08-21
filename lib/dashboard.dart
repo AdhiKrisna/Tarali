@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:tarali/controllers/speech_controllers.dart';
-import 'package:tarali/services/speech_to_text.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -13,7 +12,6 @@ class Dashboard extends StatefulWidget {
 
 class DashboardState extends State<Dashboard> {
   final SpeechController controller = Get.put(SpeechController());
-  final SpeechToTextService service = SpeechToTextService();
   bool _isRecording = false;
   String? _selectedFilePath;
 
@@ -27,7 +25,10 @@ class DashboardState extends State<Dashboard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(controller.model.transcription),
+            Obx(() => controller.model.value.isTranscribing
+                ? const CircularProgressIndicator()
+                : Text(controller.model.value.transcription)),
+         
             ElevatedButton(
               onPressed: _isRecording ? null : _startRecording,
               child: const Text('Mulai Rekam'),
@@ -42,7 +43,6 @@ class DashboardState extends State<Dashboard> {
             ),
             if (_selectedFilePath != null)
               Text('File yang dipilih: $_selectedFilePath'),
-            //ini blm kepake
             ElevatedButton(
               onPressed: _selectedFilePath != null ? _transcribeFromFile : null,
               child: const Text('Transkripsi File'),
@@ -57,15 +57,16 @@ class DashboardState extends State<Dashboard> {
     setState(() {
       _isRecording = true;
     });
-    controller.startTranscribing();
+    await controller.transcribeFromRecording();
+    setState(() {
+      _isRecording = false;
+    });
   }
 
   void _stopRecording() {
     setState(() {
       _isRecording = false;
     });
-    controller.stopTranscribing();
-    transcribeFromStream();
   }
 
   void _pickFile() async {
@@ -81,12 +82,9 @@ class DashboardState extends State<Dashboard> {
     });
   }
 
-  void transcribeFromStream() async {
-    await service.transcribe();
-  }
-
   void _transcribeFromFile() async {
-    //ini blm kepake
-    await service.transcribe();
+    if (_selectedFilePath != null) {
+      await controller.transcribeFromFile(_selectedFilePath!);
+    }
   }
 }
