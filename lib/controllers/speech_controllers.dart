@@ -9,40 +9,40 @@ class SpeechController extends GetxController {
 
   Future<void> transcribeFromFile(String filePath) async {
      model.update((val) {
-      val?.setIsTranscribing(true); // Set status menjadi sedang transkripsi
-      val?.setError(''); // Reset error sebelum memulai transkripsi
+      val?.setIsTranscribing(true); 
+      val?.setError(''); 
     });
 
     try {
       final transcription = await speechService.transcribeAudioFile(filePath);
       model.update((val) {
-        val?.setTranscript(transcription); // Set hasil transkripsi
-        val?.setIsTranscribing(false); // Set status menjadi tidak sedang transkripsi
+        val?.setTranscript(transcription); 
+        val?.setIsTranscribing(false); 
       });
     } catch (e) {
       model.update((val) {
-        val?.setError(e.toString()); // Set error jika ada
-        val?.setIsTranscribing(false); // Set status menjadi tidak sedang transkripsi
+        val?.setError(e.toString()); 
+        val?.setIsTranscribing(false); 
       });
     }
   }
 
   Future<void>  transcribeFromRecording() async {
       model.update((val) {
-      val?.setIsTranscribing(true); // Set status menjadi sedang transkripsi
-      val?.setError(''); // Reset error sebelum memulai transkripsi
+      val?.setIsTranscribing(true); 
+      val?.setError(''); 
     });
 
     try {
       final transcription = await speechService.transcribeRecording();
       model.update((val) {
-        val?.setTranscript(transcription); // Set hasil transkripsi
-        val?.setIsTranscribing(false); // Set status menjadi tidak sedang transkripsi
+        val?.setTranscript(transcription); 
+        val?.setIsTranscribing(false); 
       });
     } catch (e) {
       model.update((val) {
-        val?.setError(e.toString()); // Set error jika ada
-        val?.setIsTranscribing(false); // Set status menjadi tidak sedang transkripsi
+        val?.setError(e.toString()); 
+        val?.setIsTranscribing(false); 
       });
     }
   }
