@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/views/controllers/splash_controller.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {

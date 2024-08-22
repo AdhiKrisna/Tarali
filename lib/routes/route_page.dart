@@ -7,11 +7,11 @@ class RoutePages {
   List<GetPage<dynamic>> routes = [
     GetPage(
       name: RouteName.splash,
-      page: () => const SplashScreen(),
+      page: () => const SplashPage(),
     ),
     GetPage(
       name: RouteName.dashboard,
-      page: () => const Dashboard(),
+      page: () => const DashboardPage(),
     ),
   ];
 }
