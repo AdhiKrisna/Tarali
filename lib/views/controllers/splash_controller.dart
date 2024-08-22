@@ -3,8 +3,6 @@ import 'dart:async';
 
 import 'package:tarali/routes/route_name.dart';
 
-// import 'package:tarali/routes/route_name.dart';
-
 class SplashController extends GetxController {
   var opacity = 0.0.obs;
   @override

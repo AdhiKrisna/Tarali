@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
-import 'package:tarali/controllers/speech_controllers.dart';
+
+import '../../services/speech_controllers.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
