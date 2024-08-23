@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class BackgroundScreenWidget extends StatelessWidget {
   const BackgroundScreenWidget({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,8 +11,7 @@ class BackgroundScreenWidget extends StatelessWidget {
         gradient: LinearGradient(colors: [
           Color(0xFFB5EDFE),
           Color(0xFFFFFFFF),
-          Color(0xFFFFFFFF),
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+        ], begin: Alignment.topCenter, end: Alignment(0, 0.4)),
       ),
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.end,
