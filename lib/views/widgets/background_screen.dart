@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tarali/constants/constant_colors.dart';
 
 class BackgroundScreenWidget extends StatelessWidget {
   const BackgroundScreenWidget({super.key});
@@ -9,8 +10,8 @@ class BackgroundScreenWidget extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
-          Color(0xFFB5EDFE),
-          Color(0xFFFFFFFF),
+          bgBlue,
+          white,
         ], begin: Alignment.topCenter, end: Alignment(0, 0.4)),
       ),
       child: const Column(
