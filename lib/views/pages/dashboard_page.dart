@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
-
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -35,7 +36,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Builder(builder: (context) {
-                          double btnSize = MediaQuery.of(context).size.width * 0.08;
+                          double btnSize =
+                              MediaQuery.of(context).size.width * 0.08;
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(btnSize * 0.2),
@@ -61,7 +63,8 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         Builder(
                           builder: (context) {
-                            double btnSize = MediaQuery.of(context).size.width * 0.08;
+                            double btnSize =
+                                MediaQuery.of(context).size.width * 0.08;
                             return ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.all(btnSize * 0.2),
@@ -93,25 +96,35 @@ class _DashboardPageState extends State<DashboardPage> {
                               width: MediaQuery.of(context).size.width * 0.16,
                               child: Column(
                                 children: [
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                    color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Image.asset(
-                                      'assets/images/cover1.png',
-                                      fit: BoxFit.cover,
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed(RouteName.splash);
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/cover1.png',
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                 Center(
-                                    child: Text(
-                                      'Kisah Leak Bali 1',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: MediaQuery.of(context).size.width * 0.02,
-                                        fontWeight: FontWeight.bold,
+                                  Center(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.toNamed(RouteName.splash);
+                                      },
+                                      child: Text(
+                                        'Kisah Leak Bali 1',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: MediaQuery.of(context).size.width * 0.02,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -121,7 +134,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                       'Penulis Penulis',
                                       style: TextStyle(
                                         color: greyText,
-                                        fontFamily: 'Poppins',
                                       ),
                                     ),
                                   ),

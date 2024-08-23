@@ -8,10 +8,14 @@ class RoutePages {
     GetPage(
       name: RouteName.splash,
       page: () => const SplashPage(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 1000),
     ),
     GetPage(
       name: RouteName.dashboard,
       page: () => const DashboardPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
     ),
   ];
 }
