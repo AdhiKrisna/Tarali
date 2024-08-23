@@ -35,8 +35,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Builder(builder: (context) {
-                          double btnSize =
-                              MediaQuery.of(context).size.width * 0.08;
+                          double btnSize = MediaQuery.of(context).size.width * 0.08;
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(btnSize * 0.2),
@@ -62,8 +61,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         Builder(
                           builder: (context) {
-                            double btnSize =
-                                MediaQuery.of(context).size.width * 0.08;
+                            double btnSize = MediaQuery.of(context).size.width * 0.08;
                             return ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.all(btnSize * 0.2),
@@ -95,8 +93,16 @@ class _DashboardPageState extends State<DashboardPage> {
                               width: MediaQuery.of(context).size.width * 0.16,
                               child: Column(
                                 children: [
-                                  Image.asset(
-                                    'assets/images/cover1.png',
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                    color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Image.asset(
+                                      'assets/images/cover1.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                  Center(
