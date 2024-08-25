@@ -4,14 +4,9 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
 
-class DashboardPage extends StatefulWidget {
+class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
-  @override
-  State<DashboardPage> createState() => _DashboardPageState();
-}
-
-class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +87,9 @@ class _DashboardPageState extends State<DashboardPage> {
                           children: List.generate(
                             6,
                             (index) => Container(
-                              margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.025),
+                              margin: EdgeInsets.only(
+                                  right: MediaQuery.of(context).size.width *
+                                      0.025),
                               width: MediaQuery.of(context).size.width * 0.16,
                               child: Column(
                                 children: [
@@ -122,7 +119,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                         'Kisah Leak Bali 1',
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: MediaQuery.of(context).size.width * 0.02,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
