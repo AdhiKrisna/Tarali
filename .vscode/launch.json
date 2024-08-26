@@ -35,10 +35,10 @@
 
         },
     ],
-    // "compounds": [
-	// 	{
-	// 		"name": "All Devices",
-	// 		"configurations": ["android_large", "android_small"],
-	// 	}
-	// ]
+    "compounds": [
+		{
+			"name": "All Devices",
+			"configurations": ["android_large", "android_small"],
+		}
+	]
 }
