@@ -38,6 +38,9 @@ dependencies:
   googleapis: ^13.1.0
   googleapis_auth: ^1.6.0
   http: ^1.2.2
+  record: ^5.0.4
+  permission_handler: ^11.3.0
+  path_provider: ^2.1.2
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
