@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/toggle_controller.dart';
