@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/views/controllers/toggle_controller.dart';
 import 'package:tarali/views/widgets/background_screen2.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -9,6 +13,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ToggleController toggleController = Get.put(ToggleController());
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -26,101 +31,167 @@ class DashboardPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Builder(builder: (context) {
-                        double btnSize =
-                            MediaQuery.of(context).size.width * 0.08;
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(btnSize * 0.2),
-                            disabledBackgroundColor: Colors.white,
-                            backgroundColor: Colors.white,
-                            shape: const CircleBorder(),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  alignment: Alignment.topLeft,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  content: SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.45,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Halo,\nAdhi Krisna!",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                        const Divider(color: Colors.black),
-                                        ListTile(
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.history),
-                                          title: const Text('Riwayat'),
-                                          onTap: () {
-                                            Navigator.of(context).pop(); 
-                                          },
-                                        ),
-                                        ListTile(
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.edit),
-                                          title: const Text('Nilai Tes Membaca'),
-                                          onTap: () {
-                                            Navigator.of(context).pop(); 
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Icon(
-                            size: btnSize * 0.4,
-                            Icons.menu,
-                            color: Colors.black,
-                          ),
-                        );
-                      }),
-                      const Text(
-                        'Yuk, baca dan temukan pengetahuan baru!',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Builder(
-                        builder: (context) {
-                          double btnSize =
-                              MediaQuery.of(context).size.width * 0.08;
-                          return ElevatedButton(
+                  Obx(() {
+                    if (toggleController.isSearching.isTrue) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.all(btnSize * 0.2),
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.width * 0.016),
+                              disabledBackgroundColor: Colors.white,
+                              backgroundColor: Colors.white,
+                              shape: const CircleBorder(),
+                            ),
+                            onPressed: toggleController.toggleSearch,
+                            child: Icon(
+                              size: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.035
+                                  : MediaQuery.of(context).size.width * 0.030,
+                              Icons.arrow_back_ios_new_sharp,
+                              color: Colors.black,
+                            ),
+                          ),
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 1000),
+                            transitionBuilder: (child, animation) {
+                              return ScaleTransition(
+                                scale: animation,
+                                child: child,
+                              );
+                            },
+                            child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 5000),
+                                curve: Curves.easeInOut,
+                                key: ValueKey<bool>(toggleController.isSearching.value),
+                                width: MediaQuery.of(context).size.width * 0.84,
+                                height: MediaQuery.of(context).size.height < 760
+                                    ? MediaQuery.of(context).size.height * 0.120
+                                    : MediaQuery.of(context).size.height *
+                                        0.125,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: TextFormField(
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: InputDecoration(
+                                    
+                                    border: InputBorder.none,
+                                    prefixIcon: IconButton(
+                                      icon: const Icon(Icons.search),
+                                      onPressed: () {},
+                                    ),
+                                    suffixIcon: IconButton(
+                                      icon: const Icon(Icons.mic_none),
+                                      onPressed: () {},
+                                    ),
+                                    hintText: 'Cari buku yang ingin kamu baca',
+                                  ),
+                                )),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.width * 0.016),
+                              disabledBackgroundColor: Colors.white,
+                              backgroundColor: Colors.white,
+                              shape: const CircleBorder(),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    alignment: Alignment.topLeft,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    content: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.45,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Halo,\nAdhi Krisna!",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const Divider(color: Colors.black),
+                                          ListTile(
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.history),
+                                            title: const Text('Riwayat'),
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          ListTile(
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.edit),
+                                            title:
+                                                const Text('Nilai Tes Membaca'),
+                                            onTap: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Icon(
+                              size: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.035
+                                  : MediaQuery.of(context).size.width * 0.030,
+                              Icons.menu,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const Text(
+                            'Yuk, baca dan temukan pengetahuan baru!',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          ElevatedButton(
+                            clipBehavior: Clip.antiAlias,
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.width * 0.016),
                               disabledBackgroundColor: white,
                               backgroundColor: white,
                               shape: const CircleBorder(),
                             ),
-                            onPressed: null,
+                            onPressed: toggleController.toggleSearch,
                             child: Icon(
-                              size: btnSize * 0.4,
+                              size: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.035
+                                  : MediaQuery.of(context).size.width * 0.030,
                               Icons.search,
                               color: Colors.black,
                             ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                          ),
+                        ],
+                      );
+                    }
+                  }),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.55,
@@ -130,8 +201,12 @@ class DashboardPage extends StatelessWidget {
                         children: List.generate(
                           6,
                           (index) => Container(
-                            margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.025),
-                            width: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.width * 0.2 : MediaQuery.of(context).size.width * 0.165,
+                            margin: EdgeInsets.only(
+                                right:
+                                    MediaQuery.of(context).size.width * 0.025),
+                            width: MediaQuery.of(context).size.width < 760
+                                ? MediaQuery.of(context).size.width * 0.2
+                                : MediaQuery.of(context).size.width * 0.165,
                             decoration: BoxDecoration(
                               border: Border.all(
                                 style: BorderStyle.solid,
@@ -151,7 +226,9 @@ class DashboardPage extends StatelessWidget {
                                     Get.toNamed(RouteName.splash);
                                   },
                                   child: Padding(
-                                    padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.width *
+                                            0.01),
                                     child: Image.asset(
                                       'assets/images/cover1.png',
                                     ),
@@ -170,7 +247,10 @@ class DashboardPage extends StatelessWidget {
                                         'Kisah Leak Bali 1 2 3 4 5 ',
                                         style: TextStyle(
                                           color: white,
-                                          fontSize: MediaQuery.of(context).size.width * 0.02,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02,
                                           fontWeight: FontWeight.bold,
                                         ),
                                         overflow: TextOverflow.ellipsis,
