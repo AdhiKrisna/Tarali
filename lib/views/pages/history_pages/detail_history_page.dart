@@ -86,7 +86,6 @@ class DetailHistoryPage extends StatelessWidget {
                                     Text(
                                       'Asal Mula Selat Bali',
                                       style: TextStyle(
-                                          decoration: TextDecoration.none,
                                           fontSize:
                                               MediaQuery.of(context).size.width *
                                                   0.025,
@@ -106,7 +105,6 @@ class DetailHistoryPage extends StatelessWidget {
                                       Text(
                                         'Nilai',
                                         style: TextStyle(
-                                            decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -172,9 +170,6 @@ class DetailHistoryPage extends StatelessWidget {
                                                         Text(
                                                           '100',
                                                           style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -190,8 +185,6 @@ class DetailHistoryPage extends StatelessWidget {
                                                     Text(
                                                       'Nilai Kuis',
                                                       style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
                                                         fontSize:
                                                             MediaQuery.of(context)
                                                                     .size
@@ -249,9 +242,6 @@ class DetailHistoryPage extends StatelessWidget {
                                                         Text(
                                                           '100',
                                                           style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -267,8 +257,6 @@ class DetailHistoryPage extends StatelessWidget {
                                                     Text(
                                                       'Nilai Bercerita',
                                                       style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
                                                         fontSize:
                                                             MediaQuery.of(context)
                                                                     .size
@@ -291,7 +279,6 @@ class DetailHistoryPage extends StatelessWidget {
                                       Text(
                                         'Catatan',
                                         style: TextStyle(
-                                            decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -313,7 +300,6 @@ class DetailHistoryPage extends StatelessWidget {
                                           child: Text(
                                             ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.',
                                             style: TextStyle(
-                                              decoration: TextDecoration.none,
                                               fontSize: 12,
                                               color: Colors.black,
                                             ),

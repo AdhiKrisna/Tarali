@@ -126,7 +126,6 @@ class ScoringPage extends StatelessWidget {
                                     Text(
                                       'Asal Mula Selat Bali',
                                       style: TextStyle(
-                                          decoration: TextDecoration.none,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -148,7 +147,6 @@ class ScoringPage extends StatelessWidget {
                                       Text(
                                         'Nilai',
                                         style: TextStyle(
-                                            decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -219,9 +217,6 @@ class ScoringPage extends StatelessWidget {
                                                         Text(
                                                           '100',
                                                           style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -237,8 +232,6 @@ class ScoringPage extends StatelessWidget {
                                                     Text(
                                                       'Nilai Kuis',
                                                       style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
                                                         fontSize: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -297,9 +290,6 @@ class ScoringPage extends StatelessWidget {
                                                         Text(
                                                           '100',
                                                           style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -315,8 +305,6 @@ class ScoringPage extends StatelessWidget {
                                                     Text(
                                                       'Nilai Bercerita',
                                                       style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
                                                         fontSize: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -340,7 +328,6 @@ class ScoringPage extends StatelessWidget {
                                       Text(
                                         'Catatan',
                                         style: TextStyle(
-                                            decoration: TextDecoration.none,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
