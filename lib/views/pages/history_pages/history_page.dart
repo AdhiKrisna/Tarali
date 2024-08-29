@@ -21,7 +21,7 @@ class HistoryPage extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         title: const Text(
-          'Riwayat Kuis dan Text Membaca',
+          'Riwayat Kuis dan Tes Bercerita',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class HistoryPage extends StatelessWidget {
                         leading: const AspectRatio(
                           aspectRatio: 1,
                           child: Image(
-                            image: AssetImage('assets/images/cover1.png'),
+                            image: AssetImage('assets/images/cover_detail.png'),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -59,12 +59,12 @@ class HistoryPage extends StatelessWidget {
                           ),
                         ),
                         trailing: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.38,
+                          height: MediaQuery.of(context).size.height * 0.12,
+                          width: MediaQuery.of(context).size.width * 0.35,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.11,
                                 height: double.infinity,
                                 decoration: BoxDecoration(
                                   color: white,
@@ -89,17 +89,18 @@ class HistoryPage extends StatelessWidget {
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.025,
+                                              0.0225,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
+                               SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.01,
+                              ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.11,
                                 height: double.infinity,
-
                                 decoration: BoxDecoration(
                                   color: white,
                                   borderRadius: BorderRadius.circular(10),
@@ -122,12 +123,15 @@ class HistoryPage extends StatelessWidget {
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.025,
+                                              0.0225,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                              ),
+                               SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.01,
                               ),
                               SizedBox(
                                 height: double.infinity,
@@ -136,6 +140,7 @@ class HistoryPage extends StatelessWidget {
                                     RouteName.detailHistory,
                                   ),
                                   style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width * 0.02),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
