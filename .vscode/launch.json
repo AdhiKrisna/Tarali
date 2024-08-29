@@ -25,20 +25,30 @@
             "name": "android_large",
             "request": "launch",
             "type": "dart",
-            "deviceId": "emulator-5556"
+            "deviceId": "emulator-5554"
         },
         {
             "name": "android_small",
             "request": "launch",
             "type": "dart",
-            "deviceId": "emulator-5554"
+            "deviceId": "emulator-5556"
 
         },
+        {
+            "name": "xiaomi_gua",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "android-arm64"
+        }
     ],
-    "compounds": [
-		{
-			"name": "All Devices",
-			"configurations": ["android_large", "android_small"],
-		}
-	]
+    // "compounds": [
+	// 	{
+	// 		"name": "All Devices",
+	// 		"configurations": ["android_large", "android_small"],
+	// 	},
+	// 	{
+	// 		"name": "Xiaomi",
+	// 		"configurations": ["xiaomi_gua"],
+	// 	}
+	// ]
 }

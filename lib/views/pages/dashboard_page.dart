@@ -61,7 +61,8 @@ class DashboardPage extends StatelessWidget {
                             child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 5000),
                                 curve: Curves.easeInOut,
-                                key: ValueKey<bool>(toggleController.isSearching.value),
+                                key: ValueKey<bool>(
+                                    toggleController.isSearching.value),
                                 width: MediaQuery.of(context).size.width * 0.84,
                                 height: MediaQuery.of(context).size.height < 760
                                     ? MediaQuery.of(context).size.height * 0.120
@@ -74,7 +75,6 @@ class DashboardPage extends StatelessWidget {
                                 child: TextFormField(
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: InputDecoration(
-                                    
                                     border: InputBorder.none,
                                     prefixIcon: IconButton(
                                       icon: const Icon(Icons.search),
@@ -114,7 +114,7 @@ class DashboardPage extends StatelessWidget {
                                     content: SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.45,
+                                              0.42,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -128,21 +128,19 @@ class DashboardPage extends StatelessWidget {
                                           ),
                                           const Divider(color: Colors.black),
                                           ListTile(
+                                            visualDensity: const VisualDensity(vertical: -3),
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.history),
                                             title: const Text('Riwayat'),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
+                                            onTap: () => Get.toNamed(RouteName.history),
                                           ),
                                           ListTile(
+                                            visualDensity: const VisualDensity(vertical: -3),
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.edit),
                                             title:
                                                 const Text('Nilai Tes Membaca'),
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
+                                            onTap: () => Get.back(),
                                           ),
                                         ],
                                       ),
@@ -216,27 +214,31 @@ class DashboardPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.splash);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.01),
-                                    child: Image.asset(
-                                      'assets/images/cover1.png',
+                            child: InkWell(
+                              onTap: () {
+                                Get.toNamed(RouteName.splash);
+                              },
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                            0.45,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(
+                                          MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01),
+                                      child: Image.asset(
+                                        'assets/images/cover_detail.png',
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 5),
-                                Center(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.toNamed(RouteName.splash);
-                                    },
+                                  const SizedBox(height: 5),
+                                  Center(
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5),
@@ -255,9 +257,9 @@ class DashboardPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 5),
-                              ],
+                                  const SizedBox(height: 5),
+                                ],
+                              ),
                             ),
                           ),
                         ),
