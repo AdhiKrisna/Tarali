@@ -132,7 +132,10 @@ class DashboardPage extends StatelessWidget {
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.history),
                                             title: const Text('Riwayat'),
-                                            onTap: () => Get.toNamed(RouteName.history),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(RouteName.history);
+                                            }
                                           ),
                                           ListTile(
                                             visualDensity: const VisualDensity(vertical: -3),
@@ -140,7 +143,10 @@ class DashboardPage extends StatelessWidget {
                                             leading: const Icon(Icons.edit),
                                             title:
                                                 const Text('Nilai Tes Membaca'),
-                                            onTap: () => Get.back(),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(RouteName.toScoringPage);
+                                            }
                                           ),
                                         ],
                                       ),
