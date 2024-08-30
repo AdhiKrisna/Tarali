@@ -10,10 +10,12 @@ import 'package:tarali/views/widgets/slider_widget.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
 class ScoringPage extends StatelessWidget {
+
   const ScoringPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String nama = Get.arguments;
     final PlayerController controller = Get.put(PlayerController());
     return Scaffold(
       body: SingleChildScrollView(
@@ -24,7 +26,7 @@ class ScoringPage extends StatelessWidget {
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.05,
+                    left: MediaQuery.of(context).size.width * 0.01,
                     bottom: MediaQuery.of(context).size.height * 0.02,
                   ),
                   child: SizedBox(
@@ -42,8 +44,10 @@ class ScoringPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
-                                width: MediaQuery.of(context).size.width * 0.25,
+                                    MediaQuery.of(context).size.height * 0.50,
+                                width: MediaQuery.of(context).size.width < 760
+                                    ? MediaQuery.of(context).size.width * 0.225
+                                    : MediaQuery.of(context).size.width * 0.18,
                                 child: const Image(
                                   image: AssetImage('assets/images/cover1.png'),
                                   fit: BoxFit.fill,
@@ -54,14 +58,14 @@ class ScoringPage extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.05,
                             ),
                             const SliderWidget(),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
                             Obx(
                               () => Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.01,
-                                  ),
                                   IconButton(
                                     onPressed: () => controller.fastBackward(),
                                     icon: const Icon(Icons.fast_rewind_rounded,
@@ -81,11 +85,9 @@ class ScoringPage extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        SizedBox(
                           width: MediaQuery.of(context).size.width < 760
-                              ? MediaQuery.of(context).size.width * 0.55
-                              : MediaQuery.of(context).size.width * 0.58,
+                              ? MediaQuery.of(context).size.width * 0.575
+                              : MediaQuery.of(context).size.width * 0.6,
                           height: double.infinity,
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -124,12 +126,12 @@ class ScoringPage extends StatelessWidget {
                                             MediaQuery.of(context).size.width *
                                                 0.02),
                                     Text(
-                                      'Asal Mula Selat Bali',
+                                      nama,
                                       style: TextStyle(
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.025,
+                                              0.035,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
                                     ),
@@ -144,181 +146,146 @@ class ScoringPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Nilai',
-                                        style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.025,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02,
-                                        ),
-                                        height:
-                                            MediaQuery.of(context).size.width <
-                                                    760
-                                                ? MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.08
-                                                : MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.1,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.16,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.01,
-                                                  vertical:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.01,
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        const ImageIcon(
-                                                          AssetImage(
-                                                              'assets/icons/pencil.png'),
-                                                          color: Colors.blue,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 6,
-                                                        ),
-                                                        Text(
-                                                          '100',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.025,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      'Nilai Kuis',
-                                                      style: TextStyle(
-                                                        fontSize: MediaQuery.of(
-                                                                    context)
+                                      Row(
+                                        children: [
+                                           Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Nilai',
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        MediaQuery.of(context)
                                                                 .size
-                                                                .width *
-                                                            0.015,
-                                                        color: Colors.black,
-                                                      ),
+                                                                .width * 0.025,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02,
+                                                ),
+                                                width: MediaQuery.of(context).size.width * 0.2,
+                                                decoration: BoxDecoration(
+                                                  color: white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: TextFormField(
+                                                  keyboardType: TextInputType.number,
+                                                  style: TextStyle(
+                                                    color: greyText,
+                                                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    contentPadding:EdgeInsets.all(
+                                                      MediaQuery.of(context).size.width *0.01,
                                                     ),
-                                                  ],
+                                                    border: InputBorder.none,
+                                                    focusedBorder: const OutlineInputBorder(
+                                                      borderSide:  BorderSide(color: bgBlue, width: 1),
+                                                    ),
+                                                    hintText: 'Masukan nilai',
+                                                    hintStyle: TextStyle(
+                                                      color: greyText,
+                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.02),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.16,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.01,
-                                                  vertical:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.01,
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        const ImageIcon(
-                                                          AssetImage(
-                                                              'assets/icons/book.png'),
-                                                          color: Colors.blue,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 6,
-                                                        ),
-                                                        Text(
-                                                          '100',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.025,
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      'Nilai Bercerita',
-                                                      style: TextStyle(
-                                                        fontSize: MediaQuery.of(
-                                                                    context)
+                                            ],
+                                          ),
+                                          SizedBox(
+                                          width: MediaQuery.of(context).size.width *0.02),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Kelas',
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        MediaQuery.of(context)
                                                                 .size
-                                                                .width *
-                                                            0.015,
-                                                        color: Colors.black,
-                                                      ),
+                                                                .width * 0.025,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                                                  vertical: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.height * 0.028 : MediaQuery.of(context).size.height * 0.03,
                                                     ),
-                                                  ],
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context).size.height *0.02,
+                                                ),
+                                                width: MediaQuery.of(context).size.width * 0.1,
+                                                decoration: BoxDecoration(
+                                                  color: white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    '5DA',
+                                                    style: TextStyle(
+                                                      color: greyText,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                    ),
+                                                  
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                          width: MediaQuery.of(context).size.width *0.02),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Absen',
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width * 0.025,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                                                  vertical: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.height * 0.028 : MediaQuery.of(context).size.height * 0.03,
+                                                    ),
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context).size.height *0.02,
+                                                ),
+                                                width: MediaQuery.of(context).size.width * 0.1,
+                                                decoration: BoxDecoration(
+                                                  color: white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    '22',
+                                                    style: TextStyle(
+                                                      color: greyText,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                    ),
+                                                  
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                       SizedBox(
                                           height: MediaQuery.of(context)
@@ -343,13 +310,9 @@ class ScoringPage extends StatelessWidget {
                                               0.02,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.transparent,
+                                          color: white,
                                           borderRadius:
                                               BorderRadius.circular(4),
-                                          border: Border.all(
-                                            color: bgBlue,
-                                            width: 1,
-                                          ),
                                         ),
                                         child: TextFormField(
                                           maxLines: 5,
@@ -361,6 +324,10 @@ class ScoringPage extends StatelessWidget {
                                                   0.01,
                                             ),
                                             border: InputBorder.none,
+                                            focusedBorder: const OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: bgBlue, width: 1),
+                                            ),
                                             hintText: 'Tulis catatan disini',
                                             hintStyle: TextStyle(
                                               color: Colors.grey,
@@ -379,7 +346,8 @@ class ScoringPage extends StatelessWidget {
                                               0.02),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Get.offNamed(RouteName.detailToScoringPage);
+                                          Get.offNamed(
+                                              RouteName.detailToScoringPage);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: lightBlue,
@@ -389,12 +357,20 @@ class ScoringPage extends StatelessWidget {
                                                 BorderRadius.circular(30),
                                           ),
                                           minimumSize: Size(
-                                            MediaQuery.of(context).size.width * 0.2,
-                                            MediaQuery.of(context).size.height * 0.05,
-                                          ), 
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
+                                          ),
                                           padding: EdgeInsets.symmetric(
-                                            vertical: MediaQuery.of(context).size.height * 0.02,
-                                            horizontal: MediaQuery.of(context).size.width * 0.1,
+                                            vertical: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02,
+                                            horizontal: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
                                           ),
                                         ),
                                         child: Text(

@@ -103,6 +103,7 @@ class ToScoringPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () => Get.toNamed(
                                     RouteName.detailToScoringPage,
+                                    arguments: 'Asal Mula Selat Bali $index',
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width * 0.02),

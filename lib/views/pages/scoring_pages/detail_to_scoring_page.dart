@@ -11,6 +11,7 @@ class DetailToScoringPage extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
+    final String title = Get.arguments;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -22,9 +23,9 @@ class DetailToScoringPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          'Asal Mula Selat Bali',
-          style: TextStyle(
+        title:  Text(
+          title,
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -159,6 +160,7 @@ class DetailToScoringPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () => Get.toNamed(
                                     RouteName.scoringPage,
+                                    arguments: 'Nama $index',
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width * 0.02),
