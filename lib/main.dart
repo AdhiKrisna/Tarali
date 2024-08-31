@@ -8,16 +8,20 @@ import 'package:tarali/routes/route_page.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ]).then((_) {
-    runApp(const MyApp());
-  });
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ],
+  ).then(
+    (_) {
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

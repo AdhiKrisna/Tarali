@@ -34,11 +34,17 @@
             "deviceId": "emulator-5554"
 
         },
+        {
+            "name": "xiaomi_gua",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "M2101K6G"
+        }
     ],
     "compounds": [
 		{
 			"name": "All Devices",
-			"configurations": ["android_large", "android_small"],
-		}
+			"configurations": ["android_large", "android_small", "xiaomi_gua"],
+		},
 	]
 }
