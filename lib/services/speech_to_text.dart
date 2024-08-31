@@ -85,8 +85,8 @@ class SpeechToTextService {
       codec: Codec.pcm16WAV,
     );
 
-    print("Recording... Press enter to stop.");
-    await Future.delayed(Duration(seconds: 10)); // Rekam selama 10 detik (atau sesuai kebutuhan)
+    //print("Recording... Press enter to stop.");
+    await Future.delayed(const Duration(seconds: 10)); // Rekam selama 10 detik (atau sesuai kebutuhan)
     await recorder.stopRecorder();
 
     // Read recorded audio
