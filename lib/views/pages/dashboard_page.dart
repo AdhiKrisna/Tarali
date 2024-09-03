@@ -10,174 +10,199 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ToggleController toggleController = Get.put(ToggleController());
+    final DashboardController dashboardController = Get.put(
+      DashboardController(),
+    );
     return Scaffold(
       body: BackgorundWidget.setMainBackground(
         context: context,
         child: ListView(
           shrinkWrap: true,
           children: [
-            Obx(() {
-              if (toggleController.isSearching.isTrue) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.016),
-                        disabledBackgroundColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        shape: const CircleBorder(),
-                      ),
-                      onPressed: toggleController.toggleSearch,
-                      child: Icon(
-                        size: MediaQuery.of(context).size.width < 760
-                            ? MediaQuery.of(context).size.width * 0.035
-                            : MediaQuery.of(context).size.width * 0.030,
-                        Icons.arrow_back_ios_new_sharp,
-                        color: Colors.black,
-                      ),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.016),
+                      disabledBackgroundColor: Colors.white,
+                      backgroundColor: Colors.white,
+                      shape: const CircleBorder(),
                     ),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 1000),
-                      transitionBuilder: (child, animation) {
-                        return ScaleTransition(
-                          scale: animation,
-                          child: child,
-                        );
-                      },
-                      child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 5000),
-                          curve: Curves.easeInOut,
-                          key: ValueKey<bool>(
-                              toggleController.isSearching.value),
-                          width: MediaQuery.of(context).size.width * 0.84,
-                          height: MediaQuery.of(context).size.height < 760
-                              ? MediaQuery.of(context).size.height * 0.120
-                              : MediaQuery.of(context).size.height * 0.125,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: TextFormField(
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: IconButton(
-                                icon: const Icon(Icons.search),
-                                onPressed: () {},
-                              ),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.mic_none),
-                                onPressed: () {},
-                              ),
-                              hintText: 'Cari buku yang ingin kamu baca',
-                            ),
-                          )),
-                    ),
-                  ],
-                );
-              } else {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.016),
-                        disabledBackgroundColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        shape: const CircleBorder(),
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              alignment: Alignment.topLeft,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              content: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.42,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Halo,\nAdhi Krisna!",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
+                    onPressed: dashboardController.isSearching.isTrue
+                        ? dashboardController.toggleSearch
+                        : () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  alignment: Alignment.topLeft,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  content: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.42,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Halo,\nAdhi Krisna!",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        const Divider(color: Colors.black),
+                                        ListTile(
+                                          visualDensity:
+                                              const VisualDensity(vertical: -3),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.history),
+                                          title: const Text('Riwayat'),
+                                          onTap: () {
+                                            Get.back();
+                                            Get.toNamed(RouteName.history);
+                                          },
+                                        ),
+                                        ListTile(
+                                          visualDensity:
+                                              const VisualDensity(vertical: -3),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.edit),
+                                          title:
+                                              const Text('Nilai Tes Membaca'),
+                                          onTap: () {
+                                            Get.back();
+                                            Get.toNamed(
+                                                RouteName.toScoringPage);
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                    const Divider(color: Colors.black),
-                                    ListTile(
-                                        visualDensity:
-                                            const VisualDensity(vertical: -3),
-                                        contentPadding: EdgeInsets.zero,
-                                        leading: const Icon(Icons.history),
-                                        title: const Text('Riwayat'),
-                                        onTap: () {
-                                          Get.back();
-                                          Get.toNamed(RouteName.history);
-                                        }),
-                                    ListTile(
-                                        visualDensity:
-                                            const VisualDensity(vertical: -3),
-                                        contentPadding: EdgeInsets.zero,
-                                        leading: const Icon(Icons.edit),
-                                        title: const Text('Nilai Tes Membaca'),
-                                        onTap: () {
-                                          Get.back();
-                                          Get.toNamed(RouteName.toScoringPage);
-                                        }),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             );
                           },
-                        );
-                      },
-                      child: Icon(
-                        size: MediaQuery.of(context).size.width < 760
-                            ? MediaQuery.of(context).size.width * 0.035
-                            : MediaQuery.of(context).size.width * 0.030,
-                        Icons.menu,
-                        color: Colors.black,
-                      ),
+                    child: Icon(
+                      dashboardController.isSearching.isTrue
+                          ? Icons.arrow_back_ios_new_sharp
+                          : Icons.menu,
+                      size: MediaQuery.of(context).size.width < 760
+                          ? MediaQuery.of(context).size.width * 0.035
+                          : MediaQuery.of(context).size.width * 0.030,
+                      color: Colors.black,
                     ),
-                    const Text(
-                      'Yuk, baca dan temukan pengetahuan baru!',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 50),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Yuk, baca dan temukan pengetahuan baru!',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            width: dashboardController.isSearching.isTrue
+                                ? MediaQuery.of(context).size.width * 0.84
+                                : MediaQuery.of(context).size.width * 0.055,
+                            alignment: Alignment.topLeft,
+                            decoration: BoxDecoration(
+                              color: dashboardController.isSearching.isTrue
+                                  ? Colors.white
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(360),
+                            ),
+                            child: dashboardController.isSearching.isTrue
+                                ? Row(
+                                    children: [
+                                      const Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(left: 8),
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              hintText: 'Search...',
+                                              border: InputBorder.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        style: IconButton.styleFrom(
+                                          padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                          ),
+                                          disabledBackgroundColor: Colors.white,
+                                          backgroundColor: Colors.white,
+                                          shape: const CircleBorder(),
+                                        ),
+                                        icon: Icon(
+                                          Icons.mic,
+                                          size: MediaQuery.of(context)
+                                                      .size
+                                                      .width <
+                                                  760
+                                              ? MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.035
+                                              : MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.030,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.width *
+                                            0.016,
+                                      ),
+                                      backgroundColor: white,
+                                      shape: const CircleBorder(),
+                                    ),
+                                    onPressed: dashboardController.toggleSearch,
+                                    child: Icon(
+                                      size: MediaQuery.of(context).size.width <
+                                              760
+                                          ? MediaQuery.of(context).size.width *
+                                              0.035
+                                          : MediaQuery.of(context).size.width *
+                                              0.030,
+                                      color: Colors.black,
+                                      Icons.search,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
-                    ElevatedButton(
-                      clipBehavior: Clip.antiAlias,
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.016),
-                        disabledBackgroundColor: white,
-                        backgroundColor: white,
-                        shape: const CircleBorder(),
-                      ),
-                      onPressed: toggleController.toggleSearch,
-                      child: Icon(
-                        size: MediaQuery.of(context).size.width < 760
-                            ? MediaQuery.of(context).size.width * 0.035
-                            : MediaQuery.of(context).size.width * 0.030,
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                );
-              }
-            }),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
@@ -191,7 +216,7 @@ class DashboardPage extends StatelessWidget {
                           right: MediaQuery.of(context).size.width * 0.025),
                       width: MediaQuery.of(context).size.width < 760
                           ? MediaQuery.of(context).size.width * 0.2
-                          : MediaQuery.of(context).size.width * 0.165,
+                          : MediaQuery.of(context).size.width * 0.16,
                       decoration: BoxDecoration(
                         border: Border.all(
                           style: BorderStyle.solid,
