@@ -231,7 +231,7 @@ class DashboardPage extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.splash);
+                          Get.toNamed(RouteName.detailContentPage);
                         },
                         child: Column(
                           children: [

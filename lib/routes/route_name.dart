@@ -9,4 +9,7 @@ class RouteName {
     static const String toScoringPage = '/toScoringPage';
     static const String detailToScoringPage = '/detailToScoringPage';
     static const String scoringPage = '/scoringPage';
+
+    //student page
+    static const String detailContentPage = '/detailContentPage';
 }

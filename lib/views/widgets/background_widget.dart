@@ -16,7 +16,9 @@ class BackgorundWidget {
           fit: BoxFit.fill,
         ),
       ),
-      child: child,
+      child: SafeArea(
+        child: child,
+      ),
     );
   }
 }
