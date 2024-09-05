@@ -8,6 +8,7 @@ class DetailHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String title = Get.arguments;
     return Scaffold(
       body: SingleChildScrollView(
         child: IntrinsicHeight(
@@ -84,7 +85,7 @@ class DetailHistoryPage extends StatelessWidget {
                                         width: MediaQuery.of(context).size.width *
                                             0.02),
                                     Text(
-                                      'Asal Mula Selat Bali',
+                                      title,
                                       style: TextStyle(
                                           fontSize:
                                               MediaQuery.of(context).size.width *
