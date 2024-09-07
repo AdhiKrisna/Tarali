@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -54,24 +53,41 @@ class DetailPage extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    color: blackText,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        style: BorderStyle.solid,
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                      ]
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/images/cover_detail.png',
+                        fit: BoxFit.cover,
+                      ),
+                    )
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Expanded(
-                    child: Container(
-                      child: ListView(
-                        children: [
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                          ElevatedButton(onPressed: (){}, child: Text('abc')),
-                        ],
-                      ),
+                    child: ListView(
+                      children: [
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                        ElevatedButton(onPressed: (){}, child: Text('abc')),
+                      ],
                     ),
                   ),
                 ],
