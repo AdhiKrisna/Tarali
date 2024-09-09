@@ -35,6 +35,7 @@ class HistoryPage extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.01,
+                vertical: MediaQuery.of(context).size.height * 0.0125,
               ),
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
@@ -138,6 +139,7 @@ class HistoryPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () => Get.toNamed(
                                     RouteName.detailHistory,
+                                    arguments: 'Asal Mula Selat Bali $index',
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width * 0.02),
