@@ -37,51 +37,72 @@ class DashboardPage extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AlertDialog(
-                                  alignment: Alignment.topLeft,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  content: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.42,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Halo,\nAdhi Krisna!",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
+                                AnimationController animatedController =
+                                    AnimationController(
+                                  duration: const Duration(
+                                      milliseconds: 300), // Animation duration
+                                  vsync:
+                                      Navigator.of(context), // TickerProvider
+                                );
+
+                                Animation<Offset> offsetAnimation =
+                                    Tween<Offset>(
+                                  begin: const Offset(-1.0, 0.0), // Start from the left side
+                                  end: Offset.zero, // End at the original position
+                                ).animate(CurvedAnimation(
+                                  parent: animatedController,
+                                  curve: Curves.easeInOut,
+                                ));
+
+                                animatedController.forward();
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: AlertDialog(
+                                    alignment: Alignment.topLeft,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    content: SizedBox(
+                                      height: MediaQuery.of(context).size.height *
+                                          0.42,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Halo,\nAdhi Krisna!",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
                                           ),
-                                        ),
-                                        const Divider(color: Colors.black),
-                                        ListTile(
-                                          visualDensity:
-                                              const VisualDensity(vertical: -3),
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.history),
-                                          title: const Text('Riwayat'),
-                                          onTap: () {
-                                            Get.back();
-                                            Get.toNamed(RouteName.history);
-                                          },
-                                        ),
-                                        ListTile(
-                                          visualDensity:
-                                              const VisualDensity(vertical: -3),
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: const Icon(Icons.edit),
-                                          title:
-                                              const Text('Nilai Tes Membaca'),
-                                          onTap: () {
-                                            Get.back();
-                                            Get.toNamed(
-                                                RouteName.toScoringPage);
-                                          },
-                                        ),
-                                      ],
+                                          const Divider(color: Colors.black),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.history),
+                                            title: const Text('Riwayat'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(RouteName.history);
+                                            },
+                                          ),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.edit),
+                                            title:
+                                                const Text('Nilai Tes Membaca'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(
+                                                  RouteName.toScoringPage);
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
@@ -119,9 +140,9 @@ class DashboardPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 350),
                             width: dashboardController.isSearching.isTrue
-                                ? MediaQuery.of(context).size.width * 0.84
+                                ? MediaQuery.of(context).size.width * 0.875
                                 : MediaQuery.of(context).size.width * 0.055,
                             alignment: Alignment.topLeft,
                             decoration: BoxDecoration(
@@ -133,66 +154,92 @@ class DashboardPage extends StatelessWidget {
                             child: dashboardController.isSearching.isTrue
                                 ? Row(
                                     children: [
-                                      const Expanded(
+                                      Expanded(
                                         child: Padding(
-                                          padding: EdgeInsets.only(left: 8),
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
                                           child: TextField(
                                             decoration: InputDecoration(
                                               hintText: 'Search...',
                                               border: InputBorder.none,
+                                              prefixIcon: IconButton(
+                                                onPressed: null,
+                                                icon: const Icon(
+                                                  Icons.search,
+                                                  color: Colors.black,
+                                                ),
+                                                style: IconButton.styleFrom(
+                                                  padding: EdgeInsets.all(
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.01,
+                                                  ),
+                                                  disabledBackgroundColor:
+                                                      Colors.white,
+                                                  backgroundColor: Colors.white,
+                                                  shape: const CircleBorder(),
+                                                  iconSize: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width <
+                                                          760
+                                                      ? MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.035
+                                                      : MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.030,
+                                                ),
+                                              ),
+                                              suffixIcon: IconButton(
+                                                icon: const Icon(
+                                                  Icons.mic,
+                                                  color: Colors.black,
+                                                ),
+                                                onPressed: null,
+                                                iconSize: MediaQuery.of(context)
+                                                            .size
+                                                            .width <
+                                                        760
+                                                    ? MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.035
+                                                    : MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.030,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        style: IconButton.styleFrom(
-                                          padding: EdgeInsets.all(
-                                            MediaQuery.of(context).size.width *
-                                                0.01,
-                                          ),
-                                          disabledBackgroundColor: Colors.white,
-                                          backgroundColor: Colors.white,
-                                          shape: const CircleBorder(),
-                                        ),
-                                        icon: Icon(
-                                          Icons.mic,
-                                          size: MediaQuery.of(context)
-                                                      .size
-                                                      .width <
-                                                  760
-                                              ? MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.035
-                                              : MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.030,
-                                          color: Colors.black,
                                         ),
                                       ),
                                     ],
                                   )
                                 : ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.width *
-                                            0.016,
-                                      ),
-                                      backgroundColor: white,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                          vertical: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01),
+                                      disabledBackgroundColor: Colors.white,
+                                      backgroundColor: Colors.white,
                                       shape: const CircleBorder(),
                                     ),
                                     onPressed: dashboardController.toggleSearch,
                                     child: Icon(
-                                      size: MediaQuery.of(context).size.width <
-                                              760
-                                          ? MediaQuery.of(context).size.width *
-                                              0.035
-                                          : MediaQuery.of(context).size.width *
-                                              0.030,
-                                      color: Colors.black,
                                       Icons.search,
+                                      size: MediaQuery.of(context).size.width *
+                                          0.03875,
+                                      color: Colors.black,
                                     ),
                                   ),
                           ),
