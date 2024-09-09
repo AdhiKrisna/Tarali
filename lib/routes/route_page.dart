@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:tarali/views/pages/dashboard_page.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
+import 'package:tarali/views/pages/detail/read_page.dart';
 import 'package:tarali/views/pages/splash_page.dart';
 import 'package:tarali/views/pages/history/history_page.dart';
 import 'package:tarali/views/pages/history/detail_history_page.dart';
@@ -60,6 +61,12 @@ class RoutePages {
     GetPage(
       name: RouteName.detailContentPage,
       page: () => const DetailPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.readContentPage,
+      page: () => const ReadPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),

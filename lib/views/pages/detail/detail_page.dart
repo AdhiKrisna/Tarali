@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class DetailPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackgorundWidget.setMainBackground(
+    return BackgroundWidget.setMainBackground(
       context: context,
       child: Padding(
         padding: const EdgeInsets.only(
@@ -80,7 +80,9 @@ class DetailPage extends StatelessWidget {
                     child: ListView(
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(RouteName.readContentPage);
+                          },
                           icon: const Icon(
                             Icons.menu_book,
                             size: 28,

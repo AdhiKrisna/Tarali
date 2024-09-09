@@ -14,7 +14,7 @@ class DashboardPage extends StatelessWidget {
       DashboardController(),
     );
     return Scaffold(
-      body: BackgorundWidget.setMainBackground(
+      body: BackgroundWidget.setMainBackground(
         context: context,
         child: ListView(
           shrinkWrap: true,

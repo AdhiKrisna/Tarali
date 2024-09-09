@@ -12,4 +12,5 @@ class RouteName {
 
     //student page
     static const String detailContentPage = '/detailContentPage';
+    static const String readContentPage = '/readContentPage';
 }
