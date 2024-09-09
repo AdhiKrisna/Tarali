@@ -9,6 +9,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String title = Get.arguments;
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -36,9 +37,9 @@ class DetailPage extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  const Text(
-                    'Asal Mula Selat Bali',
-                    style: TextStyle(
+                   Text(
+                    title,
+                    style: const TextStyle(
                       fontSize: 22,
                       color: white,
                       decoration: TextDecoration.none,
