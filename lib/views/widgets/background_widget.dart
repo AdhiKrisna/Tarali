@@ -33,7 +33,7 @@ class BackgroundWidget {
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/cover_detail.png'),
+          image: AssetImage('assets/images/detail_bg.png'),
           fit: BoxFit.cover,
         ),
       ),
