@@ -135,7 +135,9 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RouteName.videoContentPage);
+                            },
                             icon: const Icon(
                               Icons.ondemand_video,
                               size: 28,
