@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/read_controller.dart';
@@ -11,7 +9,7 @@ class ReadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReadController readController = Get.put(
+    final readController = Get.put(
       ReadController(),
     );
     return Scaffold(

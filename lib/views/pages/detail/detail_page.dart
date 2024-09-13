@@ -110,7 +110,9 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RouteName.audioContentPage);
+                            },
                             icon: const Icon(
                               Icons.headphones_rounded,
                               size: 28,

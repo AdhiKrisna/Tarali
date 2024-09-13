@@ -14,4 +14,5 @@ class RouteName {
     static const String detailContentPage = '/detailContentPage';
     static const String readContentPage = '/readContentPage';
     static const String videoContentPage = '/videoContentPage';
+    static const String audioContentPage = '/audioContentPage';
 }
