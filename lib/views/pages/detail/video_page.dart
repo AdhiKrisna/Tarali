@@ -50,7 +50,8 @@ class VideoPage extends StatelessWidget {
                     child: c.videoController.value.isInitialized ? AspectRatio(
                       aspectRatio: c.videoController.value.aspectRatio,
                       child: VideoPlayer(c.videoController),
-                    ) : Container(),)
+                    ) : Container(),
+                )
               ),
             ],
           ),

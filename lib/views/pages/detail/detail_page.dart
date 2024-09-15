@@ -192,7 +192,9 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RouteName.quizPage);
+                            },
                             icon: const Icon(
                               Icons.edit,
                               size: 28,

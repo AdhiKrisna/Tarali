@@ -3,6 +3,7 @@ import 'package:tarali/views/pages/dashboard_page.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/audio_page.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
+import 'package:tarali/views/pages/detail/quiz_page.dart';
 import 'package:tarali/views/pages/detail/read_page.dart';
 import 'package:tarali/views/pages/detail/video_page.dart';
 import 'package:tarali/views/pages/splash_page.dart';
@@ -81,6 +82,12 @@ class RoutePages {
     GetPage(
       name: RouteName.audioContentPage,
       page: () => const AudioPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.quizPage,
+      page: () => const QuizPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
