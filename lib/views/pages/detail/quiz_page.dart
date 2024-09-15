@@ -15,7 +15,7 @@ class QuizPage extends StatelessWidget {
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
-        child: Obx(() => Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -158,96 +158,98 @@ class QuizPage extends StatelessWidget {
                     width: 10,
                   ),
                   Expanded(
-                    child: ListView(
-                      children: [
-                        ElevatedButton(
-                          onPressed: (){
-                            if(quizController.choice.value == 1){
-                              quizController.setChoice(0.obs);
-                            }else{
-                              quizController.setChoice(1.obs);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            alignment: Alignment.centerLeft,
-                            backgroundColor: quizController.choice.value == 1 ? lightBlue : white,
-                          ),
-                          child: Text(
-                            'A. Menghidupkan Manik Angkeran',
-                            style: TextStyle(
-                              color: quizController.choice.value == 1 ? white : blackText,
-                              fontSize: 14,
+                    child: Obx((){
+                      return ListView(
+                        children: [
+                          ElevatedButton(
+                            onPressed: (){
+                              if(quizController.choice.value == 1){
+                                quizController.setChoice(0);
+                              }else{
+                                quizController.setChoice(1);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.centerLeft,
+                              backgroundColor: quizController.choice.value == 1 ? lightBlue : white,
+                            ),
+                            child: Text(
+                              'A. Menghidupkan Manik Angkeran',
+                              style: TextStyle(
+                                color: quizController.choice.value == 1 ? white : blackText,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-                            if(quizController.choice.value == 2){
-                              quizController.setChoice(0.obs);
-                            }else{
-                              quizController.setChoice(2.obs);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            alignment: Alignment.centerLeft,
-                            backgroundColor: quizController.choice.value == 2 ? lightBlue : white,
-                          ),
-                          child: Text(
-                            'B. Memberi lebih banyak harta',
-                            style: TextStyle(
-                              color: quizController.choice.value == 2 ? white : blackText,
-                              fontSize: 14,
+                          ElevatedButton(
+                            onPressed: (){
+                              if(quizController.choice.value == 2){
+                                quizController.setChoice(0);
+                              }else{
+                                quizController.setChoice(2);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.centerLeft,
+                              backgroundColor: quizController.choice.value == 2 ? lightBlue : white,
+                            ),
+                            child: Text(
+                              'B. Memberi lebih banyak harta',
+                              style: TextStyle(
+                                color: quizController.choice.value == 2 ? white : blackText,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-                            if(quizController.choice.value == 3){
-                              quizController.setChoice(0.obs);
-                            }else{
-                              quizController.setChoice(3.obs);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            alignment: Alignment.centerLeft,
-                            backgroundColor: quizController.choice.value == 3 ? lightBlue : white,
-                          ),
-                          child: Text(
-                            'C. Memisahkan Pulau Jawa dan Bali',
-                            style: TextStyle(
-                              color: quizController.choice.value == 3 ? white : blackText,
-                              fontSize: 14,
+                          ElevatedButton(
+                            onPressed: (){
+                              if(quizController.choice.value == 3){
+                                quizController.setChoice(0);
+                              }else{
+                                quizController.setChoice(3);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.centerLeft,
+                              backgroundColor: quizController.choice.value == 3 ? lightBlue : white,
+                            ),
+                            child: Text(
+                              'C. Memisahkan Pulau Jawa dan Bali',
+                              style: TextStyle(
+                                color: quizController.choice.value == 3 ? white : blackText,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-                            if(quizController.choice.value == 4){
-                              quizController.setChoice(0.obs);
-                            }else{
-                              quizController.setChoice(4.obs);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            alignment: Alignment.centerLeft,
-                            backgroundColor: quizController.choice.value == 4 ? lightBlue : white,
-                          ),
-                          child: Text(
-                            'D. Mengundang Prabu Menak Dadali',
-                            style: TextStyle(
-                              color: quizController.choice.value == 4 ? white : blackText,
-                              fontSize: 14,
+                          ElevatedButton(
+                            onPressed: (){
+                              if(quizController.choice.value == 4){
+                                quizController.setChoice(0);
+                              }else{
+                                quizController.setChoice(4);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.centerLeft,
+                              backgroundColor: quizController.choice.value == 4 ? lightBlue : white,
+                            ),
+                            child: Text(
+                              'D. Mengundang Prabu Menak Dadali',
+                              style: TextStyle(
+                                color: quizController.choice.value == 4 ? white : blackText,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }),
                   ),
                 ],
               ),
             ),
           ],
-        ),),
+        ),
       ),
     );
   }

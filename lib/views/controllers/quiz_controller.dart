@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class QuizController extends GetxController{
-  var index = 0.obs;
+  var index = 1.obs;
   var totalIndex = 5;
   var choice = 0.obs;
 
@@ -19,7 +19,7 @@ class QuizController extends GetxController{
     return '$index dari $totalIndex';
   }
 
-  void setChoice(RxInt choice){
-    this.choice = choice;
+  void setChoice(int choice){
+    this.choice.value = choice;
   }
 }
