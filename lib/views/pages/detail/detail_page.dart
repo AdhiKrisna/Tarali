@@ -166,7 +166,9 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RouteName.warmUpPage);
+                            },
                             icon: const Icon(
                               Icons.voicemail,
                               size: 28,
