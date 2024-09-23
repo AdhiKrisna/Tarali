@@ -5,6 +5,7 @@ import 'package:tarali/views/pages/detail/audio_page.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
 import 'package:tarali/views/pages/detail/quiz_page.dart';
 import 'package:tarali/views/pages/detail/read_page.dart';
+import 'package:tarali/views/pages/detail/read_test_page.dart';
 import 'package:tarali/views/pages/detail/video_page.dart';
 import 'package:tarali/views/pages/detail/warm_up_page.dart';
 import 'package:tarali/views/pages/splash_page.dart';
@@ -95,6 +96,12 @@ class RoutePages {
     GetPage(
       name: RouteName.warmUpPage,
       page: () => const WarmUpPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.readingTestPage,
+      page: () => const ReadingTestPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),

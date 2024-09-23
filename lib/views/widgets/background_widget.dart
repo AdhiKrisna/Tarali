@@ -42,4 +42,19 @@ class BackgroundWidget {
       ),
     );
   }
+
+  static setWhiteBackground({
+    required BuildContext context,
+    required Widget child,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      padding: const EdgeInsets.all(20),
+      color: Colors.white,
+      child: SafeArea(
+        child: child,
+      ),
+    );
+  }
 }

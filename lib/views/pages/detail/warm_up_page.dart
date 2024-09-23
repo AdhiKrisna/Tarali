@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tarali/routes/route_name.dart';
 
 import '../../../constants/constant_colors.dart';
 import '../../controllers/quiz_controller.dart';
@@ -214,7 +215,9 @@ class WarmUpPage extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              Get.toNamed(RouteName.readingTestPage);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: lightBlue,
                             ),

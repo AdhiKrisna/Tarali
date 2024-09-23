@@ -17,4 +17,5 @@ class RouteName {
     static const String audioContentPage = '/audioContentPage';
     static const String quizPage = '/quizPage';
     static const String warmUpPage = '/warmUpPage';
+    static const String readingTestPage = '/readingTestPage';
 }
