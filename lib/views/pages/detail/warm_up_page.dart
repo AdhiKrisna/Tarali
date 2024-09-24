@@ -1,13 +1,11 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:tarali/routes/route_name.dart';
 
 import '../../../constants/constant_colors.dart';
 import '../../controllers/quiz_controller.dart';
+import '../../dialog/list_dialog.dart';
 import '../../widgets/background_widget.dart';
 
 class WarmUpPage extends StatelessWidget {
@@ -216,7 +214,11 @@ class WarmUpPage extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: (){
-                              Get.toNamed(RouteName.readingTestPage);
+                              showDialog(
+                                context: context,
+                                builder: (context) => ListDialog.finishWarmUpDialog(context),
+                                barrierDismissible: false,
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: lightBlue,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/read_controller.dart';
+import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class ReadPage extends StatelessWidget {
@@ -154,7 +155,7 @@ class ReadPage extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: readController.index < 5 ? lightBlue : greyText,
+                            backgroundColor: lightBlue,
                             shape: const CircleBorder(),
                             padding: const EdgeInsets.all(10),
                           ),
@@ -166,6 +167,12 @@ class ReadPage extends StatelessWidget {
                                 readController.hideImage();
                               }
                               readController.next();
+                            }else if(readController.index.value == 5){
+                              showDialog(
+                                context: context,
+                                builder: (context) => ListDialog.finishReadDialog(context),
+                                barrierDismissible: false,
+                              );
                             }
                           },
                           child: const Icon(

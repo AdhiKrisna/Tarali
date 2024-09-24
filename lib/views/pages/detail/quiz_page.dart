@@ -4,6 +4,7 @@ import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 import '../../../constants/constant_colors.dart';
+import '../../dialog/list_dialog.dart';
 
 class QuizPage extends StatelessWidget {
   const QuizPage({super.key});
@@ -131,7 +132,13 @@ class QuizPage extends StatelessWidget {
                             ),
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => ListDialog.finishQuizDialog(context),
+                                    barrierDismissible: false,
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: lightBlue,
                                   padding: const EdgeInsets.symmetric(
