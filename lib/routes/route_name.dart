@@ -12,4 +12,10 @@ class RouteName {
 
     //student page
     static const String detailContentPage = '/detailContentPage';
+    static const String readContentPage = '/readContentPage';
+    static const String videoContentPage = '/videoContentPage';
+    static const String audioContentPage = '/audioContentPage';
+    static const String quizPage = '/quizPage';
+    static const String warmUpPage = '/warmUpPage';
+    static const String readingTestPage = '/readingTestPage';
 }
