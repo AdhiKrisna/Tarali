@@ -32,7 +32,6 @@ class SliderWidget extends StatelessWidget {
                         color: lightBlue,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.height * 0.025,
-
                       ),
                     ),
                   ),

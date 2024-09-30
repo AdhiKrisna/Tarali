@@ -12,4 +12,10 @@ class RouteName {
 
     //student page
     static const String detailContentPage = '/detailContentPage';
+
+    //auth pages
+    static const String loginSiswa = '/loginSiswa';
+    static const String registerSiswa = '/registerSiswa';
+    static const String loginGuru = '/loginGuru';
+    static const String registerGuru = '/registerGuru';
 }

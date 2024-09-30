@@ -63,8 +63,10 @@ class DashboardPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     content: SizedBox(
+                                      // height: MediaQuery.of(context).size.height *
+                                      //     0.42,
                                       height: MediaQuery.of(context).size.height *
-                                          0.42,
+                                          0.6,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -99,6 +101,19 @@ class DashboardPage extends StatelessWidget {
                                               Get.back();
                                               Get.toNamed(
                                                   RouteName.toScoringPage);
+                                            },
+                                          ),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.edit),
+                                            title:
+                                                const Text('Login'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(
+                                                  RouteName.loginSiswa);
                                             },
                                           ),
                                         ],
