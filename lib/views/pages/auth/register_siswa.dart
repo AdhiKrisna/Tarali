@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/views/widgets/textfield_login.dart';
+import 'package:tarali/views/controllers/auth_controllers/register_siswa_controller.dart';
+import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class RegisterSiswa extends StatelessWidget {
-  const RegisterSiswa({super.key});
+  RegisterSiswa({super.key});
+  final RegisterSiswaController formRegisterController = Get.put(RegisterSiswaController());
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController namaController = TextEditingController();
-    final TextEditingController absenController = TextEditingController();
-    final TextEditingController kelasController = TextEditingController();
-    final TextEditingController sekolahController = TextEditingController();
-
     return Scaffold(
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,30 +76,24 @@ class RegisterSiswa extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.25,
-                                child: Column(
-                                  children: [
-                                    TextFieldLogin(
-                                      label: 'Nama',
-                                      hint: 'Masukkan nama kamu disini',
-                                      controller: namaController,
-                                      isDense: true,
-                                      pFontSize: 0.0165,
-                                    ),
-                                  ],
+                                child: AuthTextField(
+                                  label: 'Nama',
+                                  hint: 'Masukkan nama kamu disini',
+                                  controller:
+                                      formRegisterController.nameController,
+                                  isDense: true,
+                                  pFontSize: 0.0165,
                                 ),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.25,
-                                child: Column(
-                                  children: [
-                                    TextFieldLogin(
-                                      label: 'Kelas',
-                                      hint: 'Masukkan kelas kamu disini',
-                                      controller: kelasController,
-                                      isDense: true,
-                                      pFontSize: 0.0165,
-                                    ),
-                                  ],
+                                child: AuthTextField(
+                                  label: 'Kelas',
+                                  hint: 'Masukkan kelas kamu disini',
+                                  controller:
+                                      formRegisterController.kelasController,
+                                  isDense: true,
+                                  pFontSize: 0.0165,
                                 ),
                               ),
                             ],
@@ -112,31 +102,25 @@ class RegisterSiswa extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.25,
-                                child: Column(
-                                  children: [
-                                    TextFieldLogin(
-                                      label: 'Nomor Absen',
-                                      hint: 'Masukkan absen kamu disini',
-                                      controller: absenController,
-                                      isNumber: true,
-                                      isDense: true,
-                                      pFontSize: 0.0165,
-                                    ),
-                                  ],
+                                child: AuthTextField(
+                                  label: 'Nomor Absen',
+                                  hint: 'Masukkan absen kamu disini',
+                                  controller:
+                                      formRegisterController.absenController,
+                                  isNumber: true,
+                                  isDense: true,
+                                  pFontSize: 0.0165,
                                 ),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.25,
-                                child: Column(
-                                  children: [
-                                    TextFieldLogin(
-                                      label: 'Nama Sekolah',
-                                      hint: 'Nama sekolah kamu disini',
-                                      controller: sekolahController,
-                                      isDense: true,
-                                      pFontSize: 0.0175,
-                                    ),
-                                  ],
+                                child: AuthTextField(
+                                  label: 'Nama Sekolah',
+                                  hint: 'Nama sekolah kamu disini',
+                                  controller:
+                                      formRegisterController.sekolahController,
+                                  isDense: true,
+                                  pFontSize: 0.0175,
                                 ),
                               ),
                             ],
@@ -189,24 +173,24 @@ class RegisterSiswa extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () => Get.toNamed(RouteName.registerGuru),
-                            style: ElevatedButton.styleFrom(
-                              side: const BorderSide(color: lightBlue),
-                              padding: const EdgeInsets.all(0),
-                            ),
-                            child: Text(
-                              'Registrasi sebagai guru',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: lightBlue,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => Get.toNamed(RouteName.registerGuru),
+                          style: ElevatedButton.styleFrom(
+                            side: const BorderSide(color: lightBlue),
+                            padding: const EdgeInsets.all(0),
+                          ),
+                          child: Text(
+                            'Registrasi sebagai guru',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: lightBlue,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.02,
                             ),
                           ),
                         ),
+                      ),
                     ],
                   ),
                 ),

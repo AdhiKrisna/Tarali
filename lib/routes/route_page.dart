@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tarali/views/pages/auth/login_guru.dart';
-import 'package:tarali/views/pages/auth/login_siswa_page.dart';
+import 'package:tarali/views/pages/auth/login_siswa.dart';
 import 'package:tarali/views/pages/auth/register_guru.dart';
-import 'package:tarali/views/pages/auth/register_siswa_page.dart';
+import 'package:tarali/views/pages/auth/register_siswa.dart';
 import 'package:tarali/views/pages/dashboard_page.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
@@ -71,26 +71,26 @@ class RoutePages {
     //auth pages
     GetPage(
       name: RouteName.loginSiswa, 
-      page: () => const LoginSiswa(),
+      page: () => LoginSiswa(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
 
     GetPage(
       name: RouteName.registerSiswa,
-      page: () => const RegisterSiswa(),
+      page: () => RegisterSiswa(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
     GetPage(
       name: RouteName.loginGuru,
-      page: () => const LoginGuru(),
+      page: () => LoginGuru(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
     GetPage(
       name: RouteName.registerGuru,
-      page: () => const RegisterGuru(),
+      page: () => RegisterGuru(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     )

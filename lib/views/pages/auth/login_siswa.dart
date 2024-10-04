@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/views/widgets/textfield_login.dart';
+import 'package:tarali/views/controllers/auth_controllers/login_siswa_controller.dart';
+import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginSiswa extends StatelessWidget {
-  const LoginSiswa({super.key});
-
+  LoginSiswa({super.key});
+  final LoginSiswaController formLoginController = Get.put(LoginSiswaController());
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController absenController = TextEditingController();
-    final TextEditingController sekolahController = TextEditingController();
     return Scaffold(
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,23 +67,23 @@ class LoginSiswa extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        TextFieldLogin(
+                        AuthTextField(
                           label: 'Nama',
                           hint: 'Masukkan nama kamu',
-                          controller: nameController,
+                          controller: formLoginController.nameController,
                           pFontSize: 0.0175,
                         ),
-                        TextFieldLogin(
+                        AuthTextField(
                           label: 'Nomor Absen',
                           hint: 'Masukkan nomor absen kamu',
-                          controller: absenController,
+                          controller: formLoginController.absenController,
                           isNumber: true,
                           pFontSize: 0.0175,
                         ),
-                        TextFieldLogin(
+                        AuthTextField(
                           label: 'Nama Sekolah',
                           hint: 'Masukkan nama sekolah kamu',
-                          controller: sekolahController,
+                          controller: formLoginController.sekolahController,
                           pFontSize: 0.0175,
                           helper:
                               'Pastikan nama sekolah benar dan sesuai dengan\narahan gurumu ya!',
@@ -155,6 +153,7 @@ class LoginSiswa extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
