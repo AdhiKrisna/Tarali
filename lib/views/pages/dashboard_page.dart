@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/toggle_controller.dart';
+// import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class DashboardPage extends StatelessWidget {
       DashboardController(),
     );
     return Scaffold(
-      body: BackgorundWidget.setMainBackground(
+      body: BackgroundWidget.setMainBackground(
         context: context,
         child: ListView(
           shrinkWrap: true,
@@ -273,12 +274,14 @@ class DashboardPage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: List.generate(
                     6,
-                    (index) => Container(
+                    (index){
+                      index++;
+                      return Container(
                       margin: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.width * 0.025),
+                          right: MediaQuery.of(context).size.width * 0.0225),
                       width: MediaQuery.of(context).size.width < 760
-                          ? MediaQuery.of(context).size.width * 0.2
-                          : MediaQuery.of(context).size.width * 0.16,
+                          ? MediaQuery.of(context).size.width * 0.215
+                          : MediaQuery.of(context).size.width * 0.17,
                       decoration: BoxDecoration(
                         border: Border.all(
                           style: BorderStyle.solid,
@@ -293,7 +296,10 @@ class DashboardPage extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.detailContentPage);
+                          Get.toNamed(
+                            RouteName.detailContentPage,
+                            arguments: 'Kisah Leak Bali $index',
+                          );
                         },
                         child: Column(
                           children: [
@@ -315,7 +321,7 @@ class DashboardPage extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5),
                                 child: Text(
-                                  'Kisah Leak Bali 1 2 3 4 5 ',
+                                  'Kisah Leak Bali $index',
                                   style: TextStyle(
                                     color: white,
                                     fontSize:
@@ -332,7 +338,7 @@ class DashboardPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
+                    );}
                   ),
                 );
               }),
