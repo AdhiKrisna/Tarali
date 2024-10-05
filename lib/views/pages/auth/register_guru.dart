@@ -42,7 +42,7 @@ class RegisterGuru extends StatelessWidget {
         Expanded(
             child: SafeArea(
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: EdgeInsets.only(
@@ -71,74 +71,65 @@ class RegisterGuru extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: AuthTextField(
-                                label: 'Email',
-                                hint: 'Masukkan email (@belajar.id)',
-                                controller:
-                                    formRegisterController.emailController,
-                                isDense: true,
-                                pFontSize: 0.0165,
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: AuthTextField(
-                                label: 'Nama',
-                                hint: 'Masukkan nama anda disini',
-                                controller:
-                                    formRegisterController.nameController,
-                                isDense: true,
-                                pFontSize: 0.0165,
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: AuthTextField(
-                                label: 'Nama Sekolah',
-                                hint: 'Nama sekolah mengajar',
-                                controller:
-                                    formRegisterController.nameController,
-                                isDense: true,
-                                pFontSize: 0.0165,
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          child: AuthTextField(
+                            label: 'Email',
+                            hint: 'Masukkan email (@belajar.id)',
+                            controller: formRegisterController.emailController,
+                            isDense: true,
+                            pFontSize: 0.0175,
+                          ),
                         ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: AuthTextField(
-                                label: 'Password',
-                                hint: 'Masukkan password anda disini',
-                                isPassword: true,
-                                controller:
-                                    formRegisterController.passwordController,
-                                isNumber: true,
-                                isDense: true,
-                                pFontSize: 0.0165,
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: AuthTextField(
-                                label: 'Konfirmasi Password',
-                                hint: 'Masukkan konfirmasi password disini',
-                                isPassword: true,
-                                controller: formRegisterController
-                                    .confirmPasswordController,
-                                isDense: true,
-                                pFontSize: 0.0175,
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          child: AuthTextField(
+                            label: 'Nama',
+                            hint: 'Masukkan nama anda',
+                            controller: formRegisterController.nameController,
+                            isDense: true,
+                            pFontSize: 0.0175,
+                          ),
+                        ),
+                        SizedBox(
+                          child: AuthTextField(
+                            label: 'Nama Sekolah',
+                            hint: 'Masukkan sekolah tempat anda mengajar',
+                            controller: formRegisterController.nameController,
+                            isDense: true,
+                            pFontSize: 0.0175,
+                          ),
+                        ),
+                        Text(
+                          'Pastikan nama sekolah benar dan sesuai dengan yang didaftarkan oleh murid anda nanti ya!',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: MediaQuery.of(context).size.width * 0.015,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          child: AuthTextField(
+                            label: 'Password',
+                            hint: 'Masukkan password anda',
+                            isPassword: true,
+                            controller:
+                                formRegisterController.passwordController,
+                            isDense: true,
+                            pFontSize: 0.0175,
+                          ),
+                        ),
+                        SizedBox(
+                          child: AuthTextField(
+                            label: 'Konfirmasi Password',
+                            hint: 'Masukkan konfirmasi password',
+                            isPassword: true,
+                            controller: formRegisterController
+                                .confirmPasswordController,
+                            isDense: true,
+                            pFontSize: 0.0175,
+                          ),
                         ),
                       ],
                     ),
@@ -164,51 +155,26 @@ class RegisterGuru extends StatelessWidget {
                       ],
                     )),
                     const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: lightBlue,
-                            ),
-                            onPressed: () {}, // methdod daftar nnti
-                            child: Text(
-                              'Registrasi',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: white,
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
-                            ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width ,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: lightBlue,
+                        ),
+                        onPressed: () {}, // methdod daftar nnti
+                        child: Text(
+                          'Registrasi',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: white,
+                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.02,
                           ),
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: ElevatedButton(
-                            onPressed: () => Get.toNamed(RouteName.loginSiswa),
-                            style: ElevatedButton.styleFrom(
-                              side: const BorderSide(color: lightBlue),
-                              padding: const EdgeInsets.all(0),
-                            ),
-                            child: Text(
-                              'Registrasi Siswa',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: lightBlue,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.02,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                        const SizedBox(height: 20),
-
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

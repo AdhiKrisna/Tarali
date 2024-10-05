@@ -3,17 +3,16 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 
 class AuthTextField extends StatelessWidget {
+  final LocalController localC = LocalController();
   final TextEditingController controller;
   final String label, hint;
-  final String helper;
   final double pFontSize, pLabelSize;
   final bool isNumber, isDense, isPassword;
 
-  const AuthTextField({
+  AuthTextField({
     required this.controller,
     required this.label,
     required this.hint,
-    this.helper = '',
     this.pFontSize = 0.02,
     this.pLabelSize = 0.02,
     this.isNumber = false,
@@ -24,8 +23,6 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LocalController localC = Get.put(LocalController());
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,9 +47,8 @@ class AuthTextField extends StatelessWidget {
               filled: true,
               fillColor: white,
               hintText: hint,
-              helperText: helper == '' ? null : helper,
               isDense: isDense,
-              contentPadding:  const EdgeInsets.all(10),
+              contentPadding: const EdgeInsets.all(10),
               hintStyle: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * pFontSize,
               ),
@@ -92,6 +88,12 @@ class AuthTextField extends StatelessWidget {
 
 class LocalController extends GetxController {
   RxBool isShowPassword = false.obs;
+  @override
+  void onClose() {
+    isShowPassword.close();
+    super.onClose();
+  }
+
   void togglePassword() {
     isShowPassword.value = !isShowPassword.value;
   }

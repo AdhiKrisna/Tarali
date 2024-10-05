@@ -118,49 +118,25 @@ class LoginGuru extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.225,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: lightBlue,
-                                ),
-                                onPressed: () {}, // methdod cek login nnti
-                                child: Text(
-                                  'Masuk',
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    color: white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.02,
-                                  ),
-                                ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: lightBlue,
+                            ),
+                            onPressed: () {}, // methdod cek login nnti
+                            child: Text(
+                              'Masuk',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                color: white,
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.width *
+                                        0.02,
                               ),
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.225,
-                              child: ElevatedButton(
-                                onPressed: () =>
-                                    Get.toNamed(RouteName.loginSiswa),
-                                style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(color: lightBlue),
-                                  padding: const EdgeInsets.all(0),
-                                ),
-                                child: Text(
-                                  'Login Siswa',
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    color: lightBlue,
-                                    fontSize: MediaQuery.of(context).size.width * 0.02,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                         
                       ],

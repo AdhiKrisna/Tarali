@@ -7,7 +7,8 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginSiswa extends StatelessWidget {
   LoginSiswa({super.key});
-  final LoginSiswaController formLoginController = Get.put(LoginSiswaController());
+  final LoginSiswaController formLoginController =
+      Get.put(LoginSiswaController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,9 +86,16 @@ class LoginSiswa extends StatelessWidget {
                           hint: 'Masukkan nama sekolah kamu',
                           controller: formLoginController.sekolahController,
                           pFontSize: 0.0175,
-                          helper:
-                              'Pastikan nama sekolah benar dan sesuai dengan\narahan gurumu ya!',
                         ),
+                        Text(
+                          'Pastikan nama sekolah benar dan sesuai dengan arahan gurumu ya!',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: MediaQuery.of(context).size.width * 0.0175,
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -121,7 +129,7 @@ class LoginSiswa extends StatelessWidget {
                                   padding: const EdgeInsets.all(0),
                                 ),
                                 child: Text(
-                                  'Daftar',
+                                  'Registrasi',
                                   style: TextStyle(
                                     fontFamily: 'Poppins',
                                     color: lightBlue,
