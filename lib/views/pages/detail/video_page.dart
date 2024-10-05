@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
@@ -49,7 +50,9 @@ class VideoPage extends StatelessWidget {
                 builder: (c) => Expanded(
                     child: c.videoController.value.isInitialized ? AspectRatio(
                       aspectRatio: c.videoController.value.aspectRatio,
-                      child: VideoPlayer(c.videoController),
+                      child: Chewie(
+                        controller: c.chewieController,
+                      ),
                     ) : Container(),
                 )
               ),
