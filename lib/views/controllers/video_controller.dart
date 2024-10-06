@@ -25,6 +25,9 @@ class VideoController extends GetxController{
     videoController = VideoPlayerController.networkUrl(
       Uri.parse('https://ia803405.us.archive.org/27/items/archive-video-files/test.mp4'),
     );
+
+    await Future.wait([videoController.initialize()]);
+
     chewieController = ChewieController(
       videoPlayerController: videoController,
       autoPlay: true,
@@ -37,7 +40,6 @@ class VideoController extends GetxController{
         DeviceOrientation.landscapeLeft,
       ],
     );
-    await Future.wait([videoController.initialize()]);
     update();
   }
 }
