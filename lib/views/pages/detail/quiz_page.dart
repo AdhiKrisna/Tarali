@@ -11,6 +11,7 @@ class QuizPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final String title = Get.arguments ?? 'Judul Cerita';
     final quizController = Get.put(QuizController());
 
     return Scaffold(
@@ -35,7 +36,7 @@ class QuizPage extends StatelessWidget {
                   width: 20,
                 ),
                 const Text(
-                  'Kuis',
+                  'Kuis' ,
                   style: TextStyle(
                     fontSize: 22,
                     color: Colors.black,

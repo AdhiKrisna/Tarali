@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/video_controller.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatelessWidget {
   const VideoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String title = Get.arguments ?? 'Judul Cerita';
+
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -32,9 +34,9 @@ class VideoPage extends StatelessWidget {
                       size: 25,
                     ),
                   ),
-                  const Text(
-                    'Asal Mula Selat Bali',
-                    style: TextStyle(
+                  Text(
+                    title,
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
