@@ -213,7 +213,7 @@ class DashboardPage extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(
                             RouteName.detailContentPage,
-                            arguments: 'Kisah Leak Bali $index',
+                            arguments: "Kisah Leak Bali $index",
                           );
                         },
                         child: Column(

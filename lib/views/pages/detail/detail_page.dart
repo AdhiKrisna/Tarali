@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tarali/constants/constant_colors.dart';
+// import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -9,7 +9,8 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments;
+    final String title = Get.arguments ?? 'Judul Cerita';
+
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -31,17 +32,15 @@ class DetailPage extends StatelessWidget {
                     icon: const Icon(
                       Icons.arrow_back_ios,
                       size: 30,
-                      color: white,
                     ),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
-                   Text(
+                  Text(
                     title,
                     style: const TextStyle(
                       fontSize: 22,
-                      color: white,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w800,
                     ),
@@ -83,7 +82,10 @@ class DetailPage extends StatelessWidget {
                         children: [
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.readContentPage);
+                              Get.toNamed(
+                                RouteName.readContentPage,
+                                arguments: title,
+                              );
                             },
                             icon: const Icon(
                               Icons.menu_book,
@@ -111,7 +113,10 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.audioContentPage);
+                              Get.toNamed(
+                                RouteName.audioContentPage,
+                                arguments: title,
+                              );
                             },
                             icon: const Icon(
                               Icons.headphones_rounded,
@@ -139,7 +144,10 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.videoContentPage);
+                              Get.toNamed(
+                                RouteName.videoContentPage,
+                                arguments: title,
+                              );
                             },
                             icon: const Icon(
                               Icons.ondemand_video,
@@ -167,7 +175,8 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.warmUpPage);
+                              Get.toNamed(
+                                RouteName.warmUpPage, arguments: title);
                             },
                             icon: const Icon(
                               Icons.voicemail,
@@ -195,7 +204,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.quizPage);
+                              Get.toNamed(RouteName.quizPage, arguments: title);
                             },
                             icon: const Icon(
                               Icons.edit,

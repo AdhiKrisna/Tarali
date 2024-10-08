@@ -12,7 +12,7 @@ class AudioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nama = Get.arguments;
+    final String title = Get.arguments;
     final controller = Get.put(PlayerController());
 
     return Scaffold(
@@ -96,9 +96,9 @@ class AudioPage extends StatelessWidget {
                           size: 25,
                         ),
                       ),
-                      const Text(
-                        'Asal Mula Selat Bali',
-                        style: TextStyle(
+                      Text(
+                        title,
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
