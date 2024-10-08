@@ -31,7 +31,7 @@ class LoginGuru extends StatelessWidget {
                       left: MediaQuery.of(context).size.width * 0.06,
                     ),
                     child: const Image(
-                      image: AssetImage('assets/images/auth_image.png'),
+                      image: AssetImage('assets/images/auth_guru_image.png'),
                       width: double.infinity,
                       height: double.infinity,
                     ),
