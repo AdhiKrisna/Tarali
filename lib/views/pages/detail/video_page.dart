@@ -10,6 +10,7 @@ class VideoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nama = Get.arguments;
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -53,7 +54,11 @@ class VideoPage extends StatelessWidget {
                       child: Chewie(
                         controller: c.chewieController,
                       ),
-                    ) : Container(),
+                    ) :
+                  const Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  ),
                 )
               ),
             ],
