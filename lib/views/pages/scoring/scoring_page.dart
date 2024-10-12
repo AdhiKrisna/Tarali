@@ -181,6 +181,8 @@ class ScoringPage extends StatelessWidget {
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration: InputDecoration(
+                                                    isDense: true,
+                                                    fillColor: greyText,
                                                     contentPadding:EdgeInsets.all(
                                                       MediaQuery.of(context).size.width *0.01,
                                                     ),

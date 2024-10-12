@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/toggle_controller.dart';
-import 'package:tarali/views/dialog/list_dialog.dart';
+// import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -37,7 +37,92 @@ class DashboardPage extends StatelessWidget {
                         : () {
                             showDialog(
                               context: context,
-                              builder: (context) => ListDialog.dashboardDialog(context),
+                              builder: (BuildContext context) {
+                                AnimationController animatedController =
+                                    AnimationController(
+                                  duration: const Duration(
+                                      milliseconds: 300), // Animation duration
+                                  vsync:
+                                      Navigator.of(context), // TickerProvider
+                                );
+
+                                Animation<Offset> offsetAnimation =
+                                    Tween<Offset>(
+                                  begin: const Offset(-1.0, 0.0), // Start from the left side
+                                  end: Offset.zero, // End at the original position
+                                ).animate(CurvedAnimation(
+                                  parent: animatedController,
+                                  curve: Curves.easeInOut,
+                                ));
+
+                                animatedController.forward();
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: AlertDialog(
+                                    alignment: Alignment.topLeft,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    content: SizedBox(
+                                      // height: MediaQuery.of(context).size.height *
+                                      //     0.42,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Halo,\nAdhi Krisna!",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const Divider(color: Colors.black),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.history),
+                                            title: const Text('Riwayat'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(RouteName.history);
+                                            },
+                                          ),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.edit),
+                                            title:
+                                                const Text('Nilai Tes Membaca'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(
+                                                  RouteName.toScoringPage);
+                                            },
+                                          ),
+                                          ListTile(
+                                            visualDensity:
+                                                const VisualDensity(vertical: -3),
+                                            contentPadding: EdgeInsets.zero,
+                                            leading: const Icon(Icons.edit),
+                                            title:
+                                                const Text('Login'),
+                                            onTap: () {
+                                              Get.back();
+                                              Get.toNamed(
+                                                  RouteName.loginSiswa);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             );
                           },
                     child: Icon(
