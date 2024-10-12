@@ -4,6 +4,7 @@ import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 import '../../../constants/constant_colors.dart';
+import '../../../routes/route_name.dart';
 import '../../dialog/list_dialog.dart';
 
 class QuizPage extends StatelessWidget {
@@ -136,7 +137,20 @@ class QuizPage extends StatelessWidget {
                                 onPressed: () {
                                   showDialog(
                                     context: context,
-                                    builder: (context) => ListDialog.finishQuizDialog(context),
+                                    builder: (context) => ListDialog.contentDialog(
+                                      context: context,
+                                      imageName: 'kuis_dialog',
+                                      message: 'Hebat!\nSudah selesai mengerjakan kuis?',
+                                      cancelLabel: 'Belum Selesai',
+                                      onCancel: (){
+                                        Get.back();
+                                      },
+                                      successLabel: 'Sudah Selesai',
+                                      onSuccess: (){
+                                        Get.back();
+                                        Get.toNamed(RouteName.quizResultPage);
+                                      }
+                                    ),
                                     barrierDismissible: false,
                                   );
                                 },

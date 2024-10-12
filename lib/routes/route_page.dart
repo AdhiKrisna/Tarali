@@ -4,8 +4,10 @@ import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/audio_page.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
 import 'package:tarali/views/pages/detail/quiz_page.dart';
+import 'package:tarali/views/pages/detail/quiz_result_page.dart';
 import 'package:tarali/views/pages/detail/read_page.dart';
 import 'package:tarali/views/pages/detail/read_test_page.dart';
+import 'package:tarali/views/pages/detail/test_result_page.dart';
 import 'package:tarali/views/pages/detail/video_page.dart';
 import 'package:tarali/views/pages/detail/warm_up_page.dart';
 import 'package:tarali/views/pages/splash_page.dart';
@@ -102,6 +104,18 @@ class RoutePages {
     GetPage(
       name: RouteName.readingTestPage,
       page: () => const ReadingTestPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.testResultPage,
+      page: () => const TestResultPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.quizResultPage,
+      page: () => const QuizResultPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),

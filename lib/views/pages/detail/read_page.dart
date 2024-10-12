@@ -5,6 +5,8 @@ import 'package:tarali/views/controllers/read_controller.dart';
 import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
+import '../../../routes/route_name.dart';
+
 class ReadPage extends StatelessWidget {
   const ReadPage({super.key});
 
@@ -178,7 +180,20 @@ class ReadPage extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) =>
-                                    ListDialog.finishReadDialog(context),
+                                    ListDialog.contentDialog(
+                                      context: context,
+                                      imageName: 'read_dialog',
+                                      message: 'Sudah selesai membaca?\nIngin ulang membaca lagi?',
+                                      cancelLabel: 'Ulangi Membaca',
+                                      onCancel: (){
+                                        Get.back();
+                                      },
+                                      successLabel: 'Ayo Bercerita',
+                                      onSuccess: (){
+                                        Get.back();
+                                        Get.toNamed(RouteName.warmUpPage);
+                                      }
+                                    ),
                                 barrierDismissible: false,
                               );
                             }

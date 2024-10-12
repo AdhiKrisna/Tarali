@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:tarali/constants/constant_colors.dart';
@@ -143,10 +144,12 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async{
+                              final storageRef = FirebaseStorage.instance.ref();
+                              String url = await storageRef.child("konten/selatbali/video/video.mp4").getDownloadURL();
                               Get.toNamed(
                                 RouteName.videoContentPage,
-                                arguments: title,
+                                arguments: [title, url],
                               );
                             },
                             icon: const Icon(

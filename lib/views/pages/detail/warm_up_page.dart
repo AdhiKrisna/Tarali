@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/constant_colors.dart';
+import '../../../routes/route_name.dart';
 import '../../controllers/quiz_controller.dart';
 import '../../dialog/list_dialog.dart';
 import '../../widgets/background_widget.dart';
@@ -216,7 +217,20 @@ class WarmUpPage extends StatelessWidget {
                             onPressed: (){
                               showDialog(
                                 context: context,
-                                builder: (context) => ListDialog.finishWarmUpDialog(context),
+                                builder: (context) => ListDialog.contentDialog(
+                                  context: context,
+                                  imageName: 'warm_up_dialog',
+                                  message: 'Hore, pemanasannya sudah selesai!\nSudah siap untuk bercerita?',
+                                  cancelLabel: 'Batal',
+                                  onCancel: (){
+                                    Get.back();
+                                  },
+                                  successLabel: 'Ayo Bercerita',
+                                  onSuccess: (){
+                                    Get.back();
+                                    Get.toNamed(RouteName.readingTestPage);
+                                  }
+                                ),
                                 barrierDismissible: false,
                               );
                             },

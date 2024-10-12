@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
@@ -10,8 +11,8 @@ class VideoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nama = Get.arguments;
-    final String title = Get.arguments ?? 'Judul Cerita';
+    final url = Get.arguments[1];
+    final String title = Get.arguments[0] ?? 'Judul Cerita';
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -48,7 +49,7 @@ class VideoPage extends StatelessWidget {
                 height: 20,
               ),
               GetBuilder(
-                init: VideoController(),
+                init: VideoController(url),
                 builder: (c) => Expanded(
                     child: c.videoController.value.isInitialized ? AspectRatio(
                       aspectRatio: c.videoController.value.aspectRatio,
