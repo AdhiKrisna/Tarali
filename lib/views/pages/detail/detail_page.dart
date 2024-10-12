@@ -1,7 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -10,7 +9,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments ?? 'Judul Cerita';
+    final String title = Get.arguments is List<String> ? Get.arguments[0] ?? 'Judul Cerita' : Get.arguments ?? 'Judul Cerita';
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -149,7 +148,10 @@ class DetailPage extends StatelessWidget {
                               String url = await storageRef.child("konten/selatbali/video/video.mp4").getDownloadURL();
                               Get.toNamed(
                                 RouteName.videoContentPage,
-                                arguments: [title, url],
+                                arguments: [
+                                  title,
+                                  url,
+                                ],
                               );
                             },
                             icon: const Icon(

@@ -28,6 +28,7 @@ class VideoPage extends StatelessWidget {
                   IconButton(
                     onPressed: (){
                       Get.back();
+
                     },
                     icon: const Icon(
                       Icons.keyboard_arrow_left,
