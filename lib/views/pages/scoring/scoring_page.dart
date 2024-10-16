@@ -9,12 +9,14 @@ import 'package:tarali/views/widgets/slider_widget.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
 class ScoringPage extends StatelessWidget {
-
   const ScoringPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String nama = Get.arguments;
+    final dynamic arguments = Get.arguments;
+    // final String nama = Get.arguments;
+    final String title = arguments[0];
+    final String nama = arguments[1];
     final PlayerController controller = Get.put(PlayerController());
     return Scaffold(
       body: SingleChildScrollView(
@@ -147,8 +149,9 @@ class ScoringPage extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Nilai',
@@ -156,7 +159,8 @@ class ScoringPage extends StatelessWidget {
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
-                                                                .width * 0.025,
+                                                                .width *
+                                                            0.025,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black),
                                               ),
@@ -167,33 +171,52 @@ class ScoringPage extends StatelessWidget {
                                                           .height *
                                                       0.02,
                                                 ),
-                                                width: MediaQuery.of(context).size.width * 0.2,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.2,
                                                 decoration: BoxDecoration(
                                                   color: white,
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
                                                 child: TextFormField(
-                                                  keyboardType: TextInputType.number,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   style: TextStyle(
                                                     color: greyText,
-                                                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.025,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                   decoration: InputDecoration(
                                                     isDense: true,
                                                     fillColor: greyText,
-                                                    contentPadding:EdgeInsets.all(
-                                                      MediaQuery.of(context).size.width *0.01,
+                                                    contentPadding:
+                                                        EdgeInsets.all(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.01,
                                                     ),
                                                     border: InputBorder.none,
-                                                    focusedBorder: const OutlineInputBorder(
-                                                      borderSide:  BorderSide(color: bgBlue, width: 1),
+                                                    focusedBorder:
+                                                        const OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: bgBlue,
+                                                          width: 1),
                                                     ),
                                                     hintText: 'Masukan nilai',
                                                     hintStyle: TextStyle(
                                                       color: greyText,
-                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.025,
                                                     ),
                                                   ),
                                                 ),
@@ -201,9 +224,13 @@ class ScoringPage extends StatelessWidget {
                                             ],
                                           ),
                                           SizedBox(
-                                          width: MediaQuery.of(context).size.width *0.02),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.02),
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Kelas',
@@ -211,19 +238,42 @@ class ScoringPage extends StatelessWidget {
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
-                                                                .width * 0.025,
+                                                                .width *
+                                                            0.025,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black),
                                               ),
                                               Container(
                                                 padding: EdgeInsets.symmetric(
-                                                  horizontal: MediaQuery.of(context).size.width * 0.02,
-                                                  vertical: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.height * 0.028 : MediaQuery.of(context).size.height * 0.03,
-                                                    ),
-                                                margin: EdgeInsets.only(
-                                                  top: MediaQuery.of(context).size.height *0.02,
+                                                  horizontal:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.02,
+                                                  vertical: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width <
+                                                          760
+                                                      ? MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.028
+                                                      : MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.03,
                                                 ),
-                                                width: MediaQuery.of(context).size.width * 0.1,
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02,
+                                                ),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.1,
                                                 decoration: BoxDecoration(
                                                   color: white,
                                                   borderRadius:
@@ -234,19 +284,27 @@ class ScoringPage extends StatelessWidget {
                                                     '5DA',
                                                     style: TextStyle(
                                                       color: greyText,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.025,
                                                     ),
-                                                  
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                           SizedBox(
-                                          width: MediaQuery.of(context).size.width *0.02),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.02),
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Absen',
@@ -254,19 +312,42 @@ class ScoringPage extends StatelessWidget {
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
-                                                                .width * 0.025,
+                                                                .width *
+                                                            0.025,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black),
                                               ),
                                               Container(
                                                 padding: EdgeInsets.symmetric(
-                                                  horizontal: MediaQuery.of(context).size.width * 0.02,
-                                                  vertical: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.height * 0.028 : MediaQuery.of(context).size.height * 0.03,
-                                                    ),
-                                                margin: EdgeInsets.only(
-                                                  top: MediaQuery.of(context).size.height *0.02,
+                                                  horizontal:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.02,
+                                                  vertical: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width <
+                                                          760
+                                                      ? MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.028
+                                                      : MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.03,
                                                 ),
-                                                width: MediaQuery.of(context).size.width * 0.1,
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02,
+                                                ),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.1,
                                                 decoration: BoxDecoration(
                                                   color: white,
                                                   borderRadius:
@@ -277,10 +358,14 @@ class ScoringPage extends StatelessWidget {
                                                     '22',
                                                     style: TextStyle(
                                                       color: greyText,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: MediaQuery.of(context).size.width * 0.025,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.025,
                                                     ),
-                                                  
                                                   ),
                                                 ),
                                               ),
@@ -325,7 +410,8 @@ class ScoringPage extends StatelessWidget {
                                                   0.01,
                                             ),
                                             border: InputBorder.none,
-                                            focusedBorder: const OutlineInputBorder(
+                                            focusedBorder:
+                                                const OutlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: bgBlue, width: 1),
                                             ),
@@ -348,7 +434,9 @@ class ScoringPage extends StatelessWidget {
                                       ElevatedButton(
                                         onPressed: () {
                                           Get.offNamed(
-                                              RouteName.detailToScoringPage);
+                                            RouteName.detailToScoringPage,
+                                            arguments: title,
+                                          );
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: lightBlue,

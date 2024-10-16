@@ -9,7 +9,7 @@ class DetailToScoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments;
+    final String title = Get.arguments ?? "Detail";
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -278,7 +278,7 @@ class DetailToScoringPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () => Get.toNamed(
                                     RouteName.scoringPage,
-                                    arguments: 'Nama $index',
+                                    arguments: [title , 'Nama $index'],
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(

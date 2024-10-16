@@ -53,7 +53,7 @@ class ToScoringPage extends StatelessWidget {
                           ),
                         ),
                         title: Text(
-                          'Asal Mula Selat Bali $index',
+                          "Asal Mula Selat Bali $index",
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width * 0.025,
                             fontWeight: FontWeight.bold,
