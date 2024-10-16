@@ -9,7 +9,8 @@ class DetailToScoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments ?? "Detail";
+    final dynamic arguments = Get.arguments;
+    final String title = arguments is List && arguments.isNotEmpty ? arguments[0] : (arguments ?? 'Judul Cerita');
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(

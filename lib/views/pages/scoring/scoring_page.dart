@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
-import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/views/controllers/scoring/scoring_controller.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
 import 'package:tarali/views/widgets/pause_play_button.dart';
 import 'package:tarali/views/widgets/replay_button.dart';
@@ -18,6 +18,7 @@ class ScoringPage extends StatelessWidget {
     final String title = arguments[0];
     final String nama = arguments[1];
     final PlayerController controller = Get.put(PlayerController());
+    final ScoringController scoringController = Get.put(ScoringController());
     return Scaffold(
       body: SingleChildScrollView(
         child: IntrinsicHeight(
@@ -181,8 +182,8 @@ class ScoringPage extends StatelessWidget {
                                                       BorderRadius.circular(10),
                                                 ),
                                                 child: TextFormField(
-                                                  keyboardType:
-                                                      TextInputType.number,
+                                                  keyboardType: TextInputType.number,
+                                                  controller: scoringController.scoreController,
                                                   style: TextStyle(
                                                     color: greyText,
                                                     fontSize:
@@ -401,6 +402,7 @@ class ScoringPage extends StatelessWidget {
                                               BorderRadius.circular(4),
                                         ),
                                         child: TextFormField(
+                                          controller: scoringController.noteController,
                                           maxLines: 5,
                                           decoration: InputDecoration(
                                             contentPadding: EdgeInsets.all(
@@ -433,9 +435,11 @@ class ScoringPage extends StatelessWidget {
                                               0.02),
                                       ElevatedButton(
                                         onPressed: () {
-                                          Get.offNamed(
-                                            RouteName.detailToScoringPage,
-                                            arguments: title,
+                                          ScoringController().saveScore(
+                                            int.parse(scoringController.scoreController.text),
+                                            scoringController.noteController.text,
+                                            title,
+                                            nama,
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
