@@ -10,7 +10,4 @@ class DashboardController extends GetxController {
   void toggleSearch() {
     isSearching.value = !isSearching.value;
   }
-
-
-  
 }

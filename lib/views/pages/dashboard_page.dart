@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/views/controllers/toggle_controller.dart';
+import 'package:tarali/views/controllers/dashboard_controller.dart';
 // import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -12,9 +12,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController dashboardController = Get.put(
-      DashboardController(),
-    );
+    final DashboardController dashboardController = Get.put(DashboardController());
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -312,10 +310,21 @@ class DashboardPage extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsets.all(
                                       MediaQuery.of(context).size.width * 0.01),
-                                  child: Image.asset(
-                                    'assets/images/cover_detail.png',
+                                  child: Image.network(
+                                    e.coverDashboard,
                                     fit: BoxFit.fill,
-                                  ),
+                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress.expectedTotalBytes != null
+                                              ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes!)
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error)),
+                                    ),
                                 ),
                               ),
                               const SizedBox(height: 5),

@@ -4,13 +4,13 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
 class SliderWidget extends StatelessWidget {
-  const SliderWidget({
+  final PlayerController controller = Get.put(PlayerController());
+  SliderWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final PlayerController controller = Get.put(PlayerController());
     return Material(
       color: Colors.transparent,
       child: SizedBox(

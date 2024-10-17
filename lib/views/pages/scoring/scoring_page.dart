@@ -59,7 +59,7 @@ class ScoringPage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.05,
                             ),
-                            const SliderWidget(),
+                            //  SliderWidget(),
                             SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.025,

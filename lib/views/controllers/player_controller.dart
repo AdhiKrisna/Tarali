@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 import 'dart:async';
 
+import 'package:tarali/services/content_service.dart';
+
 class PlayerController extends GetxController {
   Timer? timer;
+  var cs = ContentService();
   @override
   void onInit() {
     onPlaying();

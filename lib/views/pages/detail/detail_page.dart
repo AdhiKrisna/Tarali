@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class DetailPage extends StatelessWidget {
@@ -9,7 +10,11 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments is List<String> ? Get.arguments[0] ?? 'Judul Cerita' : Get.arguments ?? 'Judul Cerita';
+    final String title = Get.arguments is List<String>
+        ? Get.arguments[0] ?? 'Judul Cerita'
+        : Get.arguments ?? 'Judul Cerita';
+    final DashboardController dashboardController =
+        Get.find<DashboardController>();
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -55,6 +60,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                     Container(
                         width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.7,
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -69,9 +75,28 @@ class DetailPage extends StatelessWidget {
                             ]),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/cover_detail.png',
-                            fit: BoxFit.cover,
+                          child: FutureBuilder<String>(
+                            future: dashboardController.cs.getDetailCover(title),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
+                               return Image.network(
+                                  snapshot.data!,
+                                  fit: BoxFit.fill,
+                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes!)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error)),
+                                );
+                            },
                           ),
                         )),
                     SizedBox(
@@ -143,10 +168,13 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () async{
+                            onPressed: () async {
                               final storageRef = FirebaseStorage.instance.ref();
-                              String path = title.removeAllWhitespace.toLowerCase();
-                              String url = await storageRef.child("konten/$path/video/video.mp4").getDownloadURL();
+                              String path =
+                                  title.removeAllWhitespace.toLowerCase();
+                              String url = await storageRef
+                                  .child("konten/$path/video/video.mp4")
+                                  .getDownloadURL();
                               Get.toNamed(
                                 RouteName.videoContentPage,
                                 arguments: [
@@ -181,8 +209,8 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(
-                                RouteName.warmUpPage, arguments: title);
+                              Get.toNamed(RouteName.warmUpPage,
+                                  arguments: title);
                             },
                             icon: const Icon(
                               Icons.voicemail,
