@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/toggle_controller.dart';
 // import 'package:tarali/views/dialog/list_dialog.dart';
@@ -45,7 +46,6 @@ class DashboardPage extends StatelessWidget {
                                   vsync:
                                       Navigator.of(context), // TickerProvider
                                 );
-
                                 Animation<Offset> offsetAnimation =
                                     Tween<Offset>(
                                   begin: const Offset(-1.0, 0.0), // Start from the left side
@@ -269,79 +269,83 @@ class DashboardPage extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
-              child: Builder(builder: (context) {
-                return ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    6,
-                    (index){
-                      index++;
+              child: StreamBuilder(
+                stream: dashboardController.cs.getAllContent(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  List<ContentModel> data = dashboardController.cs.getAllContentData(data: snapshot.data!.docs);
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: data.map((e){
                       return Container(
-                      margin: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.width * 0.0225),
-                      width: MediaQuery.of(context).size.width < 760
-                          ? MediaQuery.of(context).size.width * 0.215
-                          : MediaQuery.of(context).size.width * 0.17,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          style: BorderStyle.solid,
-                          color: white,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
+                        margin: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.0225),
+                        width: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.215
+                            : MediaQuery.of(context).size.width * 0.17,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            style: BorderStyle.solid,
+                            color: white,
                           ),
-                        ],
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(
-                            RouteName.detailContentPage,
-                            arguments: "Kisah Leak Bali $index",
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.45,
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width * 0.01),
-                                child: Image.asset(
-                                  'assets/images/cover_detail.png',
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
                             ),
-                            const SizedBox(height: 5),
-                            Center(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                child: Text(
-                                  'Kisah Leak Bali $index',
-                                  style: TextStyle(
-                                    color: white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.02,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
                           ],
                         ),
-                      ),
-                    );}
-                  ),
-                );
-              }),
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              RouteName.detailContentPage,
+                              arguments: e.title,
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height * 0.45,
+                                child: Padding(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width * 0.01),
+                                  child: Image.asset(
+                                    'assets/images/cover_detail.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Text(
+                                    e.title,
+                                    style: TextStyle(
+                                      color: white,
+                                      fontSize:
+                                      MediaQuery.of(context).size.width *
+                                          0.02,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
             ),
           ],
         ),

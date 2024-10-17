@@ -145,7 +145,8 @@ class DetailPage extends StatelessWidget {
                           ElevatedButton.icon(
                             onPressed: () async{
                               final storageRef = FirebaseStorage.instance.ref();
-                              String url = await storageRef.child("konten/selatbali/video/video.mp4").getDownloadURL();
+                              String path = title.removeAllWhitespace.toLowerCase();
+                              String url = await storageRef.child("konten/$path/video/video.mp4").getDownloadURL();
                               Get.toNamed(
                                 RouteName.videoContentPage,
                                 arguments: [
