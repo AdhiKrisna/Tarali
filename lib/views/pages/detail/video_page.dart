@@ -1,14 +1,17 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/video_controller.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatelessWidget {
   const VideoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final url = Get.arguments[1];
+    final String title = Get.arguments[0] ?? 'Judul Cerita';
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(
@@ -24,6 +27,7 @@ class VideoPage extends StatelessWidget {
                   IconButton(
                     onPressed: (){
                       Get.back();
+
                     },
                     icon: const Icon(
                       Icons.keyboard_arrow_left,
@@ -31,9 +35,9 @@ class VideoPage extends StatelessWidget {
                       size: 25,
                     ),
                   ),
-                  const Text(
-                    'Asal Mula Selat Bali',
-                    style: TextStyle(
+                  Text(
+                    title,
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
@@ -45,12 +49,18 @@ class VideoPage extends StatelessWidget {
                 height: 20,
               ),
               GetBuilder(
-                init: VideoController(),
+                init: VideoController(url),
                 builder: (c) => Expanded(
                     child: c.videoController.value.isInitialized ? AspectRatio(
                       aspectRatio: c.videoController.value.aspectRatio,
-                      child: VideoPlayer(c.videoController),
-                    ) : Container(),
+                      child: Chewie(
+                        controller: c.chewieController,
+                      ),
+                    ) :
+                  const Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  ),
                 )
               ),
             ],
