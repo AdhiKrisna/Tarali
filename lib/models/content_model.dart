@@ -3,13 +3,14 @@ class ContentModel{
   final String pathStorage;
   final String coverDashboard;
   final String cover;
+  final int pageTotal;
 
   ContentModel({
     required this.title,
     required this.pathStorage,
     required this.coverDashboard,
     required this.cover,
-
+    required this.pageTotal,
   });
 
   factory ContentModel.fromMap(Map<String, dynamic> map) {
@@ -18,6 +19,7 @@ class ContentModel{
       pathStorage: map['pathStorage'],
       coverDashboard: map['cover_dashboard'],
       cover: map['cover'],
+      pageTotal: map['pageTotal'],
     );
   }
 
@@ -27,6 +29,7 @@ class ContentModel{
       'pathStorage': pathStorage,
       'coverDashboard': coverDashboard,
       'cover': cover,
+      'pageTotal': pageTotal,
     };
   }
 }

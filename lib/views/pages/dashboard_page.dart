@@ -299,7 +299,7 @@ class DashboardPage extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(
                               RouteName.detailContentPage,
-                              arguments: e.title,
+                              arguments: e.toMap(),
                             );
                           },
                           child: Column(

@@ -10,8 +10,9 @@ class VideoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = Get.arguments[1];
-    final String title = Get.arguments[0] ?? 'Judul Cerita';
+    var argument = Get.arguments;
+    final String url = argument['videoUrl'];
+    final String title = argument['title'];
     return Scaffold(
       backgroundColor: white,
       body: SafeArea(

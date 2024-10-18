@@ -4,8 +4,11 @@ import 'package:tarali/models/content_model.dart';
 
 class ContentService {
   late FirebaseFirestore firestore;
+  late Reference storageRef;
+
   ContentService() {
     firestore = FirebaseFirestore.instance;
+    storageRef = FirebaseStorage.instance.ref();
   }
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllContent() {
     return FirebaseFirestore.instance.collection('content').snapshots();
@@ -18,24 +21,33 @@ class ContentService {
               pathStorage: e['pathStorage'] ?? 'null',
               coverDashboard: e['coverDashboard'] ?? 'null',
               cover: e['cover'] ?? 'null',
+              pageTotal: e['pageTotal'] ?? 0,
             )).toList();
   }
 
-  Future<String> getDetailCover(String title) async {
-    final FirebaseStorage storage = FirebaseStorage.instance;
+  Future<String> getVideoUrl(String path)async{
+    return storageRef
+        .child('konten/$path/video/video.mp4')
+        .getDownloadURL();
+  }
 
-    try {
-      String formattedTitle = title.toLowerCase().replaceAll(' ', '');
-      String path = 'konten/$formattedTitle/baca/cover.png';
-      print('Accessing path: $path');
+  Future<String> getDetailCover(String path) async {
+    return storageRef
+        .child('konten/$path/baca/cover.png')
+        .getDownloadURL();
+  }
 
-      // Mendapatkan URL dari Firebase Storage
-      String downloadURL = await storage.ref(path).getDownloadURL();
-      print('Download URL: $downloadURL');
-
-      return downloadURL;
-    } catch (e) {
-      throw Exception('File not found or inaccessible: $e');
+  Future<List<String>> getAllReadContent({
+    required String path,
+    required int totalPage,
+  })async{
+    List<String> data = [];
+    for(var i = 1; i <= totalPage; i++){
+      data.add(await storageRef
+          .child('konten/$path/baca/$i.png')
+          .getDownloadURL()
+      );
     }
+    return data;
   }
 }

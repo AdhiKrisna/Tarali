@@ -10,11 +10,9 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments is List<String>
-        ? Get.arguments[0] ?? 'Judul Cerita'
-        : Get.arguments ?? 'Judul Cerita';
-    final DashboardController dashboardController =
-        Get.find<DashboardController>();
+    final argument = Get.arguments;
+    final String title = argument['title'];
+    final DashboardController dashboardController = Get.find<DashboardController>();
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -76,7 +74,7 @@ class DetailPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: FutureBuilder<String>(
-                            future: dashboardController.cs.getDetailCover(title),
+                            future: dashboardController.cs.getDetailCover(argument['pathStorage']),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return const Center(child: CircularProgressIndicator());
@@ -106,10 +104,22 @@ class DetailPage extends StatelessWidget {
                       child: ListView(
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async{
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context){
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              );
+                              argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
+                              argument['readContent'] = await dashboardController.cs.getAllReadContent(path: argument['pathStorage'], totalPage: argument['pageTotal'],);
+                              Navigator.of(context).pop();
                               Get.toNamed(
                                 RouteName.readContentPage,
-                                arguments: title,
+                                arguments: argument,
                               );
                             },
                             icon: const Icon(
@@ -169,18 +179,11 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () async {
-                              final storageRef = FirebaseStorage.instance.ref();
-                              String path =
-                                  title.removeAllWhitespace.toLowerCase();
-                              String url = await storageRef
-                                  .child("konten/$path/video/video.mp4")
-                                  .getDownloadURL();
+                              String url = await dashboardController.cs.getVideoUrl(argument['pathStorage']);
+                              argument['videoUrl'] = url;
                               Get.toNamed(
                                 RouteName.videoContentPage,
-                                arguments: [
-                                  title,
-                                  url,
-                                ],
+                                arguments: argument,
                               );
                             },
                             icon: const Icon(
