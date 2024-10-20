@@ -4,52 +4,39 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:tarali/services/content_service.dart';
 
 class PlayerController extends GetxController {
+
   Timer? timer;
   var cs = ContentService();
-  final String title;
-  PlayerController({required this.title});  
+  final String url;
+  PlayerController({required this.url});
 
   @override
   void onInit() {
-    print(title);
-    print(removeTitleSpace());
-    onPlaying();
     super.onInit();
+    onPlaying();
   }
 
   final audioPlayer = AudioPlayer();
   RxBool isPlaying = true.obs, isReplay = false.obs;
-  RxDouble duration = 0.0.obs; //dalam detik, jadi nanti tambahin algoritma buat convert ke menit:detik ke detik ajah
+  RxDouble duration = 0.0.obs;
   RxDouble currentSecond = 0.0.obs;
-  String removeTitleSpace() {
-    return title.replaceAll(' ', '').toLowerCase();
-  }
+
   Future<void> playAudio() async {
     try {
-    String audioUrl = await cs.getAudioUrl(removeTitleSpace());
-    print('Playing audio from URL: $audioUrl');
-      await audioPlayer.play(UrlSource(audioUrl));
-      audioPlayer.onDurationChanged.listen((Duration d) {
-        if (d.inSeconds > 0) { 
-          print('Duration: ${d.inSeconds} seconds');
-          duration.value = d.inSeconds.toDouble(); 
-        } 
-        else { 
-          print('Duration: unknown'); 
-        }
-      });
+      await audioPlayer.play(UrlSource(url));
+      Duration? dr = await audioPlayer.getDuration();
+      duration.value = dr!.inSeconds.toDouble();
+      update();
       audioPlayer.onPositionChanged.listen((Duration p) {
          if (p.inSeconds <= duration.value) {
           currentSecond.value = p.inSeconds.toDouble();
         }
         else {
-          print('Duration: unknown'); 
           currentSecond.value = duration.value;
         }
       });
       isPlaying.value = true;  
     } catch (e) {
-      print('Error playing audio: $e');
       isPlaying.value = false;  // Mark as not playing on error
     }
   }

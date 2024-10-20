@@ -12,8 +12,9 @@ class AudioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments;
-    final controller = Get.put(PlayerController(title: title));
+    var argument = Get.arguments;
+    final String url = argument['audioUrl'];
+    final String title = argument['title'];
 
     return Scaffold(
       body: Row(
@@ -21,56 +22,62 @@ class AudioPage extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width * 2 / 5,
             color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 20,
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+            child: GetBuilder(
+              init: PlayerController(url: url),
+              builder: (c) => c.duration.value > 0 ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 20,
+                      left: 20,
+                      right: 20,
                     ),
-                    height: MediaQuery.of(context).size.height / 2,
-                    child: const Image(
-                      image: AssetImage('assets/images/cover1.png'),
-                      fit: BoxFit.fill,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: const Image(
+                        image: AssetImage('assets/images/cover1.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                SliderWidget(),
-                SizedBox(
-                  height:
-                  MediaQuery.of(context).size.height * 0.025,
-                ),
-                Obx(
-                      () => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () => controller.fastBackward(),
-                        icon: const Icon(Icons.fast_rewind_rounded,
-                            color: lightBlue, size: 30),
-                      ),
-                      controller.isReplay.isFalse
-                          ? const PausePlayButton()
-                          : const ReplayButton(),
-                      IconButton(
-                        onPressed: () => controller.fastForward(),
-                        icon: const Icon(Icons.fast_forward_rounded,
-                            color: lightBlue, size: 30),
-                      ),
-                    ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                ),
-              ],
-            ),
+                  SliderWidget(),
+                  SizedBox(
+                    height:
+                    MediaQuery.of(context).size.height * 0.025,
+                  ),
+                  Obx(
+                        () => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () => c.fastBackward(),
+                          icon: const Icon(Icons.fast_rewind_rounded,
+                              color: lightBlue, size: 30),
+                        ),
+                        c.isReplay.isFalse
+                            ? const PausePlayButton()
+                            : const ReplayButton(),
+                        IconButton(
+                          onPressed: () => c.fastForward(),
+                          icon: const Icon(Icons.fast_forward_rounded,
+                              color: lightBlue, size: 30),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ): const Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              ),
+            )
           ),
           Expanded(
             child: Stack(

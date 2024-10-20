@@ -10,6 +10,7 @@ class ContentService {
     firestore = FirebaseFirestore.instance;
     storageRef = FirebaseStorage.instance.ref();
   }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllContent() {
     return FirebaseFirestore.instance.collection('content').snapshots();
   }

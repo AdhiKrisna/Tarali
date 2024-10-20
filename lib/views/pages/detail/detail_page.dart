@@ -147,10 +147,12 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async{
+                              String url = await dashboardController.cs.getAudioUrl(argument['pathStorage']);
+                              argument['audioUrl'] = url;
                               Get.toNamed(
                                 RouteName.audioContentPage,
-                                arguments: title,
+                                arguments: argument,
                               );
                             },
                             icon: const Icon(
