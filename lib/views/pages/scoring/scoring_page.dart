@@ -17,7 +17,7 @@ class ScoringPage extends StatelessWidget {
     // final String nama = Get.arguments;
     final String title = arguments[0];
     final String nama = arguments[1];
-    final PlayerController controller = Get.put(PlayerController());
+    final PlayerController controller = Get.put(PlayerController(title: title));
     final ScoringController scoringController = Get.put(ScoringController());
     return Scaffold(
       body: SingleChildScrollView(
@@ -59,7 +59,7 @@ class ScoringPage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.05,
                             ),
-                            //  SliderWidget(),
+                             SliderWidget(),
                             SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.025,

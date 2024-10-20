@@ -4,7 +4,7 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
 class SliderWidget extends StatelessWidget {
-  final PlayerController controller = Get.put(PlayerController());
+  final PlayerController controller = Get.find();
   SliderWidget({
     super.key,
   });
@@ -41,7 +41,7 @@ class SliderWidget extends StatelessWidget {
                 ),
                 Row(children: [
                    Text(
-                    '5:36', //durasi audio
+                    controller.durationString, //ini durasi audio yang sedang diputar
                     style: TextStyle(
                       color: grey,
                       fontWeight: FontWeight.bold,

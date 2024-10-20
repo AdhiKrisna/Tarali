@@ -11,7 +11,7 @@ class ReplayButton extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-  final PlayerController pausePlayController = Get.put(PlayerController());
+  final PlayerController pausePlayController = Get.find();
     return Container(
       decoration: const BoxDecoration(
         color: lightBlue,

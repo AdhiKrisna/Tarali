@@ -13,7 +13,7 @@ class AudioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String title = Get.arguments;
-    final controller = Get.put(PlayerController());
+    final controller = Get.put(PlayerController(title: title));
 
     return Scaffold(
       body: Row(

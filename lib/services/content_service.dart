@@ -30,6 +30,12 @@ class ContentService {
         .child('konten/$path/video/video.mp4')
         .getDownloadURL();
   }
+  
+  Future<String> getAudioUrl(String path) async {
+    return storageRef
+        .child('konten/$path/audio/audio.mp3')
+        .getDownloadURL();
+  }
 
   Future<String> getDetailCover(String path) async {
     return storageRef

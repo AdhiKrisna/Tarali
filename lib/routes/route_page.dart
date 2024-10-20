@@ -51,7 +51,7 @@ class RoutePages {
     //teacher's pages
     GetPage(
       name: RouteName.toScoringPage,
-      page: () => const ToScoringPage(),
+      page: () => ToScoringPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
