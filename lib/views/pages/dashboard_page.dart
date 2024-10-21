@@ -62,8 +62,6 @@ class DashboardPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     content: SizedBox(
-                                      // height: MediaQuery.of(context).size.height *
-                                      //     0.42,
                                       height: MediaQuery.of(context).size.height *
                                           0.6,
                                       child: Column(
@@ -173,11 +171,19 @@ class DashboardPage extends StatelessWidget {
                                           padding:
                                               const EdgeInsets.only(left: 8),
                                           child: TextField(
+                                            onChanged: (value) {
+                                              dashboardController.searchController.text = value;
+                                              dashboardController.searchContent();
+                                            },
+                                            onSubmitted: (value) {
+                                              dashboardController.searchContent();
+                                            },
+                                            controller: dashboardController.searchController,
                                             decoration: InputDecoration(
                                               hintText: 'Search...',
                                               border: InputBorder.none,
                                               prefixIcon: IconButton(
-                                                onPressed: null,
+                                                onPressed:() => dashboardController.searchContent(),
                                                 icon: const Icon(
                                                   Icons.search,
                                                   color: Colors.black,
@@ -268,7 +274,9 @@ class DashboardPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
               child: StreamBuilder(
-                stream: dashboardController.cs.getAllContent(),
+                stream: dashboardController.isSearching.isTrue && dashboardController.searchController.text.isNotEmpty
+                    ? dashboardController.cs.getSearchContent(dashboardController.searchController.text)
+                    : dashboardController.cs.getAllContent(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());

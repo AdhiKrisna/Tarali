@@ -15,45 +15,75 @@ class ContentService {
     return FirebaseFirestore.instance.collection('content').snapshots();
   }
 
+  List<String> getSearchContentTitle(String search) {
+    search = search.toLowerCase().replaceAll(' ', '');
+    List<String> contentSnapshots = [];
+    FirebaseFirestore.instance.collection('content').get().then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        if(doc['title'].toString().toLowerCase().replaceAll(' ', '').contains(search) ){
+          print(doc['title']);
+          contentSnapshots.add(doc['title']);
+        }
+      }
+      print(contentSnapshots);
+    });
+    return contentSnapshots;
+  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
+    List<String> contentSnapshots = getSearchContentTitle(search);
+    print(contentSnapshots);
+    try {
+      return FirebaseFirestore.instance
+        .collection('content')
+        .where('title', arrayContainsAny: contentSnapshots)
+        .snapshots();
+    } catch (e) {
+      print('Error fetching search content: $e');
+      return const Stream.empty();
+    }
+  }
+  // Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
+  //   return FirebaseFirestore.instance
+  //       .collection('content')
+  //       .where('title', isGreaterThanOrEqualTo: search)
+  //       .where('title', isLessThanOrEqualTo: '$search\uf8ff')
+  //       .snapshots();
+  // }
+
+
   List<ContentModel> getAllContentData(
       {required List<QueryDocumentSnapshot> data}) {
-    return data.map((e) => ContentModel(
+    return data
+        .map((e) => ContentModel(
               title: e['title'] ?? 'Test',
               pathStorage: e['pathStorage'] ?? 'null',
               coverDashboard: e['coverDashboard'] ?? 'null',
               cover: e['cover'] ?? 'null',
               pageTotal: e['pageTotal'] ?? 0,
-            )).toList();
+            ))
+        .toList();
   }
 
-  Future<String> getVideoUrl(String path)async{
-    return storageRef
-        .child('konten/$path/video/video.mp4')
-        .getDownloadURL();
+  Future<String> getVideoUrl(String path) async {
+    return storageRef.child('konten/$path/video/video.mp4').getDownloadURL();
   }
-  
+
   Future<String> getAudioUrl(String path) async {
-    return storageRef
-        .child('konten/$path/audio/audio.mp3')
-        .getDownloadURL();
+    return storageRef.child('konten/$path/audio/audio.mp3').getDownloadURL();
   }
 
   Future<String> getDetailCover(String path) async {
-    return storageRef
-        .child('konten/$path/baca/cover.png')
-        .getDownloadURL();
+    return storageRef.child('konten/$path/baca/cover.png').getDownloadURL();
   }
 
   Future<List<String>> getAllReadContent({
     required String path,
     required int totalPage,
-  })async{
+  }) async {
     List<String> data = [];
-    for(var i = 1; i <= totalPage; i++){
-      data.add(await storageRef
-          .child('konten/$path/baca/$i.png')
-          .getDownloadURL()
-      );
+    for (var i = 1; i <= totalPage; i++) {
+      data.add(
+          await storageRef.child('konten/$path/baca/$i.png').getDownloadURL());
     }
     return data;
   }
