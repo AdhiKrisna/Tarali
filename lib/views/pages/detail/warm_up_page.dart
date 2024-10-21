@@ -14,6 +14,7 @@ class WarmUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var argument = Get.arguments;
     final quizController = Get.put(QuizController());
 
     return Scaffold(
@@ -228,7 +229,10 @@ class WarmUpPage extends StatelessWidget {
                                   successLabel: 'Ayo Bercerita',
                                   onSuccess: (){
                                     Get.back();
-                                    Get.toNamed(RouteName.readingTestPage);
+                                    Get.toNamed(
+                                      RouteName.readingTestPage,
+                                      arguments: argument,
+                                    );
                                   }
                                 ),
                                 barrierDismissible: false,

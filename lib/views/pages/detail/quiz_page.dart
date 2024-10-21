@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/models/kuis_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -12,8 +15,10 @@ class QuizPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final String title = Get.arguments ?? 'Judul Cerita';
+    final argument = Get.arguments;
+    List<KuisModel> dataSoal = argument['kuis'];
     final quizController = Get.put(QuizController());
+    quizController.totalIndex = dataSoal.length;
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -50,7 +55,7 @@ class QuizPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Expanded(
+            Obx(() => Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -96,10 +101,10 @@ class QuizPage extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView(
-                            children: const [
+                            children: [
                               Text(
-                                'Apa yang dilakukan Naga Besukih setelah Manik Angkeran memotong ekornya?',
-                                style: TextStyle(
+                                dataSoal[quizController.index.value].soal,
+                                style: const TextStyle(
                                   fontSize: 16,
                                   color: blackText,
                                   fontWeight: FontWeight.w500,
@@ -112,7 +117,9 @@ class QuizPage extends StatelessWidget {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  quizController.prevPage();
+                                },
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 10,
@@ -135,24 +142,28 @@ class QuizPage extends StatelessWidget {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => ListDialog.contentDialog(
+                                  if(quizController.index.value == quizController.totalIndex - 1){
+                                    showDialog(
                                       context: context,
-                                      imageName: 'kuis_dialog',
-                                      message: 'Hebat!\nSudah selesai mengerjakan kuis?',
-                                      cancelLabel: 'Belum Selesai',
-                                      onCancel: (){
-                                        Get.back();
-                                      },
-                                      successLabel: 'Sudah Selesai',
-                                      onSuccess: (){
-                                        Get.back();
-                                        Get.toNamed(RouteName.quizResultPage);
-                                      }
-                                    ),
-                                    barrierDismissible: false,
-                                  );
+                                      builder: (context) => ListDialog.contentDialog(
+                                          context: context,
+                                          imageName: 'kuis_dialog',
+                                          message: 'Hebat!\nSudah selesai mengerjakan kuis?',
+                                          cancelLabel: 'Belum Selesai',
+                                          onCancel: (){
+                                            Get.back();
+                                          },
+                                          successLabel: 'Sudah Selesai',
+                                          onSuccess: (){
+                                            Get.back();
+                                            Get.toNamed(RouteName.quizResultPage);
+                                          }
+                                      ),
+                                      barrierDismissible: false,
+                                    );
+                                  }else{
+                                    quizController.nextPage();
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: lightBlue,
@@ -196,12 +207,15 @@ class QuizPage extends StatelessWidget {
                               backgroundColor: quizController.choice.value == 1 ? lightBlue : white,
                             ),
                             child: Text(
-                              'A. Menghidupkan Manik Angkeran',
+                              'A. ${dataSoal[quizController.index.value].opsi[0]}',
                               style: TextStyle(
                                 color: quizController.choice.value == 1 ? white : blackText,
                                 fontSize: 14,
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           ElevatedButton(
                             onPressed: (){
@@ -216,12 +230,15 @@ class QuizPage extends StatelessWidget {
                               backgroundColor: quizController.choice.value == 2 ? lightBlue : white,
                             ),
                             child: Text(
-                              'B. Memberi lebih banyak harta',
+                              'B. ${dataSoal[quizController.index.value].opsi[1]}',
                               style: TextStyle(
                                 color: quizController.choice.value == 2 ? white : blackText,
                                 fontSize: 14,
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           ElevatedButton(
                             onPressed: (){
@@ -236,12 +253,15 @@ class QuizPage extends StatelessWidget {
                               backgroundColor: quizController.choice.value == 3 ? lightBlue : white,
                             ),
                             child: Text(
-                              'C. Memisahkan Pulau Jawa dan Bali',
+                              'C. ${dataSoal[quizController.index.value].opsi[2]}',
                               style: TextStyle(
                                 color: quizController.choice.value == 3 ? white : blackText,
                                 fontSize: 14,
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           ElevatedButton(
                             onPressed: (){
@@ -256,7 +276,7 @@ class QuizPage extends StatelessWidget {
                               backgroundColor: quizController.choice.value == 4 ? lightBlue : white,
                             ),
                             child: Text(
-                              'D. Mengundang Prabu Menak Dadali',
+                              'D. ${dataSoal[quizController.index.value].opsi[3]}',
                               style: TextStyle(
                                 color: quizController.choice.value == 4 ? white : blackText,
                                 fontSize: 14,
@@ -269,7 +289,7 @@ class QuizPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            ),),
           ],
         ),
       ),
