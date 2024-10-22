@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/models/kuis_model.dart';
@@ -17,8 +15,7 @@ class QuizPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     List<KuisModel> dataSoal = argument['kuis'];
-    final quizController = Get.put(QuizController());
-    quizController.totalIndex = dataSoal.length;
+    final quizController = Get.put(QuizController(lengthData: dataSoal.length));
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -196,21 +193,50 @@ class QuizPage extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             onPressed: (){
-                              if(quizController.choice.value == 1){
+                              if(quizController.choice[quizController.index.value] == 0){
+                                quizController.setChoice(-1);
+                              }else{
                                 quizController.setChoice(0);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              alignment: Alignment.centerLeft,
+                              backgroundColor: quizController.choice[quizController.index.value] == 0 ? lightBlue : white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                'A. ${dataSoal[quizController.index.value].opsi[0]}',
+                                style: TextStyle(
+                                  color: quizController.choice[quizController.index.value] == 0 ? white : blackText,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          ElevatedButton(
+                            onPressed: (){
+                              if(quizController.choice[quizController.index.value] == 1){
+                                quizController.setChoice(-1);
                               }else{
                                 quizController.setChoice(1);
                               }
                             },
                             style: ElevatedButton.styleFrom(
                               alignment: Alignment.centerLeft,
-                              backgroundColor: quizController.choice.value == 1 ? lightBlue : white,
+                              backgroundColor: quizController.choice[quizController.index.value] == 1 ? lightBlue : white,
                             ),
-                            child: Text(
-                              'A. ${dataSoal[quizController.index.value].opsi[0]}',
-                              style: TextStyle(
-                                color: quizController.choice.value == 1 ? white : blackText,
-                                fontSize: 14,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                'B. ${dataSoal[quizController.index.value].opsi[1]}',
+                                style: TextStyle(
+                                  color: quizController.choice[quizController.index.value] == 1 ? white : blackText,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
@@ -219,21 +245,24 @@ class QuizPage extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: (){
-                              if(quizController.choice.value == 2){
-                                quizController.setChoice(0);
+                              if(quizController.choice[quizController.index.value] == 2){
+                                quizController.setChoice(-1);
                               }else{
                                 quizController.setChoice(2);
                               }
                             },
                             style: ElevatedButton.styleFrom(
                               alignment: Alignment.centerLeft,
-                              backgroundColor: quizController.choice.value == 2 ? lightBlue : white,
+                              backgroundColor: quizController.choice[quizController.index.value] == 2 ? lightBlue : white,
                             ),
-                            child: Text(
-                              'B. ${dataSoal[quizController.index.value].opsi[1]}',
-                              style: TextStyle(
-                                color: quizController.choice.value == 2 ? white : blackText,
-                                fontSize: 14,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                'C. ${dataSoal[quizController.index.value].opsi[2]}',
+                                style: TextStyle(
+                                  color: quizController.choice[quizController.index.value] == 2 ? white : blackText,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
@@ -242,44 +271,24 @@ class QuizPage extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: (){
-                              if(quizController.choice.value == 3){
-                                quizController.setChoice(0);
+                              if(quizController.choice[quizController.index.value] == 3){
+                                quizController.setChoice(-1);
                               }else{
                                 quizController.setChoice(3);
                               }
                             },
                             style: ElevatedButton.styleFrom(
                               alignment: Alignment.centerLeft,
-                              backgroundColor: quizController.choice.value == 3 ? lightBlue : white,
+                              backgroundColor: quizController.choice[quizController.index.value] == 3 ? lightBlue : white,
                             ),
-                            child: Text(
-                              'C. ${dataSoal[quizController.index.value].opsi[2]}',
-                              style: TextStyle(
-                                color: quizController.choice.value == 3 ? white : blackText,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          ElevatedButton(
-                            onPressed: (){
-                              if(quizController.choice.value == 4){
-                                quizController.setChoice(0);
-                              }else{
-                                quizController.setChoice(4);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              alignment: Alignment.centerLeft,
-                              backgroundColor: quizController.choice.value == 4 ? lightBlue : white,
-                            ),
-                            child: Text(
-                              'D. ${dataSoal[quizController.index.value].opsi[3]}',
-                              style: TextStyle(
-                                color: quizController.choice.value == 4 ? white : blackText,
-                                fontSize: 14,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                'D. ${dataSoal[quizController.index.value].opsi[3]}',
+                                style: TextStyle(
+                                  color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
