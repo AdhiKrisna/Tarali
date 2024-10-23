@@ -214,8 +214,10 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.warmUpPage,
-                                  arguments: title);
+                              Get.toNamed(
+                                  RouteName.warmUpPage,
+                                  arguments: argument,
+                              );
                             },
                             icon: const Icon(
                               Icons.voicemail,
@@ -243,7 +245,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.quizPage, arguments: title);
+                              Get.toNamed(RouteName.quizPage, arguments: argument);
                             },
                             icon: const Icon(
                               Icons.edit,

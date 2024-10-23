@@ -11,6 +11,8 @@ class ReadingTestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var argument = Get.arguments;
+
     return BackgroundWidget.setWhiteBackground(
       context: context,
       child: Column(
@@ -30,9 +32,9 @@ class ReadingTestPage extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              const Text(
-                'Asal Mula Selat Bali',
-                style: TextStyle(
+              Text(
+                argument['title'],
+                style: const TextStyle(
                   fontSize: 22,
                   color: Colors.black,
                   decoration: TextDecoration.none,
@@ -48,24 +50,11 @@ class ReadingTestPage extends StatelessWidget {
             child: Stack(
               children: [
                 ListView(
-                  children: const [
-                    Text("""Dahulu kala, di pulau Jawa, ada sebuah kerajaan besar yang dipimpin oleh seorang raja bijaksana bernama Prabu Menak Dadali. Prabu Menak Dadali memiliki seorang putra bernama Manik Angkeran. Manik Angkeran adalah anak yang cerdas, tetapi sayangnya, ia suka berjudi dan sering membuat masalah.
-
-Suatu hari, Manik Angkeran terlilit hutang karena kalah berjudi. Ia sangat ketakutan dan bingung bagaimana caranya melunasi hutangnya. Lalu, ia teringat cerita tentang Naga Besukih, seekor naga sakti yang tinggal di Gunung Agung, Bali. Naga ini memiliki kekayaan yang luar biasa.
-
-Manik Angkeran pun pergi ke Bali untuk menemui Naga Besukih. Sesampainya di sana, ia melakukan ritual dan berdoa agar Naga Besukih muncul. Naga Besukih pun muncul dari dalam gua. Manik Angkeran meminta bantuan kepada Naga Besukih untuk melunasi hutangnya. Karena Manik Angkeran berbicara dengan sangat sopan, Naga Besukih bersedia membantunya dengan memberi banyak emas dan permata.
-
-Namun, setelah mendapatkan harta itu, Manik Angkeran malah tamak. Ia ingin memiliki lebih banyak lagi. Saat Naga Besukih berbalik untuk kembali ke guanya, Manik Angkeran diam-diam memotong ekor naga itu untuk mengambil sisa harta yang ada di ujung ekor tersebut.
-
-Naga Besukih sangat marah karena dikhianati. Dengan kemarahannya, naga itu mengutuk Manik Angkeran sehingga ia terbakar menjadi abu. Ketika Prabu Menak Dadali mengetahui bahwa anaknya telah meninggal karena keserakahannya, ia sangat sedih.
-
-Prabu Menak Dadali pun pergi ke Gunung Agung untuk meminta maaf kepada Naga Besukih. Ia meminta agar anaknya dihidupkan kembali. Naga Besukih setuju dengan syarat bahwa Manik Angkeran harus hidup dengan bijaksana dan tidak serakah lagi. Prabu Menak Dadali pun setuju, dan Manik Angkeran dihidupkan kembali.
-
-Namun, karena perbuatan Manik Angkeran yang jahat, Naga Besukih memisahkan Pulau Bali dan Pulau Jawa dengan menggesekkan ekornya di tanah, sehingga terbentuklah laut di antara kedua pulau tersebut. Laut inilah yang sekarang kita kenal sebagai Selat Bali.
-
-Sejak saat itu, Manik Angkeran belajar untuk menjadi orang yang lebih baik, dan Selat Bali menjadi pengingat bagi semua orang agar tidak tamak dan selalu hidup dengan bijaksana.""",
+                  children: [
+                    Text(
+                      argument['ayoBercerita'],
                       textAlign: TextAlign.justify,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: blackText,
                         decoration: TextDecoration.none,

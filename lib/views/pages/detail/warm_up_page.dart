@@ -14,7 +14,8 @@ class WarmUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quizController = Get.put(QuizController());
+    var argument = Get.arguments;
+    final quizController = Get.put(QuizController(lengthData: 5));
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -126,80 +127,80 @@ class WarmUpPage extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice.value == 1){
-                                      quizController.setChoice(0);
+                                    if(quizController.choice[quizController.index.value].value == 1){
+                                      quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(1);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice.value == 1 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value].value == 1 ? lightBlue : white,
                                   ),
                                   child: Text(
                                     'A. Sapi',
                                     style: TextStyle(
-                                      color: quizController.choice.value == 1 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value].value == 1 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice.value == 2){
-                                      quizController.setChoice(0);
+                                    if(quizController.choice[quizController.index.value].value == 2){
+                                      quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(2);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice.value == 2 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value].value == 2 ? lightBlue : white,
                                   ),
                                   child: Text(
                                     'B. Ikan',
                                     style: TextStyle(
-                                      color: quizController.choice.value == 2 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value].value == 2 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice.value == 3){
-                                      quizController.setChoice(0);
+                                    if(quizController.choice[quizController.index.value].value == 3){
+                                      quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(3);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice.value == 3 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value].value == 3 ? lightBlue : white,
                                   ),
                                   child: Text(
                                     'C. Beruang',
                                     style: TextStyle(
-                                      color: quizController.choice.value == 3 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value].value == 3 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice.value == 4){
-                                      quizController.setChoice(0);
+                                    if(quizController.choice[quizController.index.value].value == 4){
+                                      quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(4);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice.value == 4 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value].value == 4 ? lightBlue : white,
                                   ),
                                   child: Text(
                                     'D. Kuda',
                                     style: TextStyle(
-                                      color: quizController.choice.value == 4 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value].value == 4 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
@@ -228,7 +229,10 @@ class WarmUpPage extends StatelessWidget {
                                   successLabel: 'Ayo Bercerita',
                                   onSuccess: (){
                                     Get.back();
-                                    Get.toNamed(RouteName.readingTestPage);
+                                    Get.toNamed(
+                                      RouteName.readingTestPage,
+                                      arguments: argument,
+                                    );
                                   }
                                 ),
                                 barrierDismissible: false,

@@ -1,25 +1,36 @@
 import 'package:get/get.dart';
 
 class QuizController extends GetxController{
-  var index = 1.obs;
-  var totalIndex = 5;
-  var choice = 0.obs;
+  var index = 0.obs;
+  var totalIndex = 0;
+  var choice = [].obs;
 
   var answers = [].obs;
 
+  QuizController({required int lengthData}){
+    totalIndex = lengthData;
+    for(int i = 0; i < totalIndex; i++){
+      choice.add(-1.obs);
+    }
+  }
+
   void nextPage(){
-    index++;
+    if(index.value < totalIndex - 1){
+      index.value++;
+    }
   }
 
   void prevPage(){
-    index--;
+    if(index.value > 0){
+      index.value--;
+    }
   }
 
   String detailPage(){
-    return '$index dari $totalIndex';
+    return '${index.value + 1} dari $totalIndex';
   }
 
   void setChoice(int choice){
-    this.choice.value = choice;
+    this.choice[index.value] = choice;
   }
 }
