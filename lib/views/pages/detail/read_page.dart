@@ -59,7 +59,7 @@ class ReadPage extends StatelessWidget {
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.8,
-                                height: MediaQuery.of(context).size.height * 0.75,
+                                height: MediaQuery.of(context).size.height * 0.725,
                                 child: Expanded(
                                   child: Image.network(
                                     argument['readContent'][readController.index.value - 1],
