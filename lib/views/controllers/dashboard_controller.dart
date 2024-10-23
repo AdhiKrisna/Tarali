@@ -11,8 +11,10 @@ class DashboardController extends GetxController {
   @override
   void onClose() {
     searchController.dispose();
+    searchController.clear();
     super.onClose();
   }
+  
   void toggleSearch() {
     isSearching.value = !isSearching.value;
   }

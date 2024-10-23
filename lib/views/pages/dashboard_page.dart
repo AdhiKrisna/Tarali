@@ -12,7 +12,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController dashboardController = Get.put(DashboardController());
+    final DashboardController dashboardController =
+        Get.put(DashboardController());
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -46,8 +47,10 @@ class DashboardPage extends StatelessWidget {
                                 );
                                 Animation<Offset> offsetAnimation =
                                     Tween<Offset>(
-                                  begin: const Offset(-1.0, 0.0), // Start from the left side
-                                  end: Offset.zero, // End at the original position
+                                  begin: const Offset(
+                                      -1.0, 0.0), // Start from the left side
+                                  end: Offset
+                                      .zero, // End at the original position
                                 ).animate(CurvedAnimation(
                                   parent: animatedController,
                                   curve: Curves.easeInOut,
@@ -62,8 +65,9 @@ class DashboardPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     content: SizedBox(
-                                      height: MediaQuery.of(context).size.height *
-                                          0.6,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.6,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -77,8 +81,8 @@ class DashboardPage extends StatelessWidget {
                                           ),
                                           const Divider(color: Colors.black),
                                           ListTile(
-                                            visualDensity:
-                                                const VisualDensity(vertical: -3),
+                                            visualDensity: const VisualDensity(
+                                                vertical: -3),
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.history),
                                             title: const Text('Riwayat'),
@@ -88,8 +92,8 @@ class DashboardPage extends StatelessWidget {
                                             },
                                           ),
                                           ListTile(
-                                            visualDensity:
-                                                const VisualDensity(vertical: -3),
+                                            visualDensity: const VisualDensity(
+                                                vertical: -3),
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.edit),
                                             title:
@@ -101,16 +105,14 @@ class DashboardPage extends StatelessWidget {
                                             },
                                           ),
                                           ListTile(
-                                            visualDensity:
-                                                const VisualDensity(vertical: -3),
+                                            visualDensity: const VisualDensity(
+                                                vertical: -3),
                                             contentPadding: EdgeInsets.zero,
                                             leading: const Icon(Icons.edit),
-                                            title:
-                                                const Text('Login'),
+                                            title: const Text('Login'),
                                             onTap: () {
                                               Get.back();
-                                              Get.toNamed(
-                                                  RouteName.loginSiswa);
+                                              Get.toNamed(RouteName.loginSiswa);
                                             },
                                           ),
                                         ],
@@ -172,18 +174,25 @@ class DashboardPage extends StatelessWidget {
                                               const EdgeInsets.only(left: 8),
                                           child: TextField(
                                             onChanged: (value) {
-                                              dashboardController.searchController.text = value;
-                                              dashboardController.searchContent();
+                                              dashboardController
+                                                  .searchController
+                                                  .text = value;
+                                              dashboardController
+                                                  .searchContent();
                                             },
                                             onSubmitted: (value) {
-                                              dashboardController.searchContent();
+                                              dashboardController
+                                                  .searchContent();
                                             },
-                                            controller: dashboardController.searchController,
+                                            controller: dashboardController
+                                                .searchController,
                                             decoration: InputDecoration(
                                               hintText: 'Search...',
                                               border: InputBorder.none,
                                               prefixIcon: IconButton(
-                                                onPressed:() => dashboardController.searchContent(),
+                                                onPressed: () =>
+                                                    dashboardController
+                                                        .searchContent(),
                                                 icon: const Icon(
                                                   Icons.search,
                                                   color: Colors.black,
@@ -274,93 +283,115 @@ class DashboardPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
               child: StreamBuilder(
-                stream: dashboardController.isSearching.isTrue && dashboardController.searchController.text.isNotEmpty
-                    ? dashboardController.cs.getSearchContent(dashboardController.searchController.text)
+                stream: dashboardController.isSearching.isTrue &&
+                        dashboardController.searchController.text.isNotEmpty
+                    ? dashboardController.cs.getSearchContent(
+                        dashboardController.searchController.text)
                     : dashboardController.cs.getAllContent(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  List<ContentModel> data = dashboardController.cs.getAllContentData(data: snapshot.data!.docs);
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: data.map((e){
-                      return Container(
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.0225),
-                        width: MediaQuery.of(context).size.width < 760
-                            ? MediaQuery.of(context).size.width * 0.215
-                            : MediaQuery.of(context).size.width * 0.17,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            style: BorderStyle.solid,
-                            color: white,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                            ),
-                          ],
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed(
-                              RouteName.detailContentPage,
-                              arguments: e.toMap(),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: MediaQuery.of(context).size.height * 0.45,
-                                child: Padding(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.width * 0.01),
-                                  child: Image.network(
-                                    e.coverDashboard,
-                                    fit: BoxFit.fill,
-                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress.expectedTotalBytes != null
-                                              ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes!)
-                                              : null,
-                                        ),
-                                      );
-                                    },
-                                    errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error)),
-                                    ),
+                  List<ContentModel> data = dashboardController.cs
+                      .getAllContentData(data: snapshot.data!.docs);
+                  return data.isEmpty
+                      ? const Center(child: Text("Judul Buku Tidak Ditemukan"))
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: data.map((e) {
+                            return Container(
+                              margin: EdgeInsets.only(
+                                  right: MediaQuery.of(context).size.width *
+                                      0.0225),
+                              width: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.215
+                                  : MediaQuery.of(context).size.width * 0.17,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: white,
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Center(
-                                child: Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    e.title,
-                                    style: TextStyle(
-                                      color: white,
-                                      fontSize:
-                                      MediaQuery.of(context).size.width *
-                                          0.02,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
                                   ),
+                                ],
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(
+                                    RouteName.detailContentPage,
+                                    arguments: e.toMap(),
+                                  );
+                                },
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.45,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.width *
+                                                0.01),
+                                        child: Image.network(
+                                          e.coverDashboard,
+                                          fit: BoxFit.fill,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        (loadingProgress
+                                                            .expectedTotalBytes!)
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  const Center(
+                                                      child: Icon(Icons.error)),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: Text(
+                                          e.title,
+                                          style: TextStyle(
+                                            color: white,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 5),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
+                            );
+                          }).toList(),
+                        );
                 },
               ),
             ),
