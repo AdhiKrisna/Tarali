@@ -3,9 +3,16 @@ import 'package:get/get.dart';
 class QuizController extends GetxController{
   var index = 0.obs;
   var totalIndex = 0;
-  var choice = 0.obs;
+  var choice = [].obs;
 
   var answers = [].obs;
+
+  QuizController({required int lengthData}){
+    totalIndex = lengthData;
+    for(int i = 0; i < totalIndex; i++){
+      choice.add(-1.obs);
+    }
+  }
 
   void nextPage(){
     if(index.value < totalIndex - 1){
@@ -24,6 +31,6 @@ class QuizController extends GetxController{
   }
 
   void setChoice(int choice){
-    this.choice.value = choice;
+    this.choice[index.value] = choice;
   }
 }
