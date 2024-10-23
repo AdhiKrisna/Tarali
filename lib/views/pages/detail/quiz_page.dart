@@ -15,7 +15,8 @@ class QuizPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     List<KuisModel> dataSoal = argument['kuis'];
-    final quizController = Get.put(QuizController(lengthData: dataSoal.length));
+    final quizController = Get.put(QuizController());
+    quizController.setData(lengthData: dataSoal.length);
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(

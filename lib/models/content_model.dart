@@ -1,3 +1,5 @@
+import 'package:tarali/models/warm_up_model.dart';
+
 import 'kuis_model.dart';
 
 class ContentModel{
@@ -8,6 +10,7 @@ class ContentModel{
   final int pageTotal;
   final String ayoBercerita;
   final List<KuisModel> kuis;
+  final WarmUpModel pemanasan;
 
   ContentModel({
     required this.title,
@@ -17,6 +20,7 @@ class ContentModel{
     required this.pageTotal,
     required this.ayoBercerita,
     required this.kuis,
+    required this.pemanasan,
   });
 
   factory ContentModel.fromMap(Map<String, dynamic> map) {
@@ -28,6 +32,7 @@ class ContentModel{
       pageTotal: map['pageTotal'],
       ayoBercerita: map['ayoBercerita'],
       kuis: map['kuis'],
+      pemanasan: map['pemanasan']
     );
   }
 
@@ -40,6 +45,7 @@ class ContentModel{
       'pageTotal': pageTotal,
       'ayoBercerita': ayoBercerita,
       'kuis': kuis,
+      'pemanasan': pemanasan,
     };
   }
 }
