@@ -7,8 +7,9 @@ class QuizController extends GetxController{
 
   var answers = [].obs;
 
-  QuizController({required int lengthData}){
+  void setData({required int lengthData}){
     totalIndex = lengthData;
+    print(totalIndex);
     for(int i = 0; i < totalIndex; i++){
       choice.add(-1.obs);
     }

@@ -116,6 +116,8 @@ class DetailPage extends StatelessWidget {
                               );
                               argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
                               argument['readContent'] = await dashboardController.cs.getAllReadContent(path: argument['pathStorage'], totalPage: argument['pageTotal'],);
+                              argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
+                              argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
                               Navigator.of(context).pop();
                               Get.toNamed(
                                 RouteName.readContentPage,
@@ -213,7 +215,19 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async{
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context){
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                              );
+                              argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
+                              argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
+                              Navigator.of(context).pop();
                               Get.toNamed(
                                   RouteName.warmUpPage,
                                   arguments: argument,

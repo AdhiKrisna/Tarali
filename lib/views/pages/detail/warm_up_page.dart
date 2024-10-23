@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/models/warm_up_model.dart';
 
 import '../../../constants/constant_colors.dart';
 import '../../../routes/route_name.dart';
@@ -15,7 +16,9 @@ class WarmUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var argument = Get.arguments;
-    final quizController = Get.put(QuizController(lengthData: 5));
+    WarmUpModel pemanasan = argument['pemanasan'];
+    final quizController = Get.put(QuizController());
+    quizController.setData(lengthData: 1);
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -83,18 +86,18 @@ class WarmUpPage extends StatelessWidget {
                                 color: greyText,
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              'Gambar hewan apa dibawah ini?',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: blackText,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            // const Text(
+                            //   'Gambar hewan apa dibawah ini?',
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     color: blackText,
+                            //     fontWeight: FontWeight.w500,
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -104,8 +107,8 @@ class WarmUpPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Image.asset(
-                                  'assets/images/quiz.png',
+                                child: Image.network(
+                                  argument['warmUpBefore'],
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -127,7 +130,7 @@ class WarmUpPage extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice[quizController.index.value].value == 1){
+                                    if(quizController.choice[quizController.index.value] == 1){
                                       quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(1);
@@ -135,19 +138,19 @@ class WarmUpPage extends StatelessWidget {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value].value == 1 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value] == 1 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'A. Sapi',
+                                    'A. ${pemanasan.opsi[0]}',
                                     style: TextStyle(
-                                      color: quizController.choice[quizController.index.value].value == 1 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value] == 1 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice[quizController.index.value].value == 2){
+                                    if(quizController.choice[quizController.index.value] == 2){
                                       quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(2);
@@ -155,19 +158,19 @@ class WarmUpPage extends StatelessWidget {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value].value == 2 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value] == 2 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'B. Ikan',
+                                    'B. ${pemanasan.opsi[1]}',
                                     style: TextStyle(
-                                      color: quizController.choice[quizController.index.value].value == 2 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value] == 2 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice[quizController.index.value].value == 3){
+                                    if(quizController.choice[quizController.index.value] == 3){
                                       quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(3);
@@ -175,19 +178,19 @@ class WarmUpPage extends StatelessWidget {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value].value == 3 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value] == 3 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'C. Beruang',
+                                    'C. ${pemanasan.opsi[2]}',
                                     style: TextStyle(
-                                      color: quizController.choice[quizController.index.value].value == 3 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   onPressed: (){
-                                    if(quizController.choice[quizController.index.value].value == 4){
+                                    if(quizController.choice[quizController.index.value] == 4){
                                       quizController.setChoice(-1);
                                     }else{
                                       quizController.setChoice(4);
@@ -195,12 +198,12 @@ class WarmUpPage extends StatelessWidget {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value].value == 4 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[quizController.index.value] == 4 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'D. Kuda',
+                                    'D. ${pemanasan.opsi[3]}',
                                     style: TextStyle(
-                                      color: quizController.choice[quizController.index.value].value == 4 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value] == 4 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),

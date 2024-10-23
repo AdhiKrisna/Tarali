@@ -3,13 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/models/kuis_model.dart';
+import 'package:tarali/models/warm_up_model.dart';
 
 class ContentService {
-  late FirebaseFirestore firestore;
+  late FirebaseFirestore fireStore;
   late Reference storageRef;
 
   ContentService() {
-    firestore = FirebaseFirestore.instance;
+    fireStore = FirebaseFirestore.instance;
     storageRef = FirebaseStorage.instance.ref();
   }
 
@@ -20,6 +21,7 @@ class ContentService {
   List<ContentModel> getAllContentData(
       {required List<QueryDocumentSnapshot> data}) {
     int noSoal = 1;
+    WarmUpModel pemanasan;
     return data.map((e){
       noSoal = 1;
       List<KuisModel> kuisModel =[];
@@ -37,6 +39,10 @@ class ContentService {
         );
         noSoal++;
       }
+      pemanasan = WarmUpModel(
+        jawaban: e['pemanasan']['jawaban'],
+        opsi: e['pemanasan']['opsi'],
+      );
       return ContentModel(
         title: e['title'] ?? 'Test',
         pathStorage: e['pathStorage'] ?? 'null',
@@ -45,6 +51,7 @@ class ContentService {
         pageTotal: e['pageTotal'] ?? 0,
         ayoBercerita: e['ayoBercerita'] ?? 'null',
         kuis: kuisModel,
+        pemanasan: pemanasan,
       );
     }).toList();
   }
@@ -79,5 +86,17 @@ class ContentService {
       );
     }
     return data;
+  }
+  
+  Future<String> getWarmUpImageBefore(String path){
+    return storageRef
+        .child('konten/$path/tebakgambar/before.jpg')
+        .getDownloadURL();
+  }
+
+  Future<String> getWarmUpImageAfter(String path){
+    return storageRef
+        .child('konten/$path/tebakgambar/after.jpg')
+        .getDownloadURL();
   }
 }
