@@ -56,9 +56,18 @@ class DashboardController extends GetxController {
   }
 
   void startListening() async {
+    isListening.value = true;
     try {
-      isListening.value = true;
-      await speechToText.listen(onResult: (onSpeechResult));
+      print('isListening issss: ${isListening.value}');
+      await speechToText.listen(
+        listenOptions: SpeechListenOptions(
+          // autoPunctuation: true,
+          partialResults: true,
+          cancelOnError: false,
+          listenMode: ListenMode.search,
+        ),
+        onResult: (onSpeechResult),
+      );
     } catch (e) {
       print('Error in startListening: $e');
       isListening.value = false;
@@ -72,18 +81,22 @@ class DashboardController extends GetxController {
         print(confidenceLevel);
         searchController.text = result.recognizedWords;
         print(searchController.text + ' from speech to text');
-        searchContent(); //ini pr 
+        stopListening();
+        searchContent(); //ini pr
       }
     } catch (e) {
+      stopListening();
       print('Error in onSpeechResult: $e');
     }
   }
 
   void stopListening() async {
+    isListening.value = false;
     try {
-      isListening.value = false;
+      print('isListening issss: ${isListening.value}');
       await speechToText.stop();
     } catch (e) {
+      isListening.value = false;
       print('Error in stopListening: $e');
     }
   }

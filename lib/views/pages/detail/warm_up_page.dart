@@ -238,19 +238,25 @@ class WarmUpPage extends StatelessWidget {
                                 if(quizController.choice[0] == pemanasan.jawaban){
                                   isCorrect = true;
                                   quizController.setImageUrl(url: argument['warmUpAfter']);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Jawaban Anda Benar!'),
-                                      duration: Duration(seconds: 1),
-                                    ),
-                                  );
+                                    if (ScaffoldMessenger.of(context).mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                      content: Text('Jawabanmu benar! Kamu siap untuk tes bercerita!'),
+                                      backgroundColor: Colors.green,
+                                      duration: Duration(seconds: 3),
+                                      ),
+                                    );
+                                    }
                                 }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Jawaban Anda Salah!'),
+                                    if (ScaffoldMessenger.of(context).mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                      content: Text('Jawabanmu salah. Jangan menyerah ayo coba lagi!'),
+                                      backgroundColor: Colors.red,
                                       duration: Duration(seconds: 1),
-                                    ),
-                                  );
+                                      ),
+                                    );
+                                    }
                                 }
                               }
                             },
