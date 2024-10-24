@@ -4,16 +4,15 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
-// import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
+
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController dashboardController =
-        Get.put(DashboardController());
+    final DashboardController dashboardController = Get.put(DashboardController());
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -187,7 +186,9 @@ class DashboardPage extends StatelessWidget {
                                             controller: dashboardController
                                                 .searchController,
                                             decoration: InputDecoration(
-                                              hintText: 'Search...',
+                                              hintText: dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                                  ? 'Mendengarkan...'
+                                                  : 'Cari judul buku',
                                               border: InputBorder.none,
                                               prefixIcon: IconButton(
                                                 onPressed: () =>
@@ -224,11 +225,17 @@ class DashboardPage extends StatelessWidget {
                                                 ),
                                               ),
                                               suffixIcon: IconButton(
-                                                icon: const Icon(
-                                                  Icons.mic,
-                                                  color: Colors.black,
+                                                icon: Icon(
+                                                   dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                                      ? Icons.cancel
+                                                        : Icons.mic,
+                                                  color: Colors.black,  
                                                 ),
-                                                onPressed: null,
+                                                onPressed: () {
+                                                   dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                                      ? dashboardController.stopListening()
+                                                      : dashboardController.startListening();
+                                                },
                                                 iconSize: MediaQuery.of(context)
                                                             .size
                                                             .width <
