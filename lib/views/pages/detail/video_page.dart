@@ -53,7 +53,7 @@ class VideoPage extends StatelessWidget {
                 init: VideoController(url),
                 builder: (c) => Expanded(
                     child: c.videoController.value.isInitialized ? AspectRatio(
-                      aspectRatio: 100,
+                      aspectRatio: c.videoController.value.aspectRatio,
                       child: Chewie(
                         controller: c.chewieController,
                       ),

@@ -19,6 +19,8 @@ class WarmUpPage extends StatelessWidget {
     WarmUpModel pemanasan = argument['pemanasan'];
     final quizController = Get.put(QuizController());
     quizController.setData(lengthData: 1);
+    quizController.setImageUrl(url: argument['warmUpBefore']);
+    bool isCorrect = false;
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -42,7 +44,7 @@ class WarmUpPage extends StatelessWidget {
                   width: 20,
                 ),
                 const Text(
-                  'Kuis',
+                  'Pemanasan',
                   style: TextStyle(
                     fontSize: 22,
                     color: Colors.black,
@@ -86,18 +88,6 @@ class WarmUpPage extends StatelessWidget {
                                 color: greyText,
                               ),
                             ),
-                            // const SizedBox(
-                            //   height: 10,
-                            // ),
-                            // const Text(
-                            //   'Gambar hewan apa dibawah ini?',
-                            //   textAlign: TextAlign.center,
-                            //   style: TextStyle(
-                            //     fontSize: 16,
-                            //     color: blackText,
-                            //     fontWeight: FontWeight.w500,
-                            //   ),
-                            // ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -107,9 +97,11 @@ class WarmUpPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Image.network(
-                                  argument['warmUpBefore'],
-                                  fit: BoxFit.fill,
+                                child: Obx(
+                                  () => Image.network(
+                                    quizController.imageUrl.value,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                             ),
@@ -130,6 +122,26 @@ class WarmUpPage extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: (){
+                                    if(quizController.choice[quizController.index.value] == 0){
+                                      quizController.setChoice(-1);
+                                    }else{
+                                      quizController.setChoice(0);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    alignment: Alignment.centerLeft,
+                                    backgroundColor: quizController.choice[quizController.index.value] == 0 ? lightBlue : white,
+                                  ),
+                                  child: Text(
+                                    'A. ${pemanasan.opsi[0]}',
+                                    style: TextStyle(
+                                      color: quizController.choice[quizController.index.value] == 0 ? white : blackText,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: (){
                                     if(quizController.choice[quizController.index.value] == 1){
                                       quizController.setChoice(-1);
                                     }else{
@@ -141,7 +153,7 @@ class WarmUpPage extends StatelessWidget {
                                     backgroundColor: quizController.choice[quizController.index.value] == 1 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'A. ${pemanasan.opsi[0]}',
+                                    'B. ${pemanasan.opsi[1]}',
                                     style: TextStyle(
                                       color: quizController.choice[quizController.index.value] == 1 ? white : blackText,
                                       fontSize: 14,
@@ -161,7 +173,7 @@ class WarmUpPage extends StatelessWidget {
                                     backgroundColor: quizController.choice[quizController.index.value] == 2 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'B. ${pemanasan.opsi[1]}',
+                                    'C. ${pemanasan.opsi[2]}',
                                     style: TextStyle(
                                       color: quizController.choice[quizController.index.value] == 2 ? white : blackText,
                                       fontSize: 14,
@@ -181,29 +193,9 @@ class WarmUpPage extends StatelessWidget {
                                     backgroundColor: quizController.choice[quizController.index.value] == 3 ? lightBlue : white,
                                   ),
                                   child: Text(
-                                    'C. ${pemanasan.opsi[2]}',
-                                    style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: (){
-                                    if(quizController.choice[quizController.index.value] == 4){
-                                      quizController.setChoice(-1);
-                                    }else{
-                                      quizController.setChoice(4);
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value] == 4 ? lightBlue : white,
-                                  ),
-                                  child: Text(
                                     'D. ${pemanasan.opsi[3]}',
                                     style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 4 ? white : blackText,
+                                      color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
@@ -219,27 +211,47 @@ class WarmUpPage extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: (){
-                              showDialog(
-                                context: context,
-                                builder: (context) => ListDialog.contentDialog(
+                              if(isCorrect){
+                                showDialog(
                                   context: context,
-                                  imageName: 'warm_up_dialog',
-                                  message: 'Hore, pemanasannya sudah selesai!\nSudah siap untuk bercerita?',
-                                  cancelLabel: 'Batal',
-                                  onCancel: (){
-                                    Get.back();
-                                  },
-                                  successLabel: 'Ayo Bercerita',
-                                  onSuccess: (){
-                                    Get.back();
-                                    Get.toNamed(
-                                      RouteName.readingTestPage,
-                                      arguments: argument,
-                                    );
-                                  }
-                                ),
-                                barrierDismissible: false,
-                              );
+                                  builder: (context) => ListDialog.contentDialog(
+                                      context: context,
+                                      imageName: 'warm_up_dialog',
+                                      message: 'Hore, pemanasannya sudah selesai!\nSudah siap untuk bercerita?',
+                                      cancelLabel: 'Batal',
+                                      onCancel: (){
+                                        Get.back();
+                                      },
+                                      successLabel: 'Ayo Bercerita',
+                                      onSuccess: (){
+                                        Get.back();
+                                        Get.toNamed(
+                                          RouteName.readingTestPage,
+                                          arguments: argument,
+                                        );
+                                      }
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                              }else{
+                                if(quizController.choice[0] == pemanasan.jawaban){
+                                  isCorrect = true;
+                                  quizController.setImageUrl(url: argument['warmUpAfter']);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Jawaban Anda Benar!'),
+                                      duration: Duration(seconds: 1),
+                                    ),
+                                  );
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Jawaban Anda Salah!'),
+                                      duration: Duration(seconds: 1),
+                                    ),
+                                  );
+                                }
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: lightBlue,

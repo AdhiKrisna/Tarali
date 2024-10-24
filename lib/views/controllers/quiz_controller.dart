@@ -6,6 +6,7 @@ class QuizController extends GetxController{
   var choice = [].obs;
 
   var answers = [].obs;
+  var imageUrl = ''.obs;
 
   void setData({required int lengthData}){
     totalIndex = lengthData;
@@ -13,6 +14,10 @@ class QuizController extends GetxController{
     for(int i = 0; i < totalIndex; i++){
       choice.add(-1.obs);
     }
+  }
+
+  void setImageUrl({required String url}){
+    imageUrl.value = url;
   }
 
   void nextPage(){
