@@ -10,7 +10,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final argument = Get.arguments;
-    final String title = argument['title'];
+    final String title = argument?['title'] ?? 'Detail';
     final DashboardController dashboardController = Get.find<DashboardController>();
 
     return Scaffold(
