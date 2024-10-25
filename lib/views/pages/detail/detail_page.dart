@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/routes/route_name.dart';
@@ -118,6 +117,7 @@ class DetailPage extends StatelessWidget {
                               argument['readContent'] = await dashboardController.cs.getAllReadContent(path: argument['pathStorage'], totalPage: argument['pageTotal'],);
                               argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
                               argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
+                              if (!context.mounted) return;
                               Navigator.of(context).pop();
                               Get.toNamed(
                                 RouteName.readContentPage,
@@ -227,6 +227,7 @@ class DetailPage extends StatelessWidget {
                               );
                               argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
                               argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
+                              if (!context.mounted) return;
                               Navigator.of(context).pop();
                               Get.toNamed(
                                   RouteName.warmUpPage,
@@ -259,7 +260,10 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(RouteName.quizPage, arguments: argument);
+                              Get.toNamed(
+                                RouteName.quizPage,
+                                arguments: argument,
+                              );
                             },
                             icon: const Icon(
                               Icons.edit,
