@@ -20,86 +20,89 @@ class AudioPage extends StatelessWidget {
       body: Row(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 2 / 5,
-            color: Colors.white,
-            child: GetBuilder(
-              init: PlayerController(url: url),
-              builder: (c) => c.duration.value > 0 ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height / 20,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+              width: MediaQuery.of(context).size.width * 2 / 5,
+              color: Colors.white,
+              child: GetBuilder(
+                init: PlayerController(url: url),
+                builder: (c) => c.duration.value > 0
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height / 20,
+                              left: 20,
+                              right: 20,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              height: MediaQuery.of(context).size.height * 0.50,
+                              width: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.225
+                                  : MediaQuery.of(context).size.width * 0.18,
+                              child: Image.network(
+                                argument['coverDashboard'],
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                          ),
+                          SliderWidget(),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.025,
+                          ),
+                          Obx(
+                            () => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: () => c.fastBackward(),
+                                  icon: const Icon(Icons.fast_rewind_rounded,
+                                      color: lightBlue, size: 30),
+                                ),
+                                c.isReplay.isFalse
+                                    ? const PausePlayButton()
+                                    : const ReplayButton(),
+                                IconButton(
+                                  onPressed: () => c.fastForward(),
+                                  icon: const Icon(Icons.fast_forward_rounded,
+                                      color: lightBlue, size: 30),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    : const Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
                       ),
-                      height: MediaQuery.of(context).size.height / 2,
-                      child: const Image(
-                        image: AssetImage('assets/images/cover1.png'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  SliderWidget(),
-                  SizedBox(
-                    height:
-                    MediaQuery.of(context).size.height * 0.025,
-                  ),
-                  Obx(
-                        () => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () => c.fastBackward(),
-                          icon: const Icon(Icons.fast_rewind_rounded,
-                              color: lightBlue, size: 30),
-                        ),
-                        c.isReplay.isFalse
-                            ? const PausePlayButton()
-                            : const ReplayButton(),
-                        IconButton(
-                          onPressed: () => c.fastForward(),
-                          icon: const Icon(Icons.fast_forward_rounded,
-                              color: lightBlue, size: 30),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ): const Align(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ),
+              )),
           Expanded(
             child: Stack(
               children: [
                 Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/detail_bg.png'),
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.network(
+                    argument['cover'],
+                    fit: BoxFit.cover,
+                    height: double.infinity,
+                    width: double.infinity,
                   ),
                 ),
                 SafeArea(
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           Get.back();
                         },
                         icon: const Icon(
                           Icons.keyboard_arrow_left,
-                          color: Colors.white,
+                          color: Colors.black,
                           size: 25,
                         ),
                       ),
@@ -107,8 +110,8 @@ class AudioPage extends StatelessWidget {
                         title,
                         style: const TextStyle(
                           fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -119,8 +122,7 @@ class AudioPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: IconButton(
-                      onPressed: (){
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.fullscreen,
                         color: Colors.white,

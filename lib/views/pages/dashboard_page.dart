@@ -80,7 +80,7 @@ class DashboardPage extends StatelessWidget {
                                         children: [
                                           user != null ?
                                           Text(
-                                            "Halo,\n${user.email}!",
+                                            "Halo,\n${user.email}\nGuru di sekolah ini",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18,

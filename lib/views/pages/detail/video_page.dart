@@ -26,9 +26,8 @@ class VideoPage extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: (){
+                    onPressed: () {
                       Get.back();
-
                     },
                     icon: const Icon(
                       Icons.keyboard_arrow_left,
@@ -49,21 +48,21 @@ class VideoPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              GetBuilder(
-                init: VideoController(url),
-                builder: (c) => Expanded(
-                    child: c.videoController.value.isInitialized ? AspectRatio(
-                      aspectRatio: c.videoController.value.aspectRatio,
-                      child: Chewie(
-                        controller: c.chewieController,
-                      ),
-                    ) :
-                  const Align(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(),
+              if (url.isNotEmpty) ...[
+                GetBuilder(
+                  init: VideoController(url),
+                  builder: (c) => Expanded(
+                    child: c.videoController.value.isInitialized
+                        ? AspectRatio(
+                            aspectRatio: c.videoController.value.aspectRatio,
+                            child: Chewie(controller: c.chewieController),
+                          )
+                        : const Center(child: CircularProgressIndicator()),
                   ),
-                )
-              ),
+                ),
+              ] else ...[
+                const Center(child: Text("Video URL is not available")),
+              ]
             ],
           ),
         ),
