@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:tarali/models/kuis_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-
 import '../../../constants/constant_colors.dart';
-import '../../../routes/route_name.dart';
 import '../../dialog/list_dialog.dart';
 
 class QuizPage extends StatelessWidget {
@@ -141,6 +139,16 @@ class QuizPage extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if(quizController.index.value == quizController.totalIndex - 1){
+                                    if (quizController.choice.contains(-1)) {
+                                      Get.snackbar(
+                                        'Peringatan',
+                                        'Masih ada soal yang belum dijawab. Silahkan jawab semua soal terlebih dahulu karena akan mempengaruhi hasil akhir kuis.',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                      return;
+                                    }
                                     showDialog(
                                       context: context,
                                       builder: (context) => ListDialog.contentDialog(
@@ -154,7 +162,7 @@ class QuizPage extends StatelessWidget {
                                           successLabel: 'Sudah Selesai',
                                           onSuccess: (){
                                             Get.back();
-                                            Get.toNamed(RouteName.quizResultPage);
+                                            quizController.scoring(dataSoal, argument);
                                           }
                                       ),
                                       barrierDismissible: false,

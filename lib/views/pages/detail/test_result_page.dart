@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class TestResultPage extends StatelessWidget {
@@ -7,6 +9,7 @@ class TestResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var argument = Get.arguments;
     return Scaffold(
       body: BackgroundWidget.setWhiteBackground(
         context: context,
@@ -96,7 +99,12 @@ class TestResultPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: () {
+                            Get.offNamed(
+                              RouteName.readingTestPage,
+                              arguments: argument,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             surfaceTintColor: Colors.white,
                           ),
@@ -113,7 +121,12 @@ class TestResultPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: () {
+                            Get.offNamed(
+                              RouteName.detailContentPage,
+                              arguments: argument,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             surfaceTintColor: Colors.white,
                           ),
@@ -133,7 +146,12 @@ class TestResultPage extends StatelessWidget {
                   SizedBox(
                     width: double.maxFinite,
                     child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: () {
+                        Get.offNamed(
+                          RouteName.quizPage,
+                          arguments: argument,
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: lightBlue,
                       ),

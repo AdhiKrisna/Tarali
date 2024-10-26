@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-
 import '../../../constants/constant_colors.dart';
 
 class QuizResultPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class QuizResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final argument = Get.arguments;
     return Scaffold(
       body: BackgroundWidget.setWhiteBackground(
         context: context,
@@ -54,32 +56,32 @@ class QuizResultPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: const Row(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.layers,
                                 size: 24,
                                 color: lightBlue,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '5',
-                                    style: TextStyle(
+                                    '${argument['totalSoal']} Soal',
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Jumlah Pertanyaan',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -154,32 +156,32 @@ class QuizResultPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: const Row(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 size: 24,
                                 color: lightBlue,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '4 dari 5',
-                                    style: TextStyle(
+                                    "${argument['benar']} dari ${argument['totalSoal']}",
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Benar Menjawab',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -202,33 +204,33 @@ class QuizResultPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: const Row(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
-                                Icons.check_circle,
+                              const Icon(
+                                Icons.credit_score_rounded,
                                 size: 24,
                                 color: lightBlue,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '5',
-                                    style: TextStyle(
+                                    "${argument['quizScore'].toStringAsFixed(2)} dari 100",
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
-                                    'Soal Terjawab',
+                                  const Text(
+                                    'Total nilai',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: greyText,
@@ -266,7 +268,18 @@ class QuizResultPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Get.snackbar(
+                              "Nilai Tersimpan",
+                              "Silahkan cek nilaimu pada menu \"Riwayat\"",
+                              backgroundColor: Colors.green,
+                              colorText: Colors.white,
+                            );
+                            Get.offNamed(
+                              RouteName.detailContentPage,
+                              arguments: argument,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: lightBlue,
                           ),
