@@ -10,6 +10,12 @@ class QuizResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final argument = Get.arguments;
+    var seconds = argument['counterSecond'];
+    var minutes = 0;
+    if(seconds > 60){
+       minutes = (seconds / 60).toInt();
+      seconds = seconds % 60;
+    }
     return Scaffold(
       body: BackgroundWidget.setWhiteBackground(
         context: context,
@@ -104,32 +110,32 @@ class QuizResultPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: const Row(
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.access_time_filled_outlined,
                                 size: 24,
                                 color: lightBlue,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '15 min',
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    minutes > 0 ? '$minutes Menit $seconds detik' : '$seconds Detik' ,
+                                    style:  TextStyle(
+                                      fontSize: minutes > 0 ? 16 : 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Waktu Pengerjaan',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -251,7 +257,9 @@ class QuizResultPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Get.offNamed(RouteName.quizPage, arguments: argument);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                           ),
