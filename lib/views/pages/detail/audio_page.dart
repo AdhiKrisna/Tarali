@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
+import 'package:tarali/views/widgets/background_widget.dart';
 
 import '../../../constants/constant_colors.dart';
 import '../../widgets/pause_play_button.dart';
@@ -17,121 +20,88 @@ class AudioPage extends StatelessWidget {
     final String title = argument['title'];
 
     return Scaffold(
-      body: Row(
+      body: Stack(
         children: [
-          Container(
-              width: MediaQuery.of(context).size.width * 2 / 5,
-              color: Colors.white,
-              child: GetBuilder(
-                init: PlayerController(url: url),
-                builder: (c) => c.duration.value > 0
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height / 20,
-                              left: 20,
-                              right: 20,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              height: MediaQuery.of(context).size.height * 0.50,
-                              width: MediaQuery.of(context).size.width < 760
-                                  ? MediaQuery.of(context).size.width * 0.225
-                                  : MediaQuery.of(context).size.width * 0.18,
-                              child: Image.network(
-                                argument['coverDashboard'],
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          ),
-                          SliderWidget(),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.025,
-                          ),
-                          Obx(
-                            () => Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+          BackgroundWidget.setMainBackground(
+            context: context,
+            padding: 0,
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.15,
+                    bottom: MediaQuery.of(context).size.height * 0.02),
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: GetBuilder(
+                      init: PlayerController(url: url),
+                      builder: (c) => c.duration.value > 0
+                          ? Column(
                               children: [
-                                IconButton(
-                                  onPressed: () => c.fastBackward(),
-                                  icon: const Icon(Icons.fast_rewind_rounded,
-                                      color: lightBlue, size: 30),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.45,
+                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  child: Image.network(
+                                    argument['cover'],
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                                c.isReplay.isFalse
-                                    ? const PausePlayButton()
-                                    : const ReplayButton(),
-                                IconButton(
-                                  onPressed: () => c.fastForward(),
-                                  icon: const Icon(Icons.fast_forward_rounded,
-                                      color: lightBlue, size: 30),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.005,
+                                ),
+                                Column(
+                                  children: [
+                                    SliderWidget(isFullScreen: true),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height * 0.025,
+                                    ),
+                                    Obx(
+                                      () => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () => c.fastBackward(),
+                                            icon: const Icon(
+                                                Icons.fast_rewind_rounded,
+                                                color: lightBlue,
+                                                size: 30),
+                                          ),
+                                          c.isReplay.isFalse
+                                              ? const PausePlayButton()
+                                              : const ReplayButton(),
+                                          IconButton(
+                                            onPressed: () => c.fastForward(),
+                                            icon: const Icon(
+                                                Icons.fast_forward_rounded,
+                                                color: lightBlue,
+                                                size: 30),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
+                            )
+                          : const Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(),
                             ),
-                          ),
-                        ],
-                      )
-                    : const Align(
-                        alignment: Alignment.center,
-                        child: CircularProgressIndicator(),
-                      ),
-              )),
-          Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  child: Image.network(
-                    argument['cover'],
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                ),
-                SafeArea(
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: const Icon(
-                          Icons.keyboard_arrow_left,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ),
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.fullscreen,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+                    )),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: AppBar(
+              title: Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.transparent,
             ),
           ),
         ],

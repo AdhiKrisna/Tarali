@@ -5,7 +5,9 @@ import 'package:tarali/views/controllers/player_controller.dart';
 
 class SliderWidget extends StatelessWidget {
   final PlayerController controller = Get.find();
+  final bool isFullScreen;
   SliderWidget({
+    this.isFullScreen = false,
     super.key,
   });
 
@@ -14,7 +16,7 @@ class SliderWidget extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width < 760 ? MediaQuery.of(context).size.width * 0.4 : MediaQuery.of(context).size.width * 0.375,
+        width: MediaQuery.of(context).size.width * (isFullScreen ? 0.75 : 0.375),
         child: Column(
           children: [
             Row(
