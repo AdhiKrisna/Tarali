@@ -129,7 +129,23 @@ class LoginGuru extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: lightBlue,
                               ),
-                              onPressed: () {}, // methdod cek login nnti
+                              onPressed: () async{
+                                formLoginController.authService.login(
+                                  email: formLoginController.emailController.text,
+                                  password: formLoginController.passwordController.text,
+                                ).then((value){
+                                  if(value){
+                                    Get.offAllNamed(RouteName.dashboard);
+                                  }else{
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                        Text('Gagal Login!'),
+                                      ),
+                                    );
+                                  }
+                                });
+                              }, // methdod cek login nnti
                               child: Text(
                                 'Masuk',
                                 style: TextStyle(

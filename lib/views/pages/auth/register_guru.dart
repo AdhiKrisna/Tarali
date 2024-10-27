@@ -11,7 +11,6 @@ class RegisterGuru extends StatelessWidget {
   RegisterGuru({super.key});
   final RegisterGuruController formRegisterController =
       Get.put(RegisterGuruController());
-  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -169,14 +168,15 @@ class RegisterGuru extends StatelessWidget {
                             backgroundColor: lightBlue,
                           ),
                           onPressed: () {
-                            if(!formRegisterController.emailController.value.text.contains('@belajar.id')){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                  Text('Email tidak terdeteksi sebagai guru.'),
-                                ),
-                              );
-                            }else if(formRegisterController.passwordController.value.text.isEmpty){
+                            // if(!formRegisterController.emailController.value.text.contains('@belajar.id')){
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //       content:
+                            //       Text('Email tidak terdeteksi sebagai guru.'),
+                            //     ),
+                            //   );
+                            // }else
+                              if(formRegisterController.passwordController.value.text.isEmpty){
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content:
@@ -198,11 +198,26 @@ class RegisterGuru extends StatelessWidget {
                                 ),
                               );
                             }else{
-                              authService.register(
+                              formRegisterController.authService.register(
                                 email: formRegisterController.emailController.value.text,
                                 pass: formRegisterController.passwordController.value.text,
                               ).then((value){
-                                Get.offAllNamed(RouteName.dashboard);
+                                if(value){
+                                  Get.back();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Akun berhasil dibuat, Silahkan cek email untuk memverifikasi akun anda lalu login!'),
+                                    ),
+                                  );
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Gagal membuat akun!'),
+                                    ),
+                                  );
+                                }
                               });
                             }
                           }, // methdod daftar nnti

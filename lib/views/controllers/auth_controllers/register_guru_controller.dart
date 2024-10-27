@@ -1,7 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../services/auth_service.dart';
 
 class RegisterGuruController extends GetxController{
   final nameController = TextEditingController();
@@ -9,6 +9,7 @@ class RegisterGuruController extends GetxController{
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final sekolahController = TextEditingController();
+  final AuthService authService = AuthService();
   // final formKey = GlobalKey<FormState>();
 
   @override
