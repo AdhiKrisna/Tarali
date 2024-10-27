@@ -130,10 +130,20 @@ class LoginGuru extends StatelessWidget {
                                 backgroundColor: lightBlue,
                               ),
                               onPressed: () async{
-                                formLoginController.authService.login(
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                );
+                                formLoginController.authService.loginTeacher(
                                   email: formLoginController.emailController.text,
                                   password: formLoginController.passwordController.text,
                                 ).then((value){
+                                  Navigator.of(context).pop();
                                   if(value){
                                     Get.offAllNamed(RouteName.dashboard);
                                   }else{

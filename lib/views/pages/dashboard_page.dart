@@ -58,100 +58,116 @@ class DashboardPage extends StatelessWidget {
                             curve: Curves.easeInOut,
                           ));
                           animatedController.forward();
-                          return StreamBuilder(
-                            stream: FirebaseAuth.instance.authStateChanges(),
-                            builder: (context, snapshot){
-                              if(snapshot.connectionState == ConnectionState.active){
-                                User? user = snapshot.data;
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: AlertDialog(
-                                    alignment: Alignment.topLeft,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    content: SizedBox(
-                                      height:
-                                      MediaQuery.of(context).size.height *
-                                          0.6,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          user != null ?
-                                          Text(
-                                            "Halo,\n${user.email}\nGuru di sekolah ini",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            ),
-                                          ) :
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                              vertical: -3,
-                                            ),
-                                            contentPadding: EdgeInsets.zero,
-                                            leading: const Icon(Icons.login),
-                                            title: const Text('Login'),
-                                            onTap: () {
-                                              Get.back();
-                                              Get.toNamed(RouteName.loginSiswa);
-                                            },
+                          return Obx(() {
+                            final data = dashboardController.authStreamResult.value;
+                            if(data == null){
+                              return const CircularProgressIndicator();
+                            }else{
+                              final authUser = data["authUser"] as User?;
+                              final userData = data["userData"] as Map<String, dynamic>?;
+                              print(userData);
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: AlertDialog(
+                                  alignment: Alignment.topLeft,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  content: SizedBox(
+                                    height:
+                                    MediaQuery.of(context).size.height *
+                                        0.6,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        authUser != null ?
+                                        Text(
+                                          "Halo,\n${authUser.displayName ?? authUser.email}\n${userData?['role'] == 1 ?
+                                          'Guru di sekolah ini'
+                                              :
+                                          'Murid di sekolah ini'}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
                                           ),
-                                          const Divider(color: Colors.black),
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                              vertical: -3,
-                                            ),
-                                            contentPadding: EdgeInsets.zero,
-                                            leading: const Icon(Icons.history),
-                                            title: const Text('Riwayat'),
-                                            onTap: () {
-                                              Get.back();
-                                              Get.toNamed(RouteName.history);
-                                            },
+                                        ) :
+                                        ListTile(
+                                          visualDensity: const VisualDensity(
+                                            vertical: -3,
                                           ),
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                              vertical: -3,
-                                            ),
-                                            contentPadding: EdgeInsets.zero,
-                                            leading: const Icon(Icons.edit),
-                                            title:
-                                            const Text('Nilai Tes Membaca'),
-                                            onTap: () {
-                                              Get.back();
-                                              Get.toNamed(
-                                                  RouteName.toScoringPage);
-                                            },
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.login),
+                                          title: const Text('Login'),
+                                          onTap: () {
+                                            Get.back();
+                                            Get.toNamed(RouteName.loginSiswa);
+                                          },
+                                        ),
+                                        const Divider(color: Colors.black),
+                                        ListTile(
+                                          visualDensity: const VisualDensity(
+                                            vertical: -3,
                                           ),
-                                          user != null ?
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                              vertical: -3,
-                                            ),
-                                            contentPadding: EdgeInsets.zero,
-                                            leading: const Icon(Icons.logout),
-                                            title:
-                                            const Text('Log-out'),
-                                            onTap: () async{
-                                              await authService.logout();
-                                              Get.reload();
-                                            },
-                                          ) :
-                                          Container(),
-                                        ],
-                                      ),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.history),
+                                          title: const Text('Riwayat'),
+                                          onTap: () {
+                                            Get.back();
+                                            Get.toNamed(RouteName.history);
+                                          },
+                                        ),
+                                        ListTile(
+                                          visualDensity: const VisualDensity(
+                                            vertical: -3,
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.edit),
+                                          title:
+                                          const Text('Nilai Tes Membaca'),
+                                          onTap: () {
+                                            Get.back();
+                                            Get.toNamed(
+                                                RouteName.toScoringPage);
+                                          },
+                                        ),
+                                        authUser != null ?
+                                        ListTile(
+                                          visualDensity: const VisualDensity(
+                                            vertical: -3,
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: const Icon(Icons.logout),
+                                          title:
+                                          const Text('Log-out'),
+                                          onTap: () async{
+                                            Get.defaultDialog(
+                                              title: "Konfirmasi Logout",
+                                              middleText: "Apakah Anda yakin ingin logout?",
+                                              textCancel: "Tidak",
+                                              textConfirm: "Ya",
+                                              barrierDismissible: false,
+                                              confirmTextColor: Colors.white,
+                                              cancelTextColor: blackText,
+                                              buttonColor: lightBlue,
+                                              onCancel: () {},
+                                              onConfirm: ()async {
+                                                Get.back();
+                                                Get.back();
+                                                await authService.logout(); // Panggil fungsi logout
+                                                Get.reload();
+                                              },
+                                            );
+                                          },
+                                        ) :
+                                        Container(),
+                                      ],
                                     ),
                                   ),
-                                );
-                              }else{
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            },
-                          );
+                                ),
+                              );
+                            }
+                          });
                         },
                       );
                     },

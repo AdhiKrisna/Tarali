@@ -109,7 +109,46 @@ class LoginSiswa extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: lightBlue,
                                   ),
-                                  onPressed: () {}, // methdod cek login nnti
+                                  onPressed: () {
+                                    String nama = formLoginController.nameController.text;
+                                    String absen = formLoginController.absenController.text;
+                                    String sekolah = formLoginController.sekolahController.text;
+                                    if(nama.isEmpty || absen.isEmpty || sekolah.isEmpty){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('Lengkapi data terlebih dahulu.'),
+                                        ),
+                                      );
+                                    }else{
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                      );
+                                      formLoginController.as.loginStudent(
+                                        nama: nama,
+                                        absen: absen,
+                                        sekolah: sekolah
+                                      ).then((value){
+                                        Navigator.of(context).pop();
+                                        if(value){
+                                          Get.offAllNamed(RouteName.dashboard);
+                                        }else{
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content:
+                                              Text('Data tidak sesuai atau salah. Jika merasa belum memiliki akun, registrasi terlebih dahulu.'),
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    }
+                                  }, // methdod cek login nnti
                                   child: Text(
                                     'Masuk',
                                     style: TextStyle(

@@ -9,6 +9,8 @@ class LoginGuruController extends GetxController {
   final passwordController = TextEditingController();
   final AuthService authService = AuthService();
 
+
+
   @override
   void onClose() {
     emailController.dispose();

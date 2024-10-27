@@ -145,7 +145,62 @@ class RegisterSiswa extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: lightBlue,
                               ),
-                              onPressed: () {}, // methdod daftar nnti
+                              onPressed: () {
+                                String nama = formRegisterController.nameController.text;
+                                String noAbsen = formRegisterController.absenController.text;
+                                String kelas = formRegisterController.kelasController.text;
+                                String namaSekolah = formRegisterController.sekolahController.text;
+                                if(nama.isEmpty || noAbsen.isEmpty || kelas.isEmpty || namaSekolah.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Harap lengkapi data terlebih dahulu.'),
+                                    ),
+                                  );
+                                }else if(!validationData(text: nama) || !validationData(text: namaSekolah) || !validationData(text: kelas)){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Data tidak boleh mengandung karakter selain huruf dan angka.'),
+                                    ),
+                                  );
+                                }else if(!noAbsen.isNumericOnly){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Data absen tidak boleh selain angka.'),
+                                    ),
+                                  );
+                                }else{
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+                                  formRegisterController.as.registerStudent(
+                                    nama: nama,
+                                    kelas: kelas,
+                                    absen: int.parse(noAbsen),
+                                    sekolah: namaSekolah,
+                                  ).then((value){
+                                    Navigator.of(context).pop();
+                                    if(value){
+                                      Get.offAllNamed(RouteName.dashboard);
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('Gagal membuat akun.'),
+                                        ),
+                                      );
+                                    }
+                                  });
+                                }
+                              }, // methdod daftar nnti
                               child: Text(
                                 'Registrasi',
                                 style: TextStyle(
@@ -209,5 +264,9 @@ class RegisterSiswa extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool validationData({required String text}) {
+    return GetUtils.hasMatch(text, r'^[a-zA-Z0-9\s]+$');
   }
 }

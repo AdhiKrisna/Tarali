@@ -17,14 +17,12 @@ class RegisterGuruController extends GetxController{
 
   Timer? _timer;
 
-  // Mulai polling untuk memeriksa status verifikasi email
   void startEmailVerificationPolling(){
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
-      await authService.authRef.currentUser?.reload();// Refresh status pengguna
+      await authService.authRef.currentUser?.reload();
       final user = authService.authRef.currentUser;
 
       if (user != null && user.emailVerified) {
-        // Jika terverifikasi, hentikan polling dan pindah ke Dashboard
         await authService.checkEmailVerification();
         _timer?.cancel();
         Get.offAll(() => const DashboardPage());
@@ -32,11 +30,10 @@ class RegisterGuruController extends GetxController{
     });
   }
 
-  // Hentikan polling jika tidak diperlukan lagi
   Future<void> stopEmailVerificationPolling() async {
     _timer?.cancel();
-    bool data = await authService.checkEmailVerification();
-    if(!data){
+    var data = authService.authRef.currentUser;
+    if(data == null || !data.emailVerified){
       authService.deleteTemporaryUsers();
       authService.logout();
       Future.microtask(() => Get.offNamedUntil(RouteName.loginGuru, ModalRoute.withName(RouteName.loginGuru)));

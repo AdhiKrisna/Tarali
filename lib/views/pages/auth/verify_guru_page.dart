@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/register_guru_controller.dart';
 
 class VerifyGuruPage extends StatefulWidget {
@@ -37,7 +36,7 @@ class _VerifyGuruPageState extends State<VerifyGuruPage> {
             CircularProgressIndicator(),
             SizedBox(height: 20),
             Text(
-              'Memeriksa verifikasi email...\nJangantinggalkan halaman ini dan silakan buka email Anda.',
+              'Memeriksa verifikasi email...\nJangan tinggalkan halaman ini dan silakan buka email Anda.',
               textAlign: TextAlign.center,
             ),
           ],

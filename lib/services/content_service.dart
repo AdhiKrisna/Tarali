@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/models/kuis_model.dart';
@@ -24,24 +25,24 @@ class ContentService {
     FirebaseFirestore.instance.collection('content').get().then((querySnapshot) {
       for (var doc in querySnapshot.docs) {
         if(doc['title'].toString().toLowerCase().replaceAll(' ', '').contains(search) ){
-          print(doc['title']);
+          //print(doc['title']);
           contentSnapshots.add(doc['title']);
         }
       }
-      print(contentSnapshots);
+      //print(contentSnapshots);
     });
     return contentSnapshots;
   }
   Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
     List<String> contentSnapshots = getSearchContentTitle(search);
-    print(contentSnapshots);
+    //print(contentSnapshots);
     try {
       return FirebaseFirestore.instance
         .collection('content')
         .where('title', arrayContainsAny: contentSnapshots)
         .snapshots();
     } catch (e) {
-      print('Error fetching search content: $e');
+      //print('Error fetching search content: $e');
       return const Stream.empty();
     }
   }
