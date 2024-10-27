@@ -2,58 +2,57 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService{
-  late FirebaseAuth _authRef;
-  late FirebaseFirestore _firestore;
+  late FirebaseAuth authRef;
+  late FirebaseFirestore _fireStore;
 
   AuthService(){
-    _authRef = FirebaseAuth.instance;
-    _firestore = FirebaseFirestore.instance;
+    authRef = FirebaseAuth.instance;
+    _fireStore = FirebaseFirestore.instance;
   }
 
-  Future<bool> register({
-    required String email,
-    required String pass,
-  })async{
-    User? user;
-    try{
-      user = (
-      await _authRef.createUserWithEmailAndPassword(
-        email: email,
-        password: pass,
-      )
-      ).user;
-      if(user != null){
-        await _firestore.collection('unverifiedUsers').doc(user.uid).set({
-          'email': email,
-          'creationTime': DateTime.now(),
-          'isVerified': false,
-        });
-        await user.sendEmailVerification();
-        await _authRef.signOut();
-        return true;
-      }
-      return false;
-    }on FirebaseAuthException catch (e) {
-      e.toString();
-      return false;
+  // Mengirim email verifikasi dan menyimpan data sementara di Firestore
+  Future<bool> sendVerificationEmail({required String email, required String pass}) async {
+    final tempUserCredential = await authRef.createUserWithEmailAndPassword(
+      email: email,
+      password: pass,
+    );
+    final tempUser = tempUserCredential.user;
+
+    if (tempUser != null) {
+      await tempUser.sendEmailVerification();
+
+      await _fireStore.collection('temporaryUsers').doc(tempUser.uid).set({
+        'email': email,
+        'password': pass,
+        'creationTime': DateTime.now(),
+      });
+      return true;
     }
+    return false;
   }
 
-  Future<void> checkAndDeleteUnverifiedUser() async {
-    final user = _authRef.currentUser;
-    if (user != null && !user.emailVerified) {
-      final snapshot = await _firestore.collection('unverifiedUsers').doc(user.uid).get();
+  // Memeriksa status verifikasi dan membuat akun di Firebase Auth
+  Future<bool> checkEmailVerification() async {
+    final tempUser = authRef.currentUser;
+    if (tempUser != null && tempUser.emailVerified) {
+      await _fireStore.collection('temporaryUsers').doc(tempUser.uid).delete();
+      return true;
+    }
+    return false;
+  }
 
-      if (snapshot.exists) {
-        final creationTime = snapshot['creationTime'].toDate();
-        final currentTime = DateTime.now();
-        const verificationDeadline = Duration(hours: 24);
+  // Menghapus akun sementara jika tidak diverifikasi dalam waktu tertentu
+  Future<void> deleteTemporaryUsers() async {
+    final tempUser = authRef.currentUser;
+    final querySnapshot = await _fireStore.collection('temporaryUsers').doc(tempUser!.uid).get();
+    await authRef.signInWithEmailAndPassword(
+      email: querySnapshot['email'],
+      password: querySnapshot['password'],
+    );
 
-        if (currentTime.difference(creationTime) > verificationDeadline) {
-          await user.delete();
-          await snapshot.reference.delete();
-        }
-      }
+    if (!tempUser.emailVerified) {
+      await tempUser.delete();
+      await querySnapshot.reference.delete();
     }
   }
 
@@ -63,11 +62,14 @@ class AuthService{
   }) async {
     bool value = false;
     try {
-      await _authRef.signInWithEmailAndPassword(
+      await authRef.signInWithEmailAndPassword(
         email: email,
         password: password,
-      );
-      await checkAndDeleteUnverifiedUser();
+      ).then((v) async {
+        if(v.user != null && v.user!.emailVerified){
+          value = true;
+        }
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         e.toString();
@@ -77,6 +79,6 @@ class AuthService{
   }
 
   Future<void> logout()async{
-    await _authRef.signOut();
+    await authRef.signOut();
   }
 }

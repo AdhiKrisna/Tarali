@@ -18,6 +18,7 @@ class RouteName {
     static const String registerSiswa = '/registerSiswa';
     static const String loginGuru = '/loginGuru';
     static const String registerGuru = '/registerGuru';
+    static const String verifyGuruPage = '/verifyGuruPage';
     static const String readContentPage = '/readContentPage';
     static const String videoContentPage = '/videoContentPage';
     static const String audioContentPage = '/audioContentPage';

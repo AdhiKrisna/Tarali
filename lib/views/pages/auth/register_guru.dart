@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/services/auth_service.dart';
 import 'package:tarali/views/controllers/auth_controllers/register_guru_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
 
@@ -198,27 +197,27 @@ class RegisterGuru extends StatelessWidget {
                                 ),
                               );
                             }else{
-                              formRegisterController.authService.register(
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                );
+                                formRegisterController.authService.sendVerificationEmail(
                                 email: formRegisterController.emailController.value.text,
                                 pass: formRegisterController.passwordController.value.text,
-                              ).then((value){
-                                if(value){
-                                  Get.back();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                      Text('Akun berhasil dibuat, Silahkan cek email untuk memverifikasi akun anda lalu login!'),
-                                    ),
-                                  );
-                                }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                      Text('Gagal membuat akun!'),
-                                    ),
-                                  );
-                                }
-                              });
+                                ).then((value){
+                                  Navigator.of(context).pop();
+                                  if(value){
+                                    Get.toNamed(RouteName.verifyGuruPage);
+                                    Get.snackbar('Info', 'Email verifikasi telah dikirim ke ${formRegisterController.emailController.value.text}.');
+                                  }else{
+                                    Get.snackbar('Error', 'Gagal melakukan registrasi.');
+                                  }
+                                });
                             }
                           }, // methdod daftar nnti
                           child: Text(

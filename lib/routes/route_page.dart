@@ -3,6 +3,7 @@ import 'package:tarali/views/pages/auth/login_guru.dart';
 import 'package:tarali/views/pages/auth/login_siswa.dart';
 import 'package:tarali/views/pages/auth/register_guru.dart';
 import 'package:tarali/views/pages/auth/register_siswa.dart';
+import 'package:tarali/views/pages/auth/verify_guru_page.dart';
 import 'package:tarali/views/pages/dashboard_page.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/audio_page.dart';
@@ -100,6 +101,12 @@ class RoutePages {
     GetPage(
       name: RouteName.registerGuru,
       page: () => RegisterGuru(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.verifyGuruPage,
+      page: () => const VerifyGuruPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
