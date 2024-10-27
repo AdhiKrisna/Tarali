@@ -169,7 +169,7 @@ class QuizPage extends StatelessWidget {
                                                 context: context,
                                                 imageName: 'kuis_dialog',
                                                 message:
-                                                    'Hebat!\nSudah selesai mengerjakan kuis?',
+                                                    'Yakin sudah selesai mengerjakan kuis? Kamu hanya bisa mengumpulkan jawaban satu kali.\nPastikan semua soal sudah dijawab dengan benar.',
                                                 cancelLabel: 'Belum Selesai',
                                                 onCancel: () {
                                                   Get.back();
