@@ -102,7 +102,7 @@ class RegisterGuru extends StatelessWidget {
                             child: AuthTextField(
                               label: 'Nama Sekolah',
                               hint: 'Masukkan sekolah tempat anda mengajar',
-                              controller: formRegisterController.nameController,
+                              controller: formRegisterController.sekolahController,
                               isDense: true,
                               pFontSize: 0.0175,
                             ),

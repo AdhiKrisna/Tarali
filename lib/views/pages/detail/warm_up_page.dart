@@ -226,7 +226,7 @@ class WarmUpPage extends StatelessWidget {
                                       successLabel: 'Ayo Bercerita',
                                       onSuccess: (){
                                         Get.back();
-                                        Get.toNamed(
+                                        Get.offNamed(
                                           RouteName.readingTestPage,
                                           arguments: argument,
                                         );

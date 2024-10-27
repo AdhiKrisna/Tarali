@@ -73,7 +73,7 @@ class ReadingTestPage extends StatelessWidget {
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(10),
                         ),
-                        onPressed: (){},
+                        onPressed: () {},
                         child: const Icon(
                           Icons.file_upload,
                           size: 30,
@@ -89,7 +89,7 @@ class ReadingTestPage extends StatelessWidget {
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(10),
                         ),
-                        onPressed: (){
+                        onPressed: () {
                           showDialog(
                             context: context,
                             builder: (context) => ListDialog.contentDialog(
@@ -97,15 +97,17 @@ class ReadingTestPage extends StatelessWidget {
                                 imageName: 'read_test_dialog',
                                 message: 'Hebat!\nSudah selesai merekam?',
                                 cancelLabel: 'Belum Selesai',
-                                onCancel: (){
+                                onCancel: () {
                                   Get.back();
                                 },
                                 successLabel: 'Sudah Selesai',
-                                onSuccess: (){
+                                onSuccess: () {
                                   Get.back();
-                                  Get.toNamed(RouteName.testResultPage);
-                                }
-                            ),
+                                  Get.offNamed(
+                                    RouteName.testResultPage,
+                                    arguments: argument,
+                                  );
+                                }),
                             barrierDismissible: false,
                           );
                         },

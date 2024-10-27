@@ -10,7 +10,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final argument = Get.arguments;
-    final String title = argument['title'];
+    final String title = argument?['title'] ?? 'Detail';
     final DashboardController dashboardController = Get.find<DashboardController>();
 
     return Scaffold(
@@ -76,26 +76,36 @@ class DetailPage extends StatelessWidget {
                             future: dashboardController.cs.getDetailCover(argument['pathStorage']),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(child: CircularProgressIndicator());
+                                print(snapshot.data);
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               }
-                               return Image.network(
-                                  snapshot.data!,
-                                  fit: BoxFit.fill,
-                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress.expectedTotalBytes != null
-                                            ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes!)
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error)),
-                                );
+                              return Image.network(
+                                snapshot.data!,
+                                fit: BoxFit.fill,
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                      .expectedTotalBytes!)
+                                              : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error)),
+                              );
                             },
                           ),
-                        )),
+                        )
+                        ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.05,
                     ),
@@ -103,20 +113,28 @@ class DetailPage extends StatelessWidget {
                       child: ListView(
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () async{
+                            onPressed: () async {
                               showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context){
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              );
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  });
                               argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
-                              argument['readContent'] = await dashboardController.cs.getAllReadContent(path: argument['pathStorage'], totalPage: argument['pageTotal'],);
-                              argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
-                              argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
+                              argument['readContent'] = await dashboardController.cs.getAllReadContent(
+                                path: argument['pathStorage'],
+                                totalPage: argument['pageTotal'],
+                              );
+                              argument['warmUpBefore'] =
+                                  await dashboardController.cs
+                                      .getWarmUpImageBefore(
+                                          argument['pathStorage']);
+                              argument['warmUpAfter'] =
+                                  await dashboardController.cs
+                                      .getWarmUpImageAfter(
+                                          argument['pathStorage']);
                               if (!context.mounted) return;
                               Navigator.of(context).pop();
                               Get.toNamed(
@@ -149,7 +167,7 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () async{
+                            onPressed: () async {
                               String url = await dashboardController.cs.getAudioUrl(argument['pathStorage']);
                               argument['audioUrl'] = url;
                               Get.toNamed(
@@ -183,12 +201,16 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () async {
-                              String url = await dashboardController.cs.getVideoUrl(argument['pathStorage']);
-                              argument['videoUrl'] = url;
-                              Get.toNamed(
-                                RouteName.videoContentPage,
-                                arguments: argument,
-                              );
+                              try {
+                                String url = await dashboardController.cs.getVideoUrl(argument['pathStorage']);
+                                argument['videoUrl'] = url;
+                                Get.toNamed(
+                                  RouteName.videoContentPage,
+                                  arguments: argument,
+                                );
+                              } catch (e) {
+                                print('Failed to retrieve video URL: $e');
+                              }
                             },
                             icon: const Icon(
                               Icons.ondemand_video,
@@ -215,23 +237,28 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () async{
+                            onPressed: () async {
                               showDialog(
                                   context: context,
                                   barrierDismissible: false,
-                                  builder: (context){
+                                  builder: (context) {
                                     return const Center(
                                       child: CircularProgressIndicator(),
                                     );
-                                  }
-                              );
-                              argument['warmUpBefore'] = await dashboardController.cs.getWarmUpImageBefore(argument['pathStorage']);
-                              argument['warmUpAfter'] = await dashboardController.cs.getWarmUpImageAfter(argument['pathStorage']);
+                                  });
+                              argument['warmUpBefore'] =
+                                  await dashboardController.cs
+                                      .getWarmUpImageBefore(
+                                          argument['pathStorage']);
+                              argument['warmUpAfter'] =
+                                  await dashboardController.cs
+                                      .getWarmUpImageAfter(
+                                          argument['pathStorage']);
                               if (!context.mounted) return;
                               Navigator.of(context).pop();
                               Get.toNamed(
-                                  RouteName.warmUpPage,
-                                  arguments: argument,
+                                RouteName.warmUpPage,
+                                arguments: argument,
                               );
                             },
                             icon: const Icon(
