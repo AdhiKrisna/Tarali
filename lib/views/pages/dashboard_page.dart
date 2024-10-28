@@ -104,6 +104,7 @@ class DashboardPage extends StatelessWidget {
                                           },
                                         ),
                                         const Divider(color: Colors.black),
+                                        authUser != null ?
                                         ListTile(
                                           visualDensity: const VisualDensity(
                                             vertical: -3,
@@ -115,7 +116,8 @@ class DashboardPage extends StatelessWidget {
                                             Get.back();
                                             Get.toNamed(RouteName.history);
                                           },
-                                        ),
+                                        ) : Container(),
+                                        userData?['role'] == 1 ?
                                         ListTile(
                                           visualDensity: const VisualDensity(
                                             vertical: -3,
@@ -129,7 +131,7 @@ class DashboardPage extends StatelessWidget {
                                             Get.toNamed(
                                                 RouteName.toScoringPage);
                                           },
-                                        ),
+                                        ) : Container(),
                                         authUser != null ?
                                         ListTile(
                                           visualDensity: const VisualDensity(
@@ -156,6 +158,8 @@ class DashboardPage extends StatelessWidget {
                                                 await authService.logout(); // Panggil fungsi logout
                                                 Get.reload();
                                                 Get.snackbar(
+                                                  backgroundColor: Colors.green,
+                                                  snackPosition: SnackPosition.BOTTOM,
                                                   'Sukses',
                                                   'Anda berhasil logout.',
                                                 );
