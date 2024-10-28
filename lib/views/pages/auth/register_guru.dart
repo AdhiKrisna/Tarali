@@ -177,6 +177,8 @@ class RegisterGuru extends StatelessWidget {
                                   const SnackBar(
                                     content:
                                     Text('Harap lengkapi semua data terlebih dahulu.'),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
                               }else if(!email.contains('@gmail.com')){
@@ -184,6 +186,8 @@ class RegisterGuru extends StatelessWidget {
                                   const SnackBar(
                                     content:
                                     Text('Email tidak terdeteksi sebagai guru.'),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
                               }else if(pass.isEmpty){
@@ -191,6 +195,8 @@ class RegisterGuru extends StatelessWidget {
                                   const SnackBar(
                                     content:
                                     Text('Password tidak boleh kosong.'),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
                               }else if(pass.length < 8){
@@ -198,6 +204,8 @@ class RegisterGuru extends StatelessWidget {
                                   const SnackBar(
                                     content:
                                     Text('Password harus lebih dari 8 karakter.'),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
                               }else if(pass != confirmPass){
@@ -205,6 +213,8 @@ class RegisterGuru extends StatelessWidget {
                                   const SnackBar(
                                     content:
                                     Text('Konfirmasi password tidak sesuai.'),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 1),
                                   ),
                                 );
                               }else{

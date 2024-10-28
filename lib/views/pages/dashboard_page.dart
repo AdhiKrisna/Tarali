@@ -61,11 +61,10 @@ class DashboardPage extends StatelessWidget {
                           return Obx(() {
                             final data = dashboardController.authStreamResult.value;
                             if(data == null){
-                              return const CircularProgressIndicator();
+                              return const Center(child: CircularProgressIndicator());
                             }else{
                               final authUser = data["authUser"] as User?;
                               final userData = data["userData"] as Map<String, dynamic>?;
-                              print(userData);
                               return SlideTransition(
                                 position: offsetAnimation,
                                 child: AlertDialog(
@@ -83,10 +82,10 @@ class DashboardPage extends StatelessWidget {
                                       children: [
                                         authUser != null ?
                                         Text(
-                                          "Halo,\n${authUser.displayName ?? authUser.email}\n${userData?['role'] == 1 ?
-                                          'Guru di sekolah ini'
+                                          "Halo, ${authUser.displayName ?? authUser.email}\n${userData?['role'] == 1 ?
+                                          'Guru di ${userData?['sekolah'] ?? ' Sekolah ini'}'
                                               :
-                                          'Murid di sekolah ini'}",
+                                          'Murid di ${userData?['sekolah'] ?? ' Sekolah ini'}'}",
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
@@ -156,6 +155,10 @@ class DashboardPage extends StatelessWidget {
                                                 Get.back();
                                                 await authService.logout(); // Panggil fungsi logout
                                                 Get.reload();
+                                                Get.snackbar(
+                                                  'Sukses',
+                                                  'Anda berhasil logout.',
+                                                );
                                               },
                                             );
                                           },

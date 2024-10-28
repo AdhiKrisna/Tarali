@@ -118,6 +118,8 @@ class LoginSiswa extends StatelessWidget {
                                         const SnackBar(
                                           content:
                                           Text('Lengkapi data terlebih dahulu.'),
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 1),
                                         ),
                                       );
                                     }else{
@@ -143,6 +145,8 @@ class LoginSiswa extends StatelessWidget {
                                             const SnackBar(
                                               content:
                                               Text('Data tidak sesuai atau salah. Jika merasa belum memiliki akun, registrasi terlebih dahulu.'),
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(seconds: 1),
                                             ),
                                           );
                                         }

@@ -155,6 +155,8 @@ class RegisterSiswa extends StatelessWidget {
                                     const SnackBar(
                                       content:
                                       Text('Harap lengkapi data terlebih dahulu.'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1),
                                     ),
                                   );
                                 }else if(!validationData(text: nama) || !validationData(text: namaSekolah) || !validationData(text: kelas)){
@@ -162,6 +164,8 @@ class RegisterSiswa extends StatelessWidget {
                                     const SnackBar(
                                       content:
                                       Text('Data tidak boleh mengandung karakter selain huruf dan angka.'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1),
                                     ),
                                   );
                                 }else if(!noAbsen.isNumericOnly){
@@ -169,6 +173,8 @@ class RegisterSiswa extends StatelessWidget {
                                     const SnackBar(
                                       content:
                                       Text('Data absen tidak boleh selain angka.'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1),
                                     ),
                                   );
                                 }else{
@@ -195,6 +201,8 @@ class RegisterSiswa extends StatelessWidget {
                                         const SnackBar(
                                           content:
                                           Text('Gagal membuat akun.'),
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 1),
                                         ),
                                       );
                                     }

@@ -17,16 +17,15 @@ class AuthService{
     required String sekolah,
     required String pass,
   }) async {
-    final tempUserCredential = await authRef.createUserWithEmailAndPassword(
-      email: email,
-      password: pass,
-    );
-    final tempUser = tempUserCredential.user;
+    try{
+      final tempUserCredential = await authRef.createUserWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+      final tempUser = tempUserCredential.user;
+      await tempUser?.sendEmailVerification();
 
-    if (tempUser != null) {
-      await tempUser.sendEmailVerification();
-
-      await _fireStore.collection('temporaryUsers').doc(tempUser.uid).set({
+      await _fireStore.collection('temporaryUsers').doc(tempUser?.uid).set({
         'email': email,
         'password': pass,
         'nama': nama,
@@ -34,6 +33,8 @@ class AuthService{
         'creationTime': DateTime.now(),
       });
       return true;
+    } on FirebaseAuthException catch (e) {
+      e.toString();
     }
     return false;
   }
@@ -42,6 +43,13 @@ class AuthService{
     final tempUser = authRef.currentUser;
     if (tempUser != null && tempUser.emailVerified) {
       final querySnapshot = await _fireStore.collection('temporaryUsers').doc(tempUser.uid).get();
+      await createUserData(
+        id: tempUser.uid,
+        email: querySnapshot['email'],
+        nama: querySnapshot['nama'],
+        sekolah: querySnapshot['sekolah'],
+        role: 1,
+      );
       await tempUser.updateDisplayName(querySnapshot['nama']);
       await _fireStore.collection('temporaryUsers').doc(tempUser.uid).delete();
       return true;
@@ -52,22 +60,8 @@ class AuthService{
   Future<void> deleteTemporaryUsers() async {
     final tempUser = authRef.currentUser;
     final querySnapshot = await _fireStore.collection('temporaryUsers').doc(tempUser!.uid).get();
-    await createUserData(
-      id: tempUser.uid,
-      email: querySnapshot['email'],
-      nama: querySnapshot['nama'],
-      sekolah: querySnapshot['sekolah'],
-      role: 1,
-    );
-    await authRef.signInWithEmailAndPassword(
-      email: querySnapshot['email'],
-      password: querySnapshot['password'],
-    );
-
-    if (!tempUser.emailVerified) {
-      await tempUser.delete();
-      await querySnapshot.reference.delete();
-    }
+    await tempUser.delete();
+    await querySnapshot.reference.delete();
   }
 
   Future<void> createUserData({

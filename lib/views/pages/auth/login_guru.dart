@@ -130,31 +130,55 @@ class LoginGuru extends StatelessWidget {
                                 backgroundColor: lightBlue,
                               ),
                               onPressed: () async{
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                );
-                                formLoginController.authService.loginTeacher(
-                                  email: formLoginController.emailController.text,
-                                  password: formLoginController.passwordController.text,
-                                ).then((value){
-                                  Navigator.of(context).pop();
-                                  if(value){
-                                    Get.offAllNamed(RouteName.dashboard);
-                                  }else{
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                        Text('Gagal Login!'),
-                                      ),
-                                    );
-                                  }
-                                });
+                                String email = formLoginController.emailController.text;
+                                String pass = formLoginController.passwordController.text;
+                                if(email.isEmpty || pass.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Lengkapi data terlebih dahulu.'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1),
+                                    ),
+                                  );
+                                }else if(!email.isEmail){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                      Text('Format email tidak sesuai.'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 1),
+                                    ),
+                                  );
+                                }else{
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  );
+                                  formLoginController.authService.loginTeacher(
+                                    email: formLoginController.emailController.text,
+                                    password: formLoginController.passwordController.text,
+                                  ).then((value){
+                                    Navigator.of(context).pop();
+                                    if(value){
+                                      Get.offAllNamed(RouteName.dashboard);
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                          Text('Gagal Login!'),
+                                          backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 1),
+                                        ),
+                                      );
+                                    }
+                                  });
+                                }
                               }, // methdod cek login nnti
                               child: Text(
                                 'Masuk',
