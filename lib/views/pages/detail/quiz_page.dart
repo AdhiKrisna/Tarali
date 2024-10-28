@@ -175,10 +175,10 @@ class QuizPage extends StatelessWidget {
                                                   Get.back();
                                                 },
                                                 successLabel: 'Sudah Selesai',
-                                                onSuccess: () {
+                                                onSuccess: () async{
                                                   quizController.timer.cancel();
                                                   Get.back();
-                                                  quizController.scoring(dataSoal, argument);
+                                                  await quizController.scoring(dataSoal, argument);
                                                 }),
                                         barrierDismissible: false,
                                       );
@@ -291,9 +291,7 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController
-                                        .choice[quizController.index.value] ==
-                                    2) {
+                                if (quizController.choice[quizController.index.value] == 2) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(2);
@@ -302,10 +300,8 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                            quizController.index.value] ==
-                                        2
-                                    ? lightBlue
-                                    : white,
+                                  quizController.index.value
+                                ] == 2 ? lightBlue : white,
                               ),
                               child: Padding(
                                 padding:
@@ -314,10 +310,8 @@ class QuizPage extends StatelessWidget {
                                   'C. ${dataSoal[quizController.index.value].opsi[2]}',
                                   style: TextStyle(
                                     color: quizController.choice[
-                                                quizController.index.value] ==
-                                            2
-                                        ? white
-                                        : blackText,
+                                      quizController.index.value
+                                    ] == 2 ? white : blackText,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -328,9 +322,7 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController
-                                        .choice[quizController.index.value] ==
-                                    3) {
+                                if (quizController.choice[quizController.index.value] == 3) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(3);
@@ -339,10 +331,8 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                            quizController.index.value] ==
-                                        3
-                                    ? lightBlue
-                                    : white,
+                                  quizController.index.value
+                                ] == 3 ? lightBlue : white,
                               ),
                               child: Padding(
                                 padding:
@@ -351,10 +341,8 @@ class QuizPage extends StatelessWidget {
                                   'D. ${dataSoal[quizController.index.value].opsi[3]}',
                                   style: TextStyle(
                                     color: quizController.choice[
-                                                quizController.index.value] ==
-                                            3
-                                        ? white
-                                        : blackText,
+                                      quizController.index.value
+                                    ] == 3 ? white : blackText,
                                     fontSize: 14,
                                   ),
                                 ),

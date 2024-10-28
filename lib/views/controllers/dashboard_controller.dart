@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:tarali/services/auth_service.dart';
+import 'package:tarali/services/user_service.dart';
 import 'package:tarali/services/content_service.dart';
 
 class DashboardController extends GetxController {
   var isSearching = false.obs, isListening = false.obs;
   var searchController = TextEditingController();
   var cs = ContentService();
-  var as = AuthService();
+  var as = UserService();
   final SpeechToText speechToText = SpeechToText();
   bool speechEnabled = false;
   String wordSpoken = '';

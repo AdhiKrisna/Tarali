@@ -3,15 +3,17 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/user_service.dart';
 
 class QuizController extends GetxController {
   var index = 0.obs;
   var totalIndex = 0;
-  var choice = [].obs;
-  var answers = [].obs;
+  var choice = <int>[].obs;
+  var answers = <int>[].obs;
   var imageUrl = ''.obs;
   var counterSecond = 0;
   late Timer timer;
+  UserService us = UserService();
 
   @override
   void onInit() {
@@ -66,7 +68,7 @@ class QuizController extends GetxController {
     }
   }
 
-  void scoring(kunciJawaban, argument) {
+  Future<void> scoring(kunciJawaban, argument) async{
     setAnswer();
     int benar = 0;
     for (int i = 0; i < totalIndex; i++) {
@@ -86,6 +88,13 @@ class QuizController extends GetxController {
     argument['counterSecond'] = counterSecond;
     // argument['kunciJawaban'] = kunciJawaban;
     // argument['jawaban'] = answers;
+
+    await us.setUserQuiz(
+      id: argument['id'],
+      score: score,
+      answers: answers.toList(),
+      timeSec: counterSecond,
+    );
     Get.offNamed(RouteName.quizResultPage, arguments: argument);
   }
 }

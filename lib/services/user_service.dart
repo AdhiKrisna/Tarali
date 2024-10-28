@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class AuthService{
+class UserService{
   late FirebaseAuth authRef;
   late FirebaseFirestore _fireStore;
 
-  AuthService(){
+  UserService(){
     authRef = FirebaseAuth.instance;
     _fireStore = FirebaseFirestore.instance;
   }
@@ -118,7 +118,7 @@ class AuthService{
     String pass = '12345678abcde';
     try {
       user = (
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await authRef.createUserWithEmailAndPassword(
             email: email,
             password: pass,
           )
@@ -172,6 +172,24 @@ class AuthService{
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getAllUserData(String uId) {
-    return FirebaseFirestore.instance.collection('user').doc(uId).snapshots();
+    return _fireStore.collection('user').doc(uId).snapshots();
+  }
+
+  Future<void> setUserQuiz({
+    required String id,
+    required double score,
+    required List<int> answers,
+    required int timeSec,
+  })async{
+    final tempUser = authRef.currentUser;
+    await _fireStore.collection('user').doc(tempUser!.uid).collection('penilaian').doc(id).set(
+      {
+        'quiz': {
+          'score': score,
+          'jawaban': answers,
+          'waktuPengerjaan': timeSec,
+        }
+      }
+    );
   }
 }

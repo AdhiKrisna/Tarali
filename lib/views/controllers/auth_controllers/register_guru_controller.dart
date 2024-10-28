@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:tarali/views/pages/dashboard_page.dart';
 
 import '../../../routes/route_name.dart';
-import '../../../services/auth_service.dart';
+import '../../../services/user_service.dart';
 
 class RegisterGuruController extends GetxController{
   final nameController = TextEditingController();
@@ -13,7 +13,7 @@ class RegisterGuruController extends GetxController{
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final sekolahController = TextEditingController();
-  final AuthService authService = AuthService();
+  final UserService authService = UserService();
 
   Timer? _timer;
 

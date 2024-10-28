@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tarali/services/auth_service.dart';
+import 'package:tarali/services/user_service.dart';
 
 class LoginSiswaController extends GetxController {
   final nameController = TextEditingController();
   final absenController = TextEditingController();
   final sekolahController = TextEditingController();
-  final AuthService as = AuthService();
+  final UserService as = UserService();
   // final formKey = GlobalKey<FormState>();
 
   @override

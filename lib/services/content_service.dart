@@ -1,6 +1,5 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/models/kuis_model.dart';
@@ -81,6 +80,7 @@ List<ContentModel> getAllContentData(
         opsi: e['pemanasan']['opsi'],
       );
       return ContentModel(
+        id: e.id,
         title: e['title'] ?? 'Test',
         pathStorage: e['pathStorage'] ?? 'null',
         coverDashboard: e['coverDashboard'] ?? 'null',
