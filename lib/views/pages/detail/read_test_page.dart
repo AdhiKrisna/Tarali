@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
-import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/read_test_controller.dart';
 import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -138,18 +137,15 @@ class ReadingTestPage extends StatelessWidget {
                                           builder: (context) => ListDialog.contentDialog(
                                               context: context,
                                               imageName: 'read_test_dialog',
-                                              message: 'Hebat!\nSudah selesai merekam?',
+                                              message: 'Kerja bagus!\nSudah selesai merekam?',
                                               cancelLabel: 'Belum Selesai',
                                               onCancel: () {
                                                 Get.back();
                                               },
                                               successLabel: 'Sudah Selesai',
-                                              onSuccess: () {
+                                              onSuccess: () async {
                                                 Get.back();
-                                                Get.offNamed(
-                                                  RouteName.testResultPage,
-                                                  arguments: argument,
-                                                );
+                                                await readTestController.uploadVoiceStream(argument);
                                               }),
                                           barrierDismissible: false,
                                         );

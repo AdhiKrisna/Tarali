@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tarali/routes/route_name.dart';
 
 class ReadTestController extends GetxController {
   final AudioRecorder recorder = AudioRecorder();
@@ -54,6 +55,22 @@ class ReadTestController extends GetxController {
       }
     } catch (e) {
       print("Error stopping voice stream: $e");
+    }
+  }
+
+  //ini nanti disini method untuk up ke storage dan firestore, KALAU button sudah selesainya diklik
+  Future<void> uploadVoiceStream(dynamic arguments) async {
+    try {
+      if (recordingPath != null) {
+        print("Uploading voice stream (CERITANYA SIH GITU YAA)");
+        print("Recording path : $recordingPath");
+        Get.offNamed(
+          RouteName.testResultPage,
+          arguments: arguments,
+        );
+      }
+    } catch (e) {
+      print("Error uploading voice stream: $e");
     }
   }
 
