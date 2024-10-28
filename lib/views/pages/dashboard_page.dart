@@ -22,8 +22,7 @@ class DashboardPage extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Obx(
-                  () => Row(
+            Obx( () => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
@@ -242,7 +241,7 @@ class DashboardPage extends StatelessWidget {
                                       controller: dashboardController
                                           .searchController,
                                       decoration: InputDecoration(
-                                        hintText: dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                        hintText: dashboardController.isListening.isTrue
                                             ? 'Mendengarkan...'
                                             : 'Cari judul buku',
                                         border: InputBorder.none,
@@ -282,7 +281,7 @@ class DashboardPage extends StatelessWidget {
                                         ),
                                         suffixIcon: IconButton(
                                           icon: Icon(
-                                            dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                            dashboardController.isListening.isTrue
                                                 ? Icons.cancel
                                                 : Icons.mic,
                                             color: Colors.black,
