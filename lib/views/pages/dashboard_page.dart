@@ -307,7 +307,8 @@ class DashboardPage extends StatelessWidget {
                                 ),
                               ],
                             )
-                                : ElevatedButton(
+                                :
+                            ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: MediaQuery.of(context)
