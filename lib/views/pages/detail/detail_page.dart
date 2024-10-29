@@ -295,7 +295,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              if(argument['isFinishedRead'] || argument['role'] == 1){
+                              if(argument['isFinishedReadTest'] || argument['role'] == 1){
                                 Get.toNamed(
                                   RouteName.quizPage,
                                   arguments: argument,
@@ -310,7 +310,7 @@ class DetailPage extends StatelessWidget {
                             icon: Icon(
                               Icons.edit,
                               size: 28,
-                              color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                              color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -324,7 +324,7 @@ class DetailPage extends StatelessWidget {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                                color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),

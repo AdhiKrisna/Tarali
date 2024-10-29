@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/scoring_service.dart';
 
 class ReadTestController extends GetxController {
   final AudioRecorder recorder = AudioRecorder();
+  final ss = ScoringService();
   var isRecording = false.obs, isPaused = false.obs;
   RxString? recordingPath;
   late Timer timer;
@@ -60,17 +63,29 @@ class ReadTestController extends GetxController {
 
   //ini nanti disini method untuk up ke storage dan firestore, KALAU button sudah selesainya diklik
   Future<void> uploadVoiceStream(dynamic arguments) async {
-    try {
-      if (recordingPath != null) {
-        print("Uploading voice stream (CERITANYA SIH GITU YAA)");
-        print("Recording path : $recordingPath");
-        Get.offNamed(
-          RouteName.testResultPage,
-          arguments: arguments,
-        );
-      }
-    } catch (e) {
-      print("Error uploading voice stream: $e");
+    final recordingPath = this.recordingPath;
+    if (recordingPath != null) {
+      ss.uploadTestReadAssignment(
+        path: recordingPath.value,
+        argument: arguments,
+      ).then((value){
+        if(value){
+          arguments['isFinishedReadTest'] = true;
+          Get.offNamed(
+            RouteName.testResultPage,
+            arguments: arguments,
+          );
+          Get.snackbar(
+            'Sukses',
+            'Anda berhasil menyelesaikan tes membaca.',
+          );
+        }else{
+          Get.snackbar(
+            'Gagal',
+            'File gagal diupload. Cek jaringan anda lalu coba lagi.',
+          );
+        }
+      });
     }
   }
 

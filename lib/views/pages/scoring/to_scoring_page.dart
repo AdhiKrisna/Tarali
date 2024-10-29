@@ -13,6 +13,8 @@ class ToScoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final argument = Get.arguments;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -93,8 +95,7 @@ class ToScoringPage extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const ImageIcon(
-                                              AssetImage(
-                                                  'assets/icons/person.png'),
+                                              AssetImage('assets/icons/person.png'),
                                               color: lightBlue,
                                             ),
                                             Text(
@@ -120,7 +121,7 @@ class ToScoringPage extends StatelessWidget {
                                       child: ElevatedButton(
                                         onPressed: () => Get.toNamed(
                                           RouteName.detailToScoringPage,
-                                          arguments: content.title,
+                                          arguments: Map.from(content.toMap())..addAll(argument),
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.symmetric(

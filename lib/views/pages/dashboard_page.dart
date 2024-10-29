@@ -115,7 +115,10 @@ class DashboardPage extends StatelessWidget {
                                               title: const Text('Riwayat'),
                                               onTap: () {
                                                 Get.back();
-                                                Get.toNamed(RouteName.history, arguments: dashboardController.userModel.toMap());
+                                                Get.toNamed(
+                                                  RouteName.history,
+                                                  arguments: dashboardController.userModel.toMap(),
+                                                );
                                               },
                                             ) : Container(),
                                             userData?['role'] == 1 ?
@@ -130,7 +133,9 @@ class DashboardPage extends StatelessWidget {
                                               onTap: () {
                                                 Get.back();
                                                 Get.toNamed(
-                                                    RouteName.toScoringPage);
+                                                  RouteName.toScoringPage,
+                                                  arguments: dashboardController.userModel.toMap(),
+                                                );
                                               },
                                             ) : Container(),
                                             authUser != null ?
@@ -397,6 +402,10 @@ class DashboardPage extends StatelessWidget {
                             );
                             var args = Map.from(e.toMap())..addAll(dashboardController.userModel.toMap());
                             args['isFinishedRead'] = await dashboardController.ss.checkCanReadTest(
+                              uid: args['uId'],
+                              contentId: args['contentId'],
+                            );
+                            args['isFinishedReadTest'] = await dashboardController.ss.checkCanQuiz(
                               uid: args['uId'],
                               contentId: args['contentId'],
                             );

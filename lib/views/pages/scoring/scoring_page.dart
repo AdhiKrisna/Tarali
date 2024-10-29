@@ -8,16 +8,15 @@ import 'package:tarali/views/widgets/replay_button.dart';
 import 'package:tarali/views/widgets/slider_widget.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
+
 class ScoringPage extends StatelessWidget {
   const ScoringPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dynamic arguments = Get.arguments;
-    // final String nama = Get.arguments;
-    final String title = arguments[0];
-    final String nama = arguments[1];
-    final PlayerController controller = Get.put(PlayerController(url: title));
+    final arguments = Get.arguments;
+    final String nama = arguments['nama'];
+    final PlayerController controller = Get.put(PlayerController(url: arguments['readTestSource']));
     final ScoringController scoringController = Get.put(ScoringController());
     return Scaffold(
       body: SingleChildScrollView(
@@ -50,8 +49,8 @@ class ScoringPage extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width < 760
                                     ? MediaQuery.of(context).size.width * 0.225
                                     : MediaQuery.of(context).size.width * 0.18,
-                                child: const Image(
-                                  image: AssetImage('assets/images/cover1.png'),
+                                child: Image(
+                                  image: NetworkImage(arguments['cover']),
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -282,7 +281,7 @@ class ScoringPage extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    '5DA',
+                                                    arguments['kelas'],
                                                     style: TextStyle(
                                                       color: greyText,
                                                       fontWeight:
@@ -356,7 +355,7 @@ class ScoringPage extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    '22',
+                                                    '${arguments['absen']}',
                                                     style: TextStyle(
                                                       color: greyText,
                                                       fontWeight:
@@ -434,13 +433,35 @@ class ScoringPage extends StatelessWidget {
                                                   .height *
                                               0.02),
                                       ElevatedButton(
-                                        onPressed: () {
-                                          ScoringController().saveScore(
-                                            int.parse(scoringController.scoreController.text),
-                                            scoringController.noteController.text,
-                                            title,
-                                            nama,
+                                        onPressed: () async{
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (context) {
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            },
                                           );
+                                          await scoringController.ss.setReadTestScore(
+                                            argument: arguments,
+                                            score:  double.parse(scoringController.scoreController.value.text),
+                                            message: scoringController.noteController.value.text,
+                                          ).then((value){
+                                            Navigator.of(context).pop();
+                                            if(value){
+                                              Get.back();
+                                              Get.snackbar(
+                                                'Sukses',
+                                                'Nilai berhasil dikirim.',
+                                              );
+                                            }else{
+                                              Get.snackbar(
+                                                'Gagal',
+                                                'Gagal mengirim nilai. Periksa koneksi internet lalu coba lagi.',
+                                              );
+                                            }
+                                          });
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: lightBlue,
