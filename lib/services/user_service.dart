@@ -80,6 +80,8 @@ class UserService{
       'role': role,
       'absen': absen,
       'kelas': kelas,
+      'isFinishedRead': false,
+      'isFinishedReadTest': false,
       'creationTime': DateTime.now(),
     });
   }
@@ -191,5 +193,22 @@ class UserService{
         }
       }
     );
+  }
+
+
+  Future<bool> updateAyoBercerita(String uId) async{
+    try {
+      await _fireStore.collection('user').doc(uId).update(
+        {
+          'isFinishedRead': true,
+        }
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        e.toString();
+      }
+      return false;
+    }
   }
 }

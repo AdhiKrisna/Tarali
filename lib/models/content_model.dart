@@ -1,6 +1,6 @@
 import 'package:tarali/models/warm_up_model.dart';
 
-import 'kuis_model.dart';
+import 'quiz_exam_model.dart';
 
 class ContentModel{
   final String id;
@@ -10,7 +10,7 @@ class ContentModel{
   final String cover;
   final int pageTotal;
   final String ayoBercerita;
-  final List<KuisModel> kuis;
+  final List<QuizExamModel> kuis;
   final WarmUpModel pemanasan;
 
   ContentModel({

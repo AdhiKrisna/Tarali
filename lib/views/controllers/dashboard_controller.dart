@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:tarali/models/user_model.dart';
 import 'package:tarali/services/user_service.dart';
 import 'package:tarali/services/content_service.dart';
 
@@ -19,27 +20,12 @@ class DashboardController extends GetxController {
   double confidenceLevel = 0.0;
   Stream<User?> get authStream => as.authRef.authStateChanges();
   var authStreamResult = Rxn<Map<String, dynamic>?>();
+  late UserModel userModel;
 
   @override
   void onInit() {
     initSpeech();
     super.onInit();
-    CombineLatestStream.combine2<User?, DocumentSnapshot<Map<String, dynamic>>?, Map<String, dynamic>?>(
-      authStream,
-      authStream.asyncMap((user) => user != null ? as.getAllUserData(user.uid).first : null),
-          (authUser, userDataSnapshot) {
-        if (authUser == null) return null;
-        return {
-          "authUser": authUser,
-          "userData": userDataSnapshot?.data(),
-        };
-      },
-    ).listen((data) {
-      authStreamResult.value = data ?? {
-        "authUser": null,
-        "userData": null,
-      };
-    });
   }
 
   @override
@@ -56,6 +42,38 @@ class DashboardController extends GetxController {
 
   void toggleSearch() {
     isSearching.value = !isSearching.value;
+  }
+
+  void getUserData(){
+    CombineLatestStream.combine2<User?, DocumentSnapshot<Map<String, dynamic>>?, Map<String, dynamic>?>(
+      authStream,
+      authStream.asyncMap((user) => user != null ? as.getAllUserData(user.uid).first : null),
+          (authUser, userDataSnapshot) {
+        var data = userDataSnapshot?.data();
+        print(data);
+        userModel = UserModel(
+          uId: authUser?.uid ?? '',
+          email: authUser?.email ?? '',
+          role: data?['role'] ?? -1,
+          nama: authUser?.displayName ?? '',
+          sekolah: data?['sekolah'] ?? '',
+          isFinishedRead: data?['isFinishedRead'] ?? false,
+          isFinishedReadTest: data?['isFinishedReadTest'] ?? false,
+        );
+        if (authUser == null){
+          return null;
+        }
+        return {
+          "authUser": authUser,
+          "userData": data,
+        };
+      },
+    ).listen((data) {
+      authStreamResult.value = data ?? {
+        "authUser": null,
+        "userData": null,
+      };
+    },);
   }
 
   void searchContent() {

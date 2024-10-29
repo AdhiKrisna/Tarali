@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tarali/models/kuis_model.dart';
+import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 import '../../../constants/constant_colors.dart';
@@ -13,7 +13,7 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final argument = Get.arguments;
-    List<KuisModel> dataSoal = argument['kuis'];
+    List<QuizExamModel> dataSoal = argument['kuis'];
     final quizController = Get.put(QuizController());
     quizController.setData(lengthData: dataSoal.length);
    

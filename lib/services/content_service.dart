@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/content_model.dart';
-import 'package:tarali/models/kuis_model.dart';
+import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/models/warm_up_model.dart';
 
 class ContentService {
@@ -60,13 +60,13 @@ List<ContentModel> getAllContentData(
     WarmUpModel pemanasan;
     return data.map((e){
       noSoal = 1;
-      List<KuisModel> kuisModel =[];
+      List<QuizExamModel> kuisModel =[];
       List<dynamic> kuis = [];
 
       kuis = e['kuis'];
       for(var i in kuis){
         kuisModel.add(
-          KuisModel(
+          QuizExamModel(
             noSoal: noSoal,
             soal: i['soal'],
             jawaban: i['jawaban'],

@@ -15,6 +15,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DashboardController dashboardController = Get.put(DashboardController());
+    dashboardController.getUserData();
     final UserService authService = UserService();
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -282,7 +283,7 @@ class DashboardPage extends StatelessWidget {
                                             ),
                                             suffixIcon: IconButton(
                                               icon: Icon(
-                                                dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
+                                                dashboardController.isListening.isTrue
                                                     ? Icons.cancel
                                                     : Icons.mic,
                                                 color: Colors.black,
@@ -386,7 +387,7 @@ class DashboardPage extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(
                               RouteName.detailContentPage,
-                              arguments: e.toMap(),
+                              arguments: Map.from(e.toMap())..addAll(dashboardController.userModel.toMap()),
                             );
                           },
                           child: Column(

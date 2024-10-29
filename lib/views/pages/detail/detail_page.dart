@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -238,33 +239,40 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () async {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  });
-                              argument['warmUpBefore'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageBefore(
-                                          argument['pathStorage']);
-                              argument['warmUpAfter'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageAfter(
-                                          argument['pathStorage']);
-                              if (!context.mounted) return;
-                              Navigator.of(context).pop();
-                              Get.toNamed(
-                                RouteName.warmUpPage,
-                                arguments: argument,
-                              );
+                              if(argument['isFinishedRead'] || argument['role'] == 1){
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    });
+                                argument['warmUpBefore'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageBefore(
+                                    argument['pathStorage']);
+                                argument['warmUpAfter'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageAfter(
+                                    argument['pathStorage']);
+                                if (!context.mounted) return;
+                                Navigator.of(context).pop();
+                                Get.toNamed(
+                                  RouteName.warmUpPage,
+                                  arguments: argument,
+                                );
+                              }else{
+                                Get.snackbar(
+                                  'Gagal',
+                                  'Selesaikan baca terlebih dahulu untuk masuk kedalam Ayo Bercerita.',
+                                );
+                              }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.voicemail,
                               size: 28,
-                              color: Colors.lightBlue,
+                              color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -273,12 +281,12 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Ayo Bercerita',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.lightBlue,
+                                color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),
@@ -287,15 +295,22 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              Get.toNamed(
-                                RouteName.quizPage,
-                                arguments: argument,
-                              );
+                              if(argument['isFinishedReadTest'] || argument['role'] == 1){
+                                Get.toNamed(
+                                  RouteName.quizPage,
+                                  arguments: argument,
+                                );
+                              }else{
+                                Get.snackbar(
+                                  'Gagal',
+                                  'Selesaikan Ayo Bercerita terlebih dahulu untuk masuk kedalam Quiz.',
+                                );
+                              }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.edit,
                               size: 28,
-                              color: Colors.grey,
+                              color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -304,12 +319,12 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Kuis',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),

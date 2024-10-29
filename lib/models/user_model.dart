@@ -4,6 +4,8 @@ class UserModel{
   final int role;
   final String nama;
   final String sekolah;
+  final bool isFinishedRead;
+  final bool isFinishedReadTest;
 
   UserModel({
     required this.uId,
@@ -11,6 +13,8 @@ class UserModel{
     required this.role,
     required this.nama,
     required this.sekolah,
+    required this.isFinishedRead,
+    required this.isFinishedReadTest,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +24,8 @@ class UserModel{
       'role': role,
       'nama': nama,
       'sekolah': sekolah,
+      'isFinishedRead': isFinishedRead,
+      'isFinishedReadTest': isFinishedReadTest,
     };
   }
 }

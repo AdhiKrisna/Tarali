@@ -1,18 +1,18 @@
-class KuisModel{
+class QuizExamModel{
   final int noSoal;
   final String soal;
   final int jawaban;
   final List<dynamic> opsi;
 
-  KuisModel({
+  QuizExamModel({
     required this.noSoal,
     required this.soal,
     required this.jawaban,
     required this.opsi,
   });
 
-  factory KuisModel.fromMap(Map<String, dynamic> map) {
-    return KuisModel(
+  factory QuizExamModel.fromMap(Map<String, dynamic> map) {
+    return QuizExamModel(
       noSoal: map['noSoal'],
       soal: map['soal'],
       jawaban: map['jawaban'],
