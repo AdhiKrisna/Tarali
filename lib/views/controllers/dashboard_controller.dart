@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:tarali/models/user_model.dart';
+import 'package:tarali/services/scoring_service.dart';
 import 'package:tarali/services/user_service.dart';
 import 'package:tarali/services/content_service.dart';
 
@@ -14,6 +15,7 @@ class DashboardController extends GetxController {
   var searchController = TextEditingController();
   var cs = ContentService();
   var as = UserService();
+  var ss = ScoringService();
   final SpeechToText speechToText = SpeechToText();
   bool speechEnabled = false;
   String wordSpoken = '';
@@ -34,12 +36,6 @@ class DashboardController extends GetxController {
     super.onClose();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   void toggleSearch() {
     isSearching.value = !isSearching.value;
   }
@@ -56,9 +52,9 @@ class DashboardController extends GetxController {
           email: authUser?.email ?? '',
           role: data?['role'] ?? -1,
           nama: authUser?.displayName ?? '',
+          absen: data?['absen'] ?? -1,
+          kelas: data?['kelas'] ?? '',
           sekolah: data?['sekolah'] ?? '',
-          isFinishedRead: data?['isFinishedRead'] ?? false,
-          isFinishedReadTest: data?['isFinishedReadTest'] ?? false,
         );
         if (authUser == null){
           return null;

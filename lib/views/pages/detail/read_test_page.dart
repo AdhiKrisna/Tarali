@@ -101,20 +101,24 @@ class ReadingTestPage extends StatelessWidget {
                                       onPressed: readTestController.stopVoiceStream,
                                     ),
                                     const SizedBox(width: 10),
-                                   Obx(
+                                    Obx(
                                       () => Text(
-                                          readTestController.counterSecond < 60
-                                              ? '00:${readTestController.counterSecond.toString().padLeft(2, '0')}'
-                                              : readTestController
-                                                          .counterSecond <
-                                                      600
-                                                  ? '0${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}'
-                                                  : '${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}',
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              overflow: TextOverflow.ellipsis, // Potong teks jika terlalu panjang
-                                              fontSize: 16)),
-                                    ), // Timer bisa diimplementasikan lebih lanjut
+                                        readTestController.counterSecond < 60
+                                            ? '00:${readTestController.counterSecond.toString().padLeft(2, '0')}'
+                                            :
+                                        readTestController.counterSecond < 600
+                                            ?
+                                        '0${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}'
+                                            :
+                                        '${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}',
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            decoration: TextDecoration.none,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: 16
+                                        ),
+                                      ),
+                                    ),
                                     const SizedBox(width: 10),
                                     IconButton(
                                       icon: readTestController.isPaused.isTrue
@@ -124,12 +128,15 @@ class ReadingTestPage extends StatelessWidget {
                                         readTestController.isPaused.isTrue
                                             ? readTestController.resumeVoiceStream()
                                             : readTestController.pauseVoiceStream();
-                                      },
+                                        },
                                     ),
                                     const SizedBox(width: 10),
                                     IconButton(
-                                      icon: const Icon(Icons.check_circle,
-                                          color: Colors.green, size: 30),
+                                      icon: const Icon(
+                                        Icons.check_circle,
+                                        color: Colors.green,
+                                        size: 30,
+                                      ),
                                       onPressed: () {
                                         readTestController.stopVoiceStream();
                                         showDialog(

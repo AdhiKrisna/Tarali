@@ -292,7 +292,7 @@ class QuizResultPage extends StatelessWidget {
                             backgroundColor: lightBlue,
                           ),
                           child: const Text(
-                            'Halaman Buku',
+                            'Menu Utama',
                             style: TextStyle(
                               color: white,
                             ),

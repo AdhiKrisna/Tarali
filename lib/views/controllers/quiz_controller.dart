@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/services/user_service.dart';
+import 'package:tarali/services/scoring_service.dart';
 
 class QuizController extends GetxController {
   var index = 0.obs;
@@ -13,14 +12,13 @@ class QuizController extends GetxController {
   var imageUrl = ''.obs;
   var counterSecond = 0;
   late Timer timer;
-  UserService us = UserService();
+  ScoringService ss = ScoringService();
 
   @override
   void onInit() {
     super.onInit();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       counterSecond++;
-      print(counterSecond);
     });
   }
   @override
@@ -30,10 +28,8 @@ class QuizController extends GetxController {
   }
   void setData({required int lengthData}) {
     totalIndex = lengthData;
-    print(totalIndex);
     for (int i = 0; i < totalIndex; i++) {
       choice.add(-1.obs);
-      print(choice);
     }
   }
 
@@ -73,28 +69,31 @@ class QuizController extends GetxController {
     int benar = 0;
     for (int i = 0; i < totalIndex; i++) {
       if (answers[i] == kunciJawaban[i].jawaban) {
-        print(kunciJawaban[i].jawaban);
-        print('Benar');
         benar += 1;
       }
     }
 
-    print('Jumlah benar : $benar');
     double score = (benar / totalIndex * 100);
-    print('Score : $score');
     argument['benar'] = benar;
     argument['quizScore'] = score;
+    argument['quizJawaban'] = answers.toList();
     argument['totalSoal'] = totalIndex;
     argument['counterSecond'] = counterSecond;
-    // argument['kunciJawaban'] = kunciJawaban;
-    // argument['jawaban'] = answers;
 
-    await us.setUserQuiz(
-      id: argument['id'],
-      score: score,
-      answers: answers.toList(),
-      timeSec: counterSecond,
-    );
-    Get.offNamed(RouteName.quizResultPage, arguments: argument);
+    ss.setQuizTestAssignment(argument: argument).then((value){
+      if(value){
+        Get.offNamed(RouteName.quizResultPage, arguments: argument);
+        Get.snackbar(
+          'Sukses',
+          'Selamat, anda berhasil mengerjakan kuis.',
+        );
+      }else{
+        Get.snackbar(
+          'Gagal',
+          'Kuis gagal diproses, periksa kembali jaringan anda.',
+        );
+      }
+    });
+
   }
 }

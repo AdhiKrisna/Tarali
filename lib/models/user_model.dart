@@ -1,31 +1,31 @@
 class UserModel{
   final String uId;
   final String email;
+  final int absen;
+  final String kelas;
   final int role;
   final String nama;
   final String sekolah;
-  final bool isFinishedRead;
-  final bool isFinishedReadTest;
 
   UserModel({
     required this.uId,
+    required this.absen,
     required this.email,
+    required this.kelas,
     required this.role,
     required this.nama,
     required this.sekolah,
-    required this.isFinishedRead,
-    required this.isFinishedReadTest,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'uId': uId,
       'email': email,
+      'absen': absen,
       'role': role,
+      'kelas': kelas,
       'nama': nama,
       'sekolah': sekolah,
-      'isFinishedRead': isFinishedRead,
-      'isFinishedReadTest': isFinishedReadTest,
     };
   }
 }

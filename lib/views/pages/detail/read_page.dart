@@ -166,16 +166,24 @@ class ReadPage extends StatelessWidget {
                                                 );
                                               }
                                             );
-                                            await readController.us.updateAyoBercerita(argument['uId']).then((value){
-                                              argument['isFinishedRead'] = true;
+                                            await readController.ss.createScoringTemplate(argument: argument).then((value){
+                                              argument['isFinishedRead'] = value;
                                             });
+                                            if (!context.mounted) return;
                                             Navigator.of(context).pop();
-                                            Get.offAllNamed(RouteName.dashboard);
-                                            Get.reload();
-                                            Get.toNamed(
-                                              RouteName.warmUpPage,
-                                              arguments: argument,
-                                            );
+                                            if(argument['isFinishedRead']){
+                                              Get.offAllNamed(RouteName.dashboard);
+                                              Get.reload();
+                                              Get.toNamed(
+                                                RouteName.warmUpPage,
+                                                arguments: argument,
+                                              );
+                                            }else{
+                                              Get.snackbar(
+                                                'Gagal',
+                                                'Koneksi terputus! Harap cek jaringan lalu coba lagi.',
+                                              );
+                                            }
                                           }
                                         }),
                                     barrierDismissible: false,

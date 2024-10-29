@@ -81,7 +81,6 @@ class UserService{
       'absen': absen,
       'kelas': kelas,
       'isFinishedRead': false,
-      'isFinishedReadTest': false,
       'creationTime': DateTime.now(),
     });
   }
@@ -175,40 +174,5 @@ class UserService{
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getAllUserData(String uId) {
     return _fireStore.collection('user').doc(uId).snapshots();
-  }
-
-  Future<void> setUserQuiz({
-    required String id,
-    required double score,
-    required List<int> answers,
-    required int timeSec,
-  })async{
-    final tempUser = authRef.currentUser;
-    await _fireStore.collection('user').doc(tempUser!.uid).collection('penilaian').doc(id).set(
-      {
-        'quiz': {
-          'score': score,
-          'jawaban': answers,
-          'waktuPengerjaan': timeSec,
-        }
-      }
-    );
-  }
-
-
-  Future<bool> updateAyoBercerita(String uId) async{
-    try {
-      await _fireStore.collection('user').doc(uId).update(
-        {
-          'isFinishedRead': true,
-        }
-      );
-      return true;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        e.toString();
-      }
-      return false;
-    }
   }
 }

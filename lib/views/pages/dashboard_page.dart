@@ -115,7 +115,7 @@ class DashboardPage extends StatelessWidget {
                                               title: const Text('Riwayat'),
                                               onTap: () {
                                                 Get.back();
-                                                Get.toNamed(RouteName.history);
+                                                Get.toNamed(RouteName.history, arguments: dashboardController.userModel.toMap());
                                               },
                                             ) : Container(),
                                             userData?['role'] == 1 ?
@@ -222,7 +222,8 @@ class DashboardPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(360),
                                 ),
                                 child: dashboardController.isSearching.isTrue
-                                    ? Row(
+                                    ?
+                                Row(
                                   children: [
                                     Expanded(
                                       child: Padding(
@@ -384,10 +385,26 @@ class DashboardPage extends StatelessWidget {
                           ],
                         ),
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async{
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                            );
+                            var args = Map.from(e.toMap())..addAll(dashboardController.userModel.toMap());
+                            args['isFinishedRead'] = await dashboardController.ss.checkCanReadTest(
+                              uid: args['uId'],
+                              contentId: args['contentId'],
+                            );
+                            if (!context.mounted) return;
+                            Navigator.of(context).pop();
                             Get.toNamed(
                               RouteName.detailContentPage,
-                              arguments: Map.from(e.toMap())..addAll(dashboardController.userModel.toMap()),
+                              arguments: args,
                             );
                           },
                           child: Column(

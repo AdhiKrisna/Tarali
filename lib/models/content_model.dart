@@ -3,7 +3,7 @@ import 'package:tarali/models/warm_up_model.dart';
 import 'quiz_exam_model.dart';
 
 class ContentModel{
-  final String id;
+  final String contentId;
   final String title;
   final String pathStorage;
   final String coverDashboard;
@@ -14,7 +14,7 @@ class ContentModel{
   final WarmUpModel pemanasan;
 
   ContentModel({
-    required this.id,
+    required this.contentId,
     required this.title,
     required this.pathStorage,
     required this.coverDashboard,
@@ -27,7 +27,7 @@ class ContentModel{
 
   factory ContentModel.fromMap(Map<String, dynamic> map) {
     return ContentModel(
-      id: map['id'],
+      contentId: map['contentId'],
       title: map['title'],
       pathStorage: map['pathStorage'],
       coverDashboard: map['cover_dashboard'],
@@ -41,7 +41,7 @@ class ContentModel{
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'contentId': contentId,
       'title': title,
       'pathStorage': pathStorage,
       'coverDashboard': coverDashboard,

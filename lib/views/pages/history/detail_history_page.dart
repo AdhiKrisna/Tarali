@@ -8,7 +8,7 @@ class DetailHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = Get.arguments;
+    var argument = Get.arguments;
     return Scaffold(
       body: SingleChildScrollView(
         child: IntrinsicHeight(
@@ -38,10 +38,9 @@ class DetailHistoryPage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: const Image(
-                                    image: AssetImage(
-                                        'assets/images/cover_detail.png'),
-                                    fit: BoxFit.fill,
+                                  child: Image(
+                                    image: NetworkImage(argument['cover']),
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ),
@@ -85,7 +84,7 @@ class DetailHistoryPage extends StatelessWidget {
                                         width: MediaQuery.of(context).size.width *
                                             0.02),
                                     Text(
-                                      title,
+                                      argument['title'],
                                       style: TextStyle(
                                           fontSize:
                                               MediaQuery.of(context).size.width *
@@ -169,7 +168,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                           width: 6,
                                                         ),
                                                         Text(
-                                                          '100',
+                                                          '${argument['quizScore']}',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -241,7 +240,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                           width: 6,
                                                         ),
                                                         Text(
-                                                          '100',
+                                                          '${argument['readTestScore']}',
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -296,11 +295,11 @@ class DetailHistoryPage extends StatelessWidget {
                                             width: 1,
                                           ),
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(5),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.',
-                                            style: TextStyle(
+                                            '${argument['readTestMessage']}',
+                                            style: const TextStyle(
                                               fontSize: 12,
                                               color: Colors.black,
                                             ),

@@ -80,7 +80,7 @@ List<ContentModel> getAllContentData(
         opsi: e['pemanasan']['opsi'],
       );
       return ContentModel(
-        id: e.id,
+        contentId: e.id,
         title: e['title'] ?? 'Test',
         pathStorage: e['pathStorage'] ?? 'null',
         coverDashboard: e['coverDashboard'] ?? 'null',

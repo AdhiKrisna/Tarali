@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:tarali/services/user_service.dart';
+import 'package:tarali/services/scoring_service.dart';
 
 class ReadController extends GetxController {
   var index = 1.obs;
-  UserService us = UserService();
+  ScoringService ss = ScoringService();
 
   void next(){
     index++;
