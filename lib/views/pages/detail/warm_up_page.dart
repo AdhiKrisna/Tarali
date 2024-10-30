@@ -1,14 +1,14 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/warm_up_model.dart';
+import 'package:tarali/views/controllers/quiz_controller.dart';
+import 'package:tarali/views/dialog/list_dialog.dart';
+import 'package:tarali/views/widgets/background_widget.dart';
+import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/routes/route_name.dart';
 
-import '../../../constants/constant_colors.dart';
-import '../../../routes/route_name.dart';
-import '../../controllers/quiz_controller.dart';
-import '../../dialog/list_dialog.dart';
-import '../../widgets/background_widget.dart';
 
 class WarmUpPage extends StatelessWidget {
   const WarmUpPage({super.key});
@@ -43,9 +43,9 @@ class WarmUpPage extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text(
+                 Text(
                   'Pemanasan',
-                  style: TextStyle(
+                  style: PoppinsStyle.stylePoppins(
                     fontSize: 22,
                     color: Colors.black,
                     decoration: TextDecoration.none,
@@ -81,9 +81,9 @@ class WarmUpPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            const Text(
+                             Text(
                               'Pemanasan dulu yuk, ayo main tebak gambar!',
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 10,
                                 color: greyText,
                               ),
@@ -134,7 +134,7 @@ class WarmUpPage extends StatelessWidget {
                                   ),
                                   child: Text(
                                     'A. ${pemanasan.opsi[0]}',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: quizController.choice[quizController.index.value] == 0 ? white : blackText,
                                       fontSize: 14,
                                     ),
@@ -154,7 +154,7 @@ class WarmUpPage extends StatelessWidget {
                                   ),
                                   child: Text(
                                     'B. ${pemanasan.opsi[1]}',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: quizController.choice[quizController.index.value] == 1 ? white : blackText,
                                       fontSize: 14,
                                     ),
@@ -174,7 +174,7 @@ class WarmUpPage extends StatelessWidget {
                                   ),
                                   child: Text(
                                     'C. ${pemanasan.opsi[2]}',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: quizController.choice[quizController.index.value] == 2 ? white : blackText,
                                       fontSize: 14,
                                     ),
@@ -194,7 +194,7 @@ class WarmUpPage extends StatelessWidget {
                                   ),
                                   child: Text(
                                     'D. ${pemanasan.opsi[3]}',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
                                       fontSize: 14,
                                     ),
@@ -263,9 +263,9 @@ class WarmUpPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: lightBlue,
                             ),
-                            child: const Text(
+                            child:  Text(
                               'Selesai',
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 color: white,
                                 fontSize: 14,
                               ),

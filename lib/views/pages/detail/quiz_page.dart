@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -48,9 +49,9 @@ class QuizPage extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text(
+                 Text(
                   'Kuis',
-                  style: TextStyle(
+                  style: PoppinsStyle.stylePoppins(
                     fontSize: 22,
                     color: Colors.black,
                     decoration: TextDecoration.none,
@@ -87,16 +88,16 @@ class QuizPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 'Pertanyaan nomor ',
-                                style: TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: 10,
                                   color: greyText,
                                 ),
                               ),
                               Text(
                                 quizController.detailPage(),
-                                style: const TextStyle(
+                                style:  PoppinsStyle.stylePoppins(
                                   fontSize: 10,
                                   color: lightBlue,
                                   fontWeight: FontWeight.w500,
@@ -112,7 +113,7 @@ class QuizPage extends StatelessWidget {
                               children: [
                                 Text(
                                   dataSoal[quizController.index.value].soal,
-                                  style: const TextStyle(
+                                  style:  PoppinsStyle.stylePoppins(
                                     fontSize: 16,
                                     color: blackText,
                                     fontWeight: FontWeight.w500,
@@ -134,10 +135,10 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child: const Text(
+                                  child:  Text(
                                     'Sebelumnya',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,
                                       color: lightBlue,
                                     ),
@@ -193,10 +194,10 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child: const Text(
+                                  child:  Text(
                                     'Selanjutnya',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,
                                       color: white,
                                     ),
@@ -238,7 +239,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'A. ${dataSoal[quizController.index.value].opsi[0]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                                 quizController.index.value] ==
                                             0
@@ -275,7 +276,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'B. ${dataSoal[quizController.index.value].opsi[1]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                                 quizController.index.value] ==
                                             1
@@ -308,7 +309,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'C. ${dataSoal[quizController.index.value].opsi[2]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                       quizController.index.value
                                     ] == 2 ? white : blackText,
@@ -339,7 +340,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'D. ${dataSoal[quizController.index.value].opsi[3]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                       quizController.index.value
                                     ] == 3 ? white : blackText,

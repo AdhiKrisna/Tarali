@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/scoring_service.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
@@ -28,7 +29,7 @@ class DetailToScoringPage extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: const TextStyle(
+          style:  PoppinsStyle.stylePoppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -82,9 +83,9 @@ class DetailToScoringPage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
-                            const Text(
+                             Text(
                               "Urutkan Berdasarkan",
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -174,8 +175,8 @@ class DetailToScoringPage extends StatelessWidget {
                                   padding: EdgeInsets.all(
                                       MediaQuery.of(context).size.width * 0.016),
                                   child: Text(
-                                    '$index',
-                                    style: TextStyle(
+                                    model[index].absen.toString(),
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize:
                                       MediaQuery.of(context).size.width * 0.02,
                                       fontWeight: FontWeight.bold,
@@ -186,7 +187,7 @@ class DetailToScoringPage extends StatelessWidget {
                               ),
                               title: Text(
                                 model[index].nama,
-                                style: TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: MediaQuery.of(context).size.width * 0.025,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -221,7 +222,7 @@ class DetailToScoringPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '${model[index].readTestScore}',
-                                              style: TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)
                                                     .size
@@ -265,7 +266,7 @@ class DetailToScoringPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '1:30',
-                                              style: TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)
                                                     .size
@@ -300,7 +301,7 @@ class DetailToScoringPage extends StatelessWidget {
                                         ),
                                         child: Text(
                                           'Periksa',
-                                          style: TextStyle(
+                                          style: PoppinsStyle.stylePoppins(
                                             color: white,
                                             fontWeight: FontWeight.bold,
                                             fontSize:

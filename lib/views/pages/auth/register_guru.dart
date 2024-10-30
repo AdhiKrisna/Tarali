@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/register_guru_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
@@ -59,18 +60,18 @@ class RegisterGuru extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                         Text(
                           'Registrasi sebagai Guru',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
+                          style: PoppinsStyle.stylePoppins(
+                            
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const Text(
+                         Text(
                           'Isi data diri terlebih dahulu',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
+                          style: PoppinsStyle.stylePoppins(
+                            
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
                           ),
@@ -108,8 +109,7 @@ class RegisterGuru extends StatelessWidget {
                             ),
                             Text(
                               'Pastikan nama sekolah benar dan sesuai dengan yang didaftarkan oleh murid anda nanti ya!',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: MediaQuery.of(context).size.width * 0.015,
                               ),
                             ),
@@ -141,14 +141,14 @@ class RegisterGuru extends StatelessWidget {
                         RichText(
                             text: TextSpan(
                               text: 'Sudah punya akun guru? ',
-                              style: const TextStyle(
+                              style:  PoppinsStyle.stylePoppins(
                                 color: Colors.black,
                                 fontSize: 14,
                               ),
                               children: [
                                 TextSpan(
                                   text: 'Masuk',
-                                  style: const TextStyle(
+                                  style:  PoppinsStyle.stylePoppins(
                                     color: lightBlue,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -251,8 +251,8 @@ class RegisterGuru extends StatelessWidget {
                             }, // methdod daftar nnti
                             child: Text(
                               'Registrasi',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
+                              style: PoppinsStyle.stylePoppins(
+                                
                                 color: white,
                                 fontWeight: FontWeight.bold,
                                 fontSize:

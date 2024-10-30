@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/read_test_controller.dart';
 import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -33,7 +34,7 @@ class ReadingTestPage extends StatelessWidget {
               ),
               Text(
                 argument['title'],
-                style: const TextStyle(
+                style: PoppinsStyle.stylePoppins(
                   fontSize: 22,
                   color: Colors.black,
                   decoration: TextDecoration.none,
@@ -53,7 +54,7 @@ class ReadingTestPage extends StatelessWidget {
                     Text(
                       argument['ayoBercerita'],
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(
+                      style:  PoppinsStyle.stylePoppins(
                         fontSize: 14,
                         color: blackText,
                         decoration: TextDecoration.none,
@@ -73,7 +74,7 @@ class ReadingTestPage extends StatelessWidget {
                           padding: const EdgeInsets.all(10),
                         ),
                         onPressed: () {
-                          readTestController.pickAudioFile();
+                          readTestController.pickAudioFile(argument);
                         },
                         child: const Icon(
                           Icons.file_upload,
@@ -111,10 +112,9 @@ class ReadingTestPage extends StatelessWidget {
                                         '0${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}'
                                             :
                                         '${(readTestController.counterSecond ~/ 60).toString()}:${(readTestController.counterSecond % 60).toString().padLeft(2, '0')}',
-                                        style: const TextStyle(
+                                        style:  PoppinsStyle.stylePoppins(
                                             color: Colors.white,
                                             decoration: TextDecoration.none,
-                                            overflow: TextOverflow.ellipsis,
                                             fontSize: 16
                                         ),
                                       ),
@@ -145,7 +145,7 @@ class ReadingTestPage extends StatelessWidget {
                                               context: context,
                                               imageName: 'read_test_dialog',
                                               message: 'Kerja bagus!\nSudah selesai merekam?',
-                                              cancelLabel: 'Belum Selesai',
+                                              cancelLabel: 'Ulangi',
                                               onCancel: () {
                                                 Get.back();
                                               },

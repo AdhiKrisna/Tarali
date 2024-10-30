@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/scoring_model.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/history_controller.dart';
@@ -25,9 +26,9 @@ class HistoryPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
+        title:  Text(
           'Riwayat Kuis dan Tes Bercerita',
-          style: TextStyle(
+          style: PoppinsStyle.stylePoppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -67,7 +68,7 @@ class HistoryPage extends StatelessWidget {
                               ),
                               title: Text(
                                 model[index].title,
-                                style: TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: MediaQuery.of(context).size.width * 0.025,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -98,7 +99,7 @@ class HistoryPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '${model[index].quizScore == 0 ? '-' : model[index].quizScore}',
-                                              style: TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)
                                                     .size
@@ -132,7 +133,7 @@ class HistoryPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '${model[index].readTestScore == 0 ? '-' : model[index].readTestScore}',
-                                              style: TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)
                                                     .size
@@ -164,7 +165,7 @@ class HistoryPage extends StatelessWidget {
                                         ),
                                         child: Text(
                                           'Detail',
-                                          style: TextStyle(
+                                          style: PoppinsStyle.stylePoppins(
                                             color: white,
                                             fontWeight: FontWeight.bold,
                                             fontSize:

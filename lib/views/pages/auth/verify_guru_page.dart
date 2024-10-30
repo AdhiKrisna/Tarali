@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/auth_controllers/register_guru_controller.dart';
 
 class VerifyGuruPage extends StatefulWidget {
@@ -28,16 +29,17 @@ class _VerifyGuruPageState extends State<VerifyGuruPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 20),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 20),
             Text(
               'Memeriksa verifikasi email...\nJangan tinggalkan halaman ini dan silakan buka email Anda.',
               textAlign: TextAlign.center,
+              style: PoppinsStyle.stylePoppins(),
             ),
           ],
         ),

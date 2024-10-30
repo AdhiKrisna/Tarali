@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
+import 'package:tarali/views/widgets/pause_play_button.dart';
+import 'package:tarali/views/widgets/replay_button.dart';
+import 'package:tarali/views/widgets/slider_widget.dart';
 
-import '../../../constants/constant_colors.dart';
-import '../../widgets/pause_play_button.dart';
-import '../../widgets/replay_button.dart';
-import '../../widgets/slider_widget.dart';
 
 class AudioPage extends StatelessWidget {
   const AudioPage({super.key});
@@ -99,7 +98,7 @@ class AudioPage extends StatelessWidget {
             child: AppBar(
               title: Text(
                 title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: PoppinsStyle.stylePoppins(fontWeight: FontWeight.bold),
               ),
               backgroundColor: Colors.transparent,
             ),

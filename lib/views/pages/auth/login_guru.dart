@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/login_guru_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
@@ -60,18 +61,16 @@ class LoginGuru extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                           Text(
                             'Masuk sebagai Guru',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Text(
+                           Text(
                             'Silahkan login untuk melanjutkan',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
                             ),
@@ -100,14 +99,14 @@ class LoginGuru extends StatelessWidget {
                               RichText(
                                   text: TextSpan(
                                 text: 'Belum punya akun guru? ',
-                                style: const TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                                 children: [
                                   TextSpan(
                                     text: 'Registrasi',
-                                    style: const TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: lightBlue,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -182,8 +181,7 @@ class LoginGuru extends StatelessWidget {
                               }, // methdod cek login nnti
                               child: Text(
                                 'Masuk',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                style: PoppinsStyle.stylePoppins(
                                   color: white,
                                   fontWeight: FontWeight.bold,
                                   fontSize:

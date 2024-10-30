@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/user_service.dart';
@@ -87,7 +88,7 @@ class DashboardPage extends StatelessWidget {
                                               'Guru di ${userData?['sekolah'] ?? ' Sekolah ini'}'
                                                   :
                                               'Murid di ${userData?['sekolah'] ?? ' Sekolah ini'}'}",
-                                              style: const TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                               ),
@@ -198,13 +199,13 @@ class DashboardPage extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 50),
+                             Padding(
+                              padding: const EdgeInsets.only(right: 50),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   'Yuk, baca dan temukan pengetahuan baru!',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: Colors.black,
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
@@ -243,8 +244,7 @@ class DashboardPage extends StatelessWidget {
                                           //       .searchContent();
                                           // },
                                           onSubmitted: (value) {
-                                            dashboardController
-                                                .searchContent();
+                                            dashboardController.searchContent();
                                           },
                                           controller: dashboardController
                                               .searchController,
@@ -464,7 +464,7 @@ class DashboardPage extends StatelessWidget {
                                       horizontal: 5),
                                   child: Text(
                                     e.title,
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: white,
                                       fontSize: MediaQuery.of(context)
                                           .size

@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/video_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 // import 'package:video_player/video_player.dart';
@@ -42,7 +43,7 @@ class VideoPage extends StatelessWidget {
                     ),
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: PoppinsStyle.stylePoppins(
                         fontSize: 20,
                         color: Colors.black,
                         fontWeight: FontWeight.w500,

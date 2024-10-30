@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
@@ -26,9 +27,9 @@ class ToScoringPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
+        title: Text(
           'Nilai Tes Bercerita Siswa',
-          style: TextStyle(
+          style: PoppinsStyle.stylePoppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -67,7 +68,7 @@ class ToScoringPage extends StatelessWidget {
                               ),
                               title: Text(
                                 content.title,
-                                style: TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.025,
                                   fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class ToScoringPage extends StatelessWidget {
                                             ),
                                             Text(
                                               '100',
-                                              style: TextStyle(
+                                              style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: MediaQuery.of(context)
                                                         .size
@@ -138,7 +139,7 @@ class ToScoringPage extends StatelessWidget {
                                         ),
                                         child: Text(
                                           'Detail',
-                                          style: TextStyle(
+                                          style: PoppinsStyle.stylePoppins(
                                             color: white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: MediaQuery.of(context)

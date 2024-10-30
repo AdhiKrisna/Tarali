@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
 
 class DetailHistoryPage extends StatelessWidget {
@@ -85,7 +86,7 @@ class DetailHistoryPage extends StatelessWidget {
                                             0.02),
                                     Text(
                                       argument['title'],
-                                      style: TextStyle(
+                                      style: PoppinsStyle.stylePoppins(
                                           fontSize:
                                               MediaQuery.of(context).size.width *
                                                   0.025,
@@ -104,7 +105,7 @@ class DetailHistoryPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         'Nilai',
-                                        style: TextStyle(
+                                        style: PoppinsStyle.stylePoppins(
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -169,7 +170,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           '${argument['quizScore']}',
-                                                          style: TextStyle(
+                                                          style: PoppinsStyle.stylePoppins(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -184,7 +185,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       'Nilai Kuis',
-                                                      style: TextStyle(
+                                                      style: PoppinsStyle.stylePoppins(
                                                         fontSize:
                                                             MediaQuery.of(context)
                                                                     .size
@@ -241,7 +242,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           '${argument['readTestScore']}',
-                                                          style: TextStyle(
+                                                          style: PoppinsStyle.stylePoppins(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: MediaQuery.of(
@@ -256,7 +257,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       'Nilai Bercerita',
-                                                      style: TextStyle(
+                                                      style: PoppinsStyle.stylePoppins(
                                                         fontSize:
                                                             MediaQuery.of(context)
                                                                     .size
@@ -278,7 +279,7 @@ class DetailHistoryPage extends StatelessWidget {
                                                   0.02),
                                       Text(
                                         'Catatan',
-                                        style: TextStyle(
+                                        style: PoppinsStyle.stylePoppins(
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -299,7 +300,7 @@ class DetailHistoryPage extends StatelessWidget {
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
                                             '${argument['readTestMessage']}',
-                                            style: const TextStyle(
+                                            style: PoppinsStyle.stylePoppins(
                                               fontSize: 12,
                                               color: Colors.black,
                                             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/login_siswa_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
@@ -12,7 +13,7 @@ class LoginSiswa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (v)async{
+      onPopInvoked: (v) async {
         Future.microtask(() => Get.offAllNamed(RouteName.dashboard));
       },
       child: Scaffold(
@@ -55,18 +56,16 @@ class LoginSiswa extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                           Text(
                             'Masuk',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Text(
+                           Text(
                             'Isi data diri kamu dulu yuk!',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
                             ),
@@ -93,36 +92,42 @@ class LoginSiswa extends StatelessWidget {
                           ),
                           Text(
                             'Pastikan nama sekolah benar dan sesuai dengan arahan gurumu ya!',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: MediaQuery.of(context).size.width * 0.0175,
+                            style: PoppinsStyle.stylePoppins(
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.0175,
                             ),
                           ),
-                        const SizedBox(height: 20),
-
+                          const SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.225,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.225,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: lightBlue,
                                   ),
                                   onPressed: () {
-                                    String nama = formLoginController.nameController.text;
-                                    String absen = formLoginController.absenController.text;
-                                    String sekolah = formLoginController.sekolahController.text;
-                                    if(nama.isEmpty || absen.isEmpty || sekolah.isEmpty){
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                    String nama =
+                                        formLoginController.nameController.text;
+                                    String absen = formLoginController
+                                        .absenController.text;
+                                    String sekolah = formLoginController
+                                        .sekolahController.text;
+                                    if (nama.isEmpty ||
+                                        absen.isEmpty ||
+                                        sekolah.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
-                                          content:
-                                          Text('Lengkapi data terlebih dahulu.'),
+                                          content: Text(
+                                              'Lengkapi data terlebih dahulu.'),
                                           backgroundColor: Colors.red,
                                           duration: Duration(seconds: 1),
                                         ),
                                       );
-                                    }else{
+                                    } else {
                                       showDialog(
                                         context: context,
                                         barrierDismissible: false,
@@ -132,21 +137,25 @@ class LoginSiswa extends StatelessWidget {
                                           );
                                         },
                                       );
-                                      formLoginController.as.loginStudent(
-                                        nama: nama,
-                                        absen: absen,
-                                        sekolah: sekolah
-                                      ).then((value){
+                                      formLoginController.as
+                                          .loginStudent(
+                                              nama: nama,
+                                              absen: absen,
+                                              sekolah: sekolah)
+                                          .then((value) {
                                         Navigator.of(context).pop();
-                                        if(value){
+                                        if (value) {
                                           Get.offAllNamed(RouteName.dashboard);
-                                        }else{
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(
-                                              content:
-                                              Text('Data tidak sesuai atau salah. Jika merasa belum memiliki akun, registrasi terlebih dahulu.'),
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                             SnackBar(
+                                              content: Text(
+                                                'Data tidak sesuai atau salah. Jika merasa belum memiliki akun, registrasi terlebih dahulu.',
+                                                style: PoppinsStyle.stylePoppins(),
+                                              ),
                                               backgroundColor: Colors.red,
-                                              duration: Duration(seconds: 1),
+                                              duration: const Duration(seconds: 1),
                                             ),
                                           );
                                         }
@@ -155,8 +164,7 @@ class LoginSiswa extends StatelessWidget {
                                   }, // methdod cek login nnti
                                   child: Text(
                                     'Masuk',
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
+                                    style: PoppinsStyle.stylePoppins(
                                       color: white,
                                       fontWeight: FontWeight.bold,
                                       fontSize:
@@ -167,7 +175,8 @@ class LoginSiswa extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.225,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.225,
                                 child: ElevatedButton(
                                   onPressed: () =>
                                       Get.toNamed(RouteName.registerSiswa),
@@ -177,8 +186,7 @@ class LoginSiswa extends StatelessWidget {
                                   ),
                                   child: Text(
                                     'Registrasi',
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
+                                    style: PoppinsStyle.stylePoppins(
                                       color: lightBlue,
                                       fontSize:
                                           MediaQuery.of(context).size.width *
@@ -192,15 +200,16 @@ class LoginSiswa extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () => Get.offNamedUntil(RouteName.loginGuru, ModalRoute.withName(RouteName.loginSiswa)),
+                              onPressed: () => Get.offNamedUntil(
+                                  RouteName.loginGuru,
+                                  ModalRoute.withName(RouteName.loginSiswa)),
                               style: ElevatedButton.styleFrom(
                                 side: const BorderSide(color: lightBlue),
                                 padding: const EdgeInsets.all(0),
                               ),
                               child: Text(
                                 'Masuk sebagai guru',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                style: PoppinsStyle.stylePoppins(
                                   color: lightBlue,
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.02,

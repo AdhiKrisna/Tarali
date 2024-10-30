@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -42,7 +43,7 @@ class DetailPage extends StatelessWidget {
                   ),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: PoppinsStyle.stylePoppins(
                       fontSize: 22,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w800,
@@ -155,10 +156,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label:  Text(
                               'Baca',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -188,10 +189,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label:  Text(
                               'Dengar',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -225,10 +226,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Tonton',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -264,8 +265,11 @@ class DetailPage extends StatelessWidget {
                                 );
                               }else{
                                 Get.snackbar(
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(seconds: 2),
+                                  colorText: Colors.white,
                                   'Gagal',
-                                  'Selesaikan baca terlebih dahulu untuk masuk kedalam Ayo Bercerita.',
+                                  'Selesaikan baca buku terlebih dahulu untuk masuk kedalam "Ayo Bercerita"',
                                 );
                               }
                             },
@@ -284,7 +288,7 @@ class DetailPage extends StatelessWidget {
                             label: Text(
                               'Ayo Bercerita',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                               ),
@@ -302,8 +306,11 @@ class DetailPage extends StatelessWidget {
                                 );
                               }else{
                                 Get.snackbar(
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(seconds: 2),
+                                  colorText: Colors.white,
                                   'Gagal',
-                                  'Selesaikan Ayo Bercerita terlebih dahulu untuk masuk kedalam Quiz.',
+                                  'Selesaikan "Ayo Bercerita" terlebih dahulu untuk masuk kedalam Quiz.',
                                 );
                               }
                             },
@@ -322,7 +329,7 @@ class DetailPage extends StatelessWidget {
                             label: Text(
                               'Kuis',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
                               ),

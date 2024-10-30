@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/scoring/scoring_controller.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
 import 'package:tarali/views/widgets/pause_play_button.dart';
@@ -128,7 +129,7 @@ class ScoringPage extends StatelessWidget {
                                                 0.02),
                                     Text(
                                       nama,
-                                      style: TextStyle(
+                                      style: PoppinsStyle.stylePoppins(
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -155,7 +156,7 @@ class ScoringPage extends StatelessWidget {
                                             children: [
                                               Text(
                                                 'Nilai',
-                                                style: TextStyle(
+                                                style: PoppinsStyle.stylePoppins(
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
@@ -183,7 +184,7 @@ class ScoringPage extends StatelessWidget {
                                                 child: TextFormField(
                                                   keyboardType: TextInputType.number,
                                                   controller: scoringController.scoreController,
-                                                  style: TextStyle(
+                                                  style: PoppinsStyle.stylePoppins(
                                                     color: greyText,
                                                     fontSize:
                                                         MediaQuery.of(context)
@@ -210,7 +211,7 @@ class ScoringPage extends StatelessWidget {
                                                           width: 1),
                                                     ),
                                                     hintText: 'Masukan nilai',
-                                                    hintStyle: TextStyle(
+                                                    hintStyle: PoppinsStyle.stylePoppins(
                                                       color: greyText,
                                                       fontSize:
                                                           MediaQuery.of(context)
@@ -234,7 +235,7 @@ class ScoringPage extends StatelessWidget {
                                             children: [
                                               Text(
                                                 'Kelas',
-                                                style: TextStyle(
+                                                style: PoppinsStyle.stylePoppins(
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
@@ -282,7 +283,7 @@ class ScoringPage extends StatelessWidget {
                                                 child: Center(
                                                   child: Text(
                                                     arguments['kelas'],
-                                                    style: TextStyle(
+                                                    style: PoppinsStyle.stylePoppins(
                                                       color: greyText,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -308,7 +309,7 @@ class ScoringPage extends StatelessWidget {
                                             children: [
                                               Text(
                                                 'Absen',
-                                                style: TextStyle(
+                                                style: PoppinsStyle.stylePoppins(
                                                     fontSize:
                                                         MediaQuery.of(context)
                                                                 .size
@@ -356,7 +357,7 @@ class ScoringPage extends StatelessWidget {
                                                 child: Center(
                                                   child: Text(
                                                     '${arguments['absen']}',
-                                                    style: TextStyle(
+                                                    style: PoppinsStyle.stylePoppins(
                                                       color: greyText,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -380,7 +381,7 @@ class ScoringPage extends StatelessWidget {
                                               0.02),
                                       Text(
                                         'Catatan',
-                                        style: TextStyle(
+                                        style: PoppinsStyle.stylePoppins(
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -417,7 +418,7 @@ class ScoringPage extends StatelessWidget {
                                                   color: bgBlue, width: 1),
                                             ),
                                             hintText: 'Tulis catatan disini',
-                                            hintStyle: TextStyle(
+                                            hintStyle: PoppinsStyle.stylePoppins(
                                               color: Colors.grey,
                                               fontSize: MediaQuery.of(context)
                                                       .size
@@ -452,11 +453,17 @@ class ScoringPage extends StatelessWidget {
                                             if(value){
                                               Get.back();
                                               Get.snackbar(
+                                                backgroundColor: Colors.green,
+                                                duration: const Duration(seconds: 5),
+                                                colorText: Colors.white,
                                                 'Sukses',
-                                                'Nilai berhasil dikirim.',
+                                                'Nilai berhasil dikirim kepada siswa.',
                                               );
                                             }else{
                                               Get.snackbar(
+                                                backgroundColor: Colors.red,
+                                                duration: const Duration(seconds: 5),
+                                                colorText: Colors.white,
                                                 'Gagal',
                                                 'Gagal mengirim nilai. Periksa koneksi internet lalu coba lagi.',
                                               );
@@ -489,7 +496,7 @@ class ScoringPage extends StatelessWidget {
                                         ),
                                         child: Text(
                                           'Simpan',
-                                          style: TextStyle(
+                                          style: PoppinsStyle.stylePoppins(
                                             color: Colors.white,
                                             fontSize: MediaQuery.of(context)
                                                     .size

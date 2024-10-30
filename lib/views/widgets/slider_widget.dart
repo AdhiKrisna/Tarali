@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
 class SliderWidget extends StatelessWidget {
@@ -30,7 +31,7 @@ class SliderWidget extends StatelessWidget {
                   Obx(
                     () => Text(
                       controller.currentSecondString, //ini durasi audio yang sedang diputar
-                      style:  TextStyle(
+                      style:  PoppinsStyle.stylePoppins(
                         color: lightBlue,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.height * 0.025,
@@ -44,7 +45,7 @@ class SliderWidget extends StatelessWidget {
                 Row(children: [
                    Text(
                     controller.durationString, //ini durasi audio yang sedang diputar
-                    style: TextStyle(
+                    style: PoppinsStyle.stylePoppins(
                       color: grey,
                       fontWeight: FontWeight.bold,
                       fontSize: MediaQuery.of(context).size.height * 0.0275,

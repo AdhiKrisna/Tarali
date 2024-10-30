@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/scoring_service.dart';
 
@@ -68,19 +69,18 @@ class ReadTestController extends GetxController {
       ss.uploadTestReadAssignment(
         path: recordingPath.value,
         argument: arguments,
-      ).then((value){
-        if(value){
-          arguments['isFinishedReadTest'] = true;
-          Get.offNamed(
-            RouteName.testResultPage,
-            arguments: arguments,
-          );
+      )
+          .then((value) {
+        if (value) {
+           arguments['isFinishedReadTest'] = true;
+              Get.offNamed(
+                RouteName.testResultPage,
+                arguments: arguments,
+              );
+        } else {
           Get.snackbar(
-            'Sukses',
-            'Anda berhasil menyelesaikan tes membaca.',
-          );
-        }else{
-          Get.snackbar(
+            duration: const Duration(seconds: 2),
+            backgroundColor: Colors.red,
             'Gagal',
             'File gagal diupload. Cek jaringan anda lalu coba lagi.',
           );
@@ -116,7 +116,7 @@ class ReadTestController extends GetxController {
     }
   }
 
-  Future<void> pickAudioFile() async {
+  Future<void> pickAudioFile(dynamic arguments) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.audio,
@@ -125,6 +125,35 @@ class ReadTestController extends GetxController {
       if (result != null && result.files.single.path != null) {
         String filePath = result.files.single.path!;
         print("Picked file path: $filePath");
+        Get.defaultDialog(
+          title: "Konfirmasi Pengumpulan",
+          middleText:
+              'Apakah kamu yakin ingin mengumpulkan rekaman suaramu ini sebagai aktivitas "Mari Bercerita"?',
+          textCancel: "Belum",
+          textConfirm: "Ya",
+          barrierDismissible: false,
+          confirmTextColor: Colors.white,
+          cancelTextColor: blackText,
+          buttonColor: lightBlue,
+          onCancel: () {},
+          onConfirm: () async {
+            Get.back();
+            Get.back();
+            arguments['isFinishedReadTest'] = true;
+            Get.offNamed(
+              RouteName.testResultPage,
+              arguments: arguments,
+            );
+            Get.reload();
+            Get.snackbar(
+              duration: const Duration(seconds: 5),
+              backgroundColor: Colors.green,
+              snackPosition: SnackPosition.BOTTOM,
+              'Kegiatan "Mari Bercerita" Sudah Selesai',
+              'Tunggu hingga gurumu memberimu nilai ya!',
+            );
+          },
+        );
       } else {
         print("No file selected");
       }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/read_controller.dart';
 import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/routes/route_name.dart';
@@ -48,7 +49,7 @@ class ReadPage extends StatelessWidget {
                                     ),
                                     Text(
                                       title,
-                                      style: const TextStyle(
+                                      style: PoppinsStyle.stylePoppins(
                                         fontSize: 20,
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500,
@@ -86,16 +87,16 @@ class ReadPage extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                     Text(
                                       'Halaman ',
-                                      style: TextStyle(
+                                      style: PoppinsStyle.stylePoppins(
                                         fontSize: 12,
                                         color: greyText,
                                       ),
                                     ),
                                     Text(
                                       '${readController.index} dari $pageTotal',
-                                      style: const TextStyle(
+                                      style: PoppinsStyle.stylePoppins(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                         color: lightBlue,
