@@ -37,7 +37,7 @@ class DashboardPage extends StatelessWidget {
                           shape: const CircleBorder(),
                         ),
                         onPressed: dashboardController.isSearching.isTrue
-                            ? (){
+                            ? () {
                           dashboardController.searchController.text = '';
                           dashboardController.searchContent(value: '');
                           dashboardController.toggleSearch();
@@ -151,7 +151,7 @@ class DashboardPage extends StatelessWidget {
                                               contentPadding: EdgeInsets.zero,
                                               leading: const Icon(Icons.logout),
                                               title:
-                                              const Text('Log-out'),
+                                              const Text('Logout'),
                                               onTap: () async{
                                                 Get.defaultDialog(
                                                   title: "Konfirmasi Logout",
@@ -170,6 +170,7 @@ class DashboardPage extends StatelessWidget {
                                                     Get.reload();
                                                     Get.snackbar(
                                                       backgroundColor: Colors.green,
+                                                      colorText: Colors.white,
                                                       snackPosition: SnackPosition.BOTTOM,
                                                       'Sukses',
                                                       'Anda berhasil logout.',
@@ -211,7 +212,7 @@ class DashboardPage extends StatelessWidget {
                                   'Yuk, baca dan temukan pengetahuan baru!',
                                   style: PoppinsStyle.stylePoppins(
                                     color: Colors.black,
-                                    fontSize: 24,
+                                    fontSize: MediaQuery.of(context).size.width * 0.025,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -257,8 +258,12 @@ class DashboardPage extends StatelessWidget {
                                                 ? 'Mendengarkan...'
                                                 : 'Cari judul buku',
                                             border: InputBorder.none,
-                                            prefixIcon: const Icon(
-                                              Icons.search,
+                                            prefixIcon: IconButton(
+                                              icon: const Icon(
+                                                Icons.search,
+                                                color: Colors.black,
+                                              ),
+                                              onPressed: () => dashboardController.searchContent(value: dashboardController.searchController.text),
                                               color: Colors.black,
                                             ),
                                             suffixIcon: IconButton(

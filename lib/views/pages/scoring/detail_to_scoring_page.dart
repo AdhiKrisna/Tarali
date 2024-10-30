@@ -5,8 +5,7 @@ import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/scoring_service.dart';
 import 'package:tarali/views/widgets/background_screen.dart';
-
-import '../../../models/scoring_model.dart';
+import 'package:tarali/models/scoring_model.dart';
 
 class DetailToScoringPage extends StatelessWidget {
   const DetailToScoringPage({super.key});
@@ -265,7 +264,7 @@ class DetailToScoringPage extends StatelessWidget {
                                                   0.01,
                                             ),
                                             Text(
-                                              '1:30',
+                                              '${model[index].readTestScore}',
                                               style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)

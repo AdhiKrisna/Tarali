@@ -170,7 +170,7 @@ class HistoryPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.025,
+                                                0.02,
                                           ),
                                         ),
                                       ),
