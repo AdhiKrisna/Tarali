@@ -45,8 +45,7 @@ class VideoPage extends StatelessWidget {
                       title,
                       style: PoppinsStyle.stylePoppins(
                         fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],

@@ -8,7 +8,6 @@ import 'package:tarali/views/widgets/pause_play_button.dart';
 import 'package:tarali/views/widgets/replay_button.dart';
 import 'package:tarali/views/widgets/slider_widget.dart';
 
-
 class AudioPage extends StatelessWidget {
   const AudioPage({super.key});
 
@@ -37,22 +36,26 @@ class AudioPage extends StatelessWidget {
                           ? Column(
                               children: [
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.45,
-                                  width: MediaQuery.of(context).size.width * 0.4,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.45,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
                                   child: Image.network(
                                     argument['cover'],
                                     fit: BoxFit.fill,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.005,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.005,
                                 ),
                                 Column(
                                   children: [
                                     SliderWidget(isFullScreen: true),
                                     SizedBox(
                                       height:
-                                          MediaQuery.of(context).size.height * 0.025,
+                                          MediaQuery.of(context).size.height *
+                                              0.025,
                                     ),
                                     Obx(
                                       () => Row(
@@ -98,7 +101,10 @@ class AudioPage extends StatelessWidget {
             child: AppBar(
               title: Text(
                 title,
-                style: PoppinsStyle.stylePoppins(fontWeight: FontWeight.bold),
+                style: PoppinsStyle.stylePoppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               backgroundColor: Colors.transparent,
             ),

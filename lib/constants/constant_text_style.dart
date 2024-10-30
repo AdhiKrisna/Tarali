@@ -14,7 +14,7 @@ class PoppinsStyle {
       return GoogleFonts.poppins(
         fontSize: fontSize ?? 14,
         fontWeight: fontWeight ?? FontWeight.normal,
-        color: color ?? white,
+        color: color ?? blackText,
         height: height ?? 1,
         decoration: decoration,
       );

@@ -18,50 +18,10 @@ class ContentService {
     return FirebaseFirestore.instance.collection('content').snapshots();
   }
 
-  List<String> getSearchContentTitle(String search) {
-    search = search.toLowerCase().replaceAll(' ', '');
-    List<String> contentSnapshots = [];
-    FirebaseFirestore.instance.collection('content').get().then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        if(doc['title'].toString().toLowerCase().replaceAll(' ', '').contains(search) ){
-          //print(doc['title']);
-          print(doc['title']);
-          contentSnapshots.add(doc['title']);
-        }
-      }
-    });
-    return contentSnapshots;
-  }
-  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
-    print(search);
-    try {
-      if(search.isEmpty){
-        return FirebaseFirestore.instance
-            .collection('content')
-            .snapshots();
-      }else{
-        return FirebaseFirestore.instance
-            .collection('content')
-            .where('title', isEqualTo: search)
-            .snapshots();
-      }
-    } catch (e) {
-      //print('Error fetching search content: $e');
-      return const Stream.empty();
-    }
-  }
-  // Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
-  //   return FirebaseFirestore.instance
-  //       .collection('content')
-  //       .where('title', isGreaterThanOrEqualTo: search)
-  //       .where('title', isLessThanOrEqualTo: '$search\uf8ff')
-  //       .snapshots();
-  // }
 
-
-List<ContentModel> getAllContentData({
-  required List<QueryDocumentSnapshot> data,
-}) {
+  List<ContentModel> getAllContentData({
+    required List<QueryDocumentSnapshot> data,
+  }) {
     int noSoal = 1;
     WarmUpModel pemanasan;
     return data.map((e){
