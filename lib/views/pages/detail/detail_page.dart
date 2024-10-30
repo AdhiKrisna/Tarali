@@ -47,6 +47,7 @@ class DetailPage extends StatelessWidget {
                       fontSize: 22,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w800,
+                      color: blackText,
                     ),
                   )
                 ],

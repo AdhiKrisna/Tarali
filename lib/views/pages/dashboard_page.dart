@@ -37,7 +37,11 @@ class DashboardPage extends StatelessWidget {
                           shape: const CircleBorder(),
                         ),
                         onPressed: dashboardController.isSearching.isTrue
-                            ? dashboardController.toggleSearch
+                            ? (){
+                          dashboardController.searchController.text = '';
+                          dashboardController.searchContent(value: '');
+                          dashboardController.toggleSearch();
+                        }
                             : () {
                           showDialog(
                             context: context,
@@ -91,6 +95,7 @@ class DashboardPage extends StatelessWidget {
                                               style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
+                                                color: blackText
                                               ),
                                             ) :
                                             ListTile(
@@ -243,8 +248,9 @@ class DashboardPage extends StatelessWidget {
                                           //   dashboardController
                                           //       .searchContent();
                                           // },
+                                          textInputAction: TextInputAction.search,
                                           onSubmitted: (value) {
-                                            dashboardController.searchContent();
+                                            dashboardController.searchContent(value: value);
                                           },
                                           controller: dashboardController
                                               .searchController,
@@ -254,9 +260,7 @@ class DashboardPage extends StatelessWidget {
                                                 : 'Cari judul buku',
                                             border: InputBorder.none,
                                             prefixIcon: IconButton(
-                                              onPressed: () =>
-                                                  dashboardController
-                                                      .searchContent(),
+                                              onPressed: (){},
                                               icon: const Icon(
                                                 Icons.search,
                                                 color: Colors.black,
@@ -295,9 +299,12 @@ class DashboardPage extends StatelessWidget {
                                                 color: Colors.black,
                                               ),
                                               onPressed: () {
-                                                dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
-                                                    ? dashboardController.stopListening()
-                                                    : dashboardController.startListening();
+                                                if(dashboardController.isListening.isTrue && dashboardController.speechToText.isListening){
+                                                  dashboardController.stopListening();
+                                                }else{
+                                                  dashboardController.searchController.text = '';
+                                                  dashboardController.startListening();
+                                                }
                                               },
                                               iconSize: MediaQuery.of(context)
                                                   .size
@@ -353,139 +360,139 @@ class DashboardPage extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
-              child: StreamBuilder(
-                stream: dashboardController.isSearching.isTrue &&
-                    dashboardController.searchController.text.isNotEmpty
-                    ? dashboardController.cs.getSearchContent(
-                    dashboardController.searchController.text)
-                    : dashboardController.cs.getAllContent(),
+              child:StreamBuilder(
+                stream: dashboardController.cs.getAllContent(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  List<ContentModel> data = dashboardController.cs
-                      .getAllContentData(data: snapshot.data!.docs);
-                  return data.isEmpty
-                      ? const Center(child: Text("Judul Buku Tidak Ditemukan"))
-                      : ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: data.map((e) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width *
-                                0.0225),
-                        width: MediaQuery.of(context).size.width < 760
-                            ? MediaQuery.of(context).size.width * 0.215
-                            : MediaQuery.of(context).size.width * 0.17,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            style: BorderStyle.solid,
-                            color: white,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                            ),
-                          ],
-                        ),
-                        child: InkWell(
-                          onTap: () async{
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
-                            );
-                            var args = Map.from(e.toMap())..addAll(dashboardController.userModel.toMap());
-                            args['isFinishedRead'] = await dashboardController.ss.checkCanReadTest(
-                              uid: args['uId'],
-                              contentId: args['contentId'],
-                            );
-                            args['isFinishedReadTest'] = await dashboardController.ss.checkCanQuiz(
-                              uid: args['uId'],
-                              contentId: args['contentId'],
-                            );
-                            if (!context.mounted) return;
-                            Navigator.of(context).pop();
-                            Get.toNamed(
-                              RouteName.detailContentPage,
-                              arguments: args,
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height:
-                                MediaQuery.of(context).size.height *
-                                    0.45,
-                                child: Padding(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.width *
-                                          0.01),
-                                  child: Image.network(
-                                    e.coverDashboard,
-                                    fit: BoxFit.fill,
-                                    loadingBuilder: (BuildContext context,
-                                        Widget child,
-                                        ImageChunkEvent?
-                                        loadingProgress) {
-                                      if (loadingProgress == null){
-                                        return child;
-                                      }
-                                      return Center(
-                                        child: CircularProgressIndicator(
-                                          value: loadingProgress
-                                              .expectedTotalBytes !=
-                                              null
-                                              ? loadingProgress
-                                              .cumulativeBytesLoaded /
-                                              (loadingProgress
-                                                  .expectedTotalBytes!)
-                                              : null,
-                                        ),
+                  return Obx(
+                      (){
+                        List<ContentModel> data = dashboardController.cs.getAllContentData(data: snapshot.data!.docs);
+                        data = data.where((element) => element.title.toLowerCase().contains(dashboardController.searchData.value.toLowerCase())).toList();
+                        return data.isEmpty
+                            ? const Center(child: Text("Judul Buku Tidak Ditemukan"))
+                            : ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: data.map((e) {
+                            return Container(
+                              margin: EdgeInsets.only(
+                                  right: MediaQuery.of(context).size.width *
+                                      0.0225),
+                              width: MediaQuery.of(context).size.width < 760
+                                  ? MediaQuery.of(context).size.width * 0.215
+                                  : MediaQuery.of(context).size.width * 0.17,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: white,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                  ),
+                                ],
+                              ),
+                              child: InkWell(
+                                onTap: () async{
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
                                       );
                                     },
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                    const Center(
-                                        child: Icon(Icons.error)),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5),
-                                  child: Text(
-                                    e.title,
-                                    style: PoppinsStyle.stylePoppins(
-                                      color: white,
-                                      fontSize: MediaQuery.of(context)
-                                          .size
-                                          .width *
-                                          0.02,
-                                      fontWeight: FontWeight.bold,
+                                  );
+                                  var args = Map.from(e.toMap())..addAll(dashboardController.userModel.toMap());
+                                  args['isFinishedRead'] = await dashboardController.ss.checkCanReadTest(
+                                    uid: args['uId'],
+                                    contentId: args['contentId'],
+                                  );
+                                  args['isFinishedReadTest'] = await dashboardController.ss.checkCanQuiz(
+                                    uid: args['uId'],
+                                    contentId: args['contentId'],
+                                  );
+                                  if (!context.mounted) return;
+                                  Navigator.of(context).pop();
+                                  Get.toNamed(
+                                    RouteName.detailContentPage,
+                                    arguments: args,
+                                  );
+                                },
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height:
+                                      MediaQuery.of(context).size.height *
+                                          0.45,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.width *
+                                                0.01),
+                                        child: Image.network(
+                                          e.coverDashboard,
+                                          fit: BoxFit.fill,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                              loadingProgress) {
+                                            if (loadingProgress == null){
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                    null
+                                                    ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                    (loadingProgress
+                                                        .expectedTotalBytes!)
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                          const Center(
+                                              child: Icon(Icons.error)),
+                                        ),
+                                      ),
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
+                                    const SizedBox(height: 5),
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: Text(
+                                          e.title,
+                                          style: PoppinsStyle.stylePoppins(
+                                            color: white,
+                                            fontSize: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.02,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 5),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                            );
+                          }).toList(),
+                        );
+                      }
                   );
                 },
-              ),
+              )
             ),
           ],
         ),

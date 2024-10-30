@@ -25,21 +25,26 @@ class ContentService {
       for (var doc in querySnapshot.docs) {
         if(doc['title'].toString().toLowerCase().replaceAll(' ', '').contains(search) ){
           //print(doc['title']);
+          print(doc['title']);
           contentSnapshots.add(doc['title']);
         }
       }
-      //print(contentSnapshots);
     });
     return contentSnapshots;
   }
   Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
-    List<String> contentSnapshots = getSearchContentTitle(search);
-    //print(contentSnapshots);
+    print(search);
     try {
-      return FirebaseFirestore.instance
-        .collection('content')
-        .where('title', arrayContainsAny: contentSnapshots)
-        .snapshots();
+      if(search.isEmpty){
+        return FirebaseFirestore.instance
+            .collection('content')
+            .snapshots();
+      }else{
+        return FirebaseFirestore.instance
+            .collection('content')
+            .where('title', isEqualTo: search)
+            .snapshots();
+      }
     } catch (e) {
       //print('Error fetching search content: $e');
       return const Stream.empty();
@@ -54,8 +59,9 @@ class ContentService {
   // }
 
 
-List<ContentModel> getAllContentData(
-      {required List<QueryDocumentSnapshot> data}) {
+List<ContentModel> getAllContentData({
+  required List<QueryDocumentSnapshot> data,
+}) {
     int noSoal = 1;
     WarmUpModel pemanasan;
     return data.map((e){
