@@ -44,6 +44,7 @@ class DetailPage extends StatelessWidget {
                   Text(
                     title,
                     style: PoppinsStyle.stylePoppins(
+                      color: blackText,
                       fontSize: 22,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w800,
