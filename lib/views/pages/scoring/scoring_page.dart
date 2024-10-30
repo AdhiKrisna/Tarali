@@ -35,56 +35,60 @@ class ScoringPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.05,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                height:
+                        GetBuilder(
+                          init: PlayerController(url: arguments['readTestSource']),
+                          builder: (c){
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height * 0.05,
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    height:
                                     MediaQuery.of(context).size.height * 0.50,
-                                width: MediaQuery.of(context).size.width < 760
-                                    ? MediaQuery.of(context).size.width * 0.225
-                                    : MediaQuery.of(context).size.width * 0.18,
-                                child: Image(
-                                  image: NetworkImage(arguments['cover']),
-                                  fit: BoxFit.fill,
+                                    width: MediaQuery.of(context).size.width < 760
+                                        ? MediaQuery.of(context).size.width * 0.225
+                                        : MediaQuery.of(context).size.width * 0.18,
+                                    child: Image(
+                                      image: NetworkImage(arguments['cover']),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.05,
-                            ),
-                             SliderWidget(),
-                            SizedBox(
-                              height:
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.05,
+                                ),
+                                SliderWidget(),
+                                SizedBox(
+                                  height:
                                   MediaQuery.of(context).size.height * 0.025,
-                            ),
-                            Obx(
-                              () => Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    onPressed: () => controller.fastBackward(),
-                                    icon: const Icon(Icons.fast_rewind_rounded,
-                                        color: lightBlue, size: 30),
-                                  ),
-                                  controller.isReplay.isFalse
-                                      ? const PausePlayButton()
-                                      : const ReplayButton(),
-                                  IconButton(
-                                    onPressed: () => controller.fastForward(),
-                                    icon: const Icon(Icons.fast_forward_rounded,
-                                        color: lightBlue, size: 30),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                                Obx(() => Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () => controller.fastBackward(),
+                                      icon: const Icon(Icons.fast_rewind_rounded,
+                                          color: lightBlue, size: 30),
+                                    ),
+                                    controller.isReplay.isFalse
+                                        ? const PausePlayButton()
+                                        : const ReplayButton(),
+                                    IconButton(
+                                      onPressed: () => controller.fastForward(),
+                                      icon: const Icon(Icons.fast_forward_rounded,
+                                          color: lightBlue, size: 30),
+                                    ),
+                                  ],
+                                ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width < 760
