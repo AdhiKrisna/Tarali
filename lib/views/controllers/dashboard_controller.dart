@@ -17,6 +17,7 @@ class DashboardController extends GetxController {
   var as = UserService();
   var ss = ScoringService();
   final SpeechToText speechToText = SpeechToText();
+  var searchData = "".obs;
   bool speechEnabled = false;
   String wordSpoken = '';
   double confidenceLevel = 0.0;
@@ -46,7 +47,6 @@ class DashboardController extends GetxController {
       authStream.asyncMap((user) => user != null ? as.getAllUserData(user.uid).first : null),
           (authUser, userDataSnapshot) {
         var data = userDataSnapshot?.data();
-        print(data);
         userModel = UserModel(
           uId: authUser?.uid ?? '',
           email: authUser?.email ?? '',
@@ -72,19 +72,8 @@ class DashboardController extends GetxController {
     },);
   }
 
-  void searchContent() {
-    try {
-      if (searchController.text.isNotEmpty) {
-        //print(searchController.text + ' from controller');
-        cs.getSearchContent(searchController.text).listen((event) {
-          //print(event);
-        });
-      } else {
-        //print('Search is empty');
-      }
-    } catch (e) {
-      //print('Error in searchContent: $e');
-    }
+  void searchContent({required String value}) {
+    searchData.value = value;
   }
 
   void initSpeech() async {
@@ -123,7 +112,7 @@ class DashboardController extends GetxController {
         searchController.text = result.recognizedWords;
         //print(searchController.text + ' from speech to text');
         stopListening();
-        searchContent(); //ini pr
+        searchContent(value: result.recognizedWords); //ini pr
       }
     } catch (e) {
       stopListening();

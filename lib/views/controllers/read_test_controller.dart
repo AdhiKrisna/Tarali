@@ -137,21 +137,35 @@ class ReadTestController extends GetxController {
           buttonColor: lightBlue,
           onCancel: () {},
           onConfirm: () async {
-            Get.back();
-            Get.back();
-            arguments['isFinishedReadTest'] = true;
-            Get.offNamed(
-              RouteName.testResultPage,
-              arguments: arguments,
-            );
-            Get.reload();
-            Get.snackbar(
-              duration: const Duration(seconds: 5),
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.BOTTOM,
-              'Kegiatan "Mari Bercerita" Sudah Selesai',
-              'Tunggu hingga gurumu memberimu nilai ya!',
-            );
+            ss.uploadTestReadAssignment(
+              path: filePath,
+              argument: arguments,
+            ).then((value){
+              Get.back();
+              if(value){
+                Get.back();
+                arguments['isFinishedReadTest'] = true;
+                Get.offNamed(
+                  RouteName.testResultPage,
+                  arguments: arguments,
+                );
+                Get.reload();
+                Get.snackbar(
+                  duration: const Duration(seconds: 5),
+                  backgroundColor: Colors.green,
+                  snackPosition: SnackPosition.BOTTOM,
+                  'Kegiatan "Mari Bercerita" Sudah Selesai',
+                  'Tunggu hingga gurumu memberimu nilai ya!',
+                );
+              }else{
+                Get.snackbar(
+                  duration: const Duration(seconds: 2),
+                  backgroundColor: Colors.red,
+                  'Gagal',
+                  'File gagal diupload. Cek jaringan anda lalu coba lagi.',
+                );
+              }
+            });
           },
         );
       } else {
