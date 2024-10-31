@@ -164,24 +164,27 @@ class ReadPage extends StatelessWidget {
                                                 );
                                               }
                                             );
-                                            await readController.ss.createScoringTemplate(argument: argument).then((value){
+                                            readController.ss.createScoringTemplate(argument: argument).then((value){
+                                              Navigator.of(context).pop();
                                               argument['isFinishedRead'] = value;
+                                              if(value){
+                                                Get.offAllNamed(RouteName.dashboard);
+                                                Get.reload();
+                                                Get.toNamed(
+                                                  RouteName.detailContentPage,
+                                                  arguments: argument,
+                                                );
+                                                Get.toNamed(
+                                                  RouteName.warmUpPage,
+                                                  arguments: argument,
+                                                );
+                                              }else{
+                                                Get.snackbar(
+                                                  'Gagal',
+                                                  'Koneksi terputus! Harap cek jaringan lalu coba lagi.',
+                                                );
+                                              }
                                             });
-                                            if (!context.mounted) return;
-                                            Navigator.of(context).pop();
-                                            if(argument['isFinishedRead']){
-                                              Get.offAllNamed(RouteName.dashboard);
-                                              Get.reload();
-                                              Get.toNamed(
-                                                RouteName.warmUpPage,
-                                                arguments: argument,
-                                              );
-                                            }else{
-                                              Get.snackbar(
-                                                'Gagal',
-                                                'Koneksi terputus! Harap cek jaringan lalu coba lagi.',
-                                              );
-                                            }
                                           }
                                         }),
                                     barrierDismissible: false,

@@ -185,6 +185,7 @@ class ScoringService{
       return _fireStore.collection('scoring')
           .where('contentId', isEqualTo: contentId)
           .where('sekolah', isEqualTo: sekolah)
+          .where('kelas', isNotEqualTo: "-1 a")
           .snapshots();
     }catch (e){
       return const Stream.empty();
