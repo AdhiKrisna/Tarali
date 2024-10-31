@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/scoring_model.dart';
+import 'package:tarali/views/controllers/player_controller.dart';
 
 class ScoringService{
   late FirebaseFirestore _fireStore;
@@ -110,6 +111,7 @@ class ScoringService{
           {
             'readTest.score': 0.0,
             'readTest.source': downloadUrl,
+            'readTest.duration': argument['duration'] ?? '00:00',
             'readTest.message': '',
           }
       );
@@ -131,6 +133,10 @@ class ScoringService{
       await fileRef.putFile(file);
 
       String downloadUrl = await fileRef.getDownloadURL();
+      PlayerController c = PlayerController(url: downloadUrl, autoPlay: false);
+      double duration = await c.getAudioDuration();
+      String totalDuration = '${duration > 60 ? duration / 60 : '00'}:${duration % 60}';
+      argument['duration'] = totalDuration;
       await setReadTestAssignment(
         downloadUrl: downloadUrl,
         argument: argument,
@@ -165,6 +171,7 @@ class ScoringService{
         readTestScore: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['score'] : 0,
         readTestMessage: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['message'] : '',
         readTestSource: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['source'] : '',
+        readTestDuration: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['duration'] : '00:00',
         sekolah: e['sekolah'],
       );
     }).toList();
@@ -198,6 +205,7 @@ class ScoringService{
         readTestScore: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['score'] : 0,
         readTestMessage: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['message'] : '',
         readTestSource: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['source'] : '',
+        readTestDuration: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['duration'] : '00:00',
         sekolah: e['sekolah'],
       );
     }).toList();

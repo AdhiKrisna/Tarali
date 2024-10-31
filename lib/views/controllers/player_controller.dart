@@ -7,12 +7,15 @@ class PlayerController extends GetxController {
   Timer? timer;
   var cs = ContentService();
   final String url;
-  PlayerController({required this.url});
+  final bool autoPlay;
+  PlayerController({required this.url, this.autoPlay = true});
 
   @override
   void onInit() {
     super.onInit();
-    onPlaying();
+    if(autoPlay){
+      onPlaying();
+    }
   }
 
   final audioPlayer = AudioPlayer();
@@ -37,6 +40,12 @@ class PlayerController extends GetxController {
     } catch (e) {
       isPlaying.value = false; // Mark as not playing on error
     }
+  }
+
+  Future<double> getAudioDuration() async{
+    await audioPlayer.setSourceUrl(url);
+    Duration? dr = await audioPlayer.getDuration();
+    return dr?.inSeconds.toDouble() ?? 0.0;
   }
 
   void togglePlaying() async {

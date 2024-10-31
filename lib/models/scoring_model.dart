@@ -10,6 +10,7 @@ class ScoringModel{
   final double readTestScore;
   final String readTestSource;
   final String readTestMessage;
+  final String readTestDuration;
   final String sekolah;
 
   ScoringModel({
@@ -24,6 +25,7 @@ class ScoringModel{
     required this.readTestScore,
     required this.readTestSource,
     required this.readTestMessage,
+    required this.readTestDuration,
     required this.sekolah,
   });
 
@@ -40,6 +42,7 @@ class ScoringModel{
       'readTestScore': readTestScore,
       'readTestSource': readTestSource,
       'readTestMessage': readTestMessage,
+      'readTestDuration': readTestDuration,
       'sekolah': sekolah,
     };
   }

@@ -264,7 +264,7 @@ class DetailToScoringPage extends StatelessWidget {
                                                   0.01,
                                             ),
                                             Text(
-                                              '${model[index].readTestScore}',
+                                              model[index].readTestDuration,
                                               style: PoppinsStyle.stylePoppins(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: MediaQuery.of(context)
