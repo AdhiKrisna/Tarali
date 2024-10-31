@@ -99,16 +99,36 @@ class ToScoringPage extends StatelessWidget {
                                               AssetImage('assets/icons/person.png'),
                                               color: lightBlue,
                                             ),
-                                            Text(
-                                              '100',
-                                              style: PoppinsStyle.stylePoppins(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: MediaQuery.of(context)
+                                            StreamBuilder(
+                                              stream: dashboardController.ss.getAllReadTestAssignment(
+                                                contentId: content.contentId,
+                                                sekolah: argument['sekolah'],
+                                              ),
+                                              builder: (content, snapshot){
+                                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                                  return Text(
+                                                    '...',
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                          0.0225,
+                                                    ),
+                                                  );
+                                                }
+                                                return Text(
+                                                  snapshot.data?.docs.length.toString() ?? '0',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.0225,
-                                              ),
-                                            ),
+                                                        0.0225,
+                                                  ),
+                                                );
+                                              },
+                                            )
                                           ],
                                         ),
                                       ),
