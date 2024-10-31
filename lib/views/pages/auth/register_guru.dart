@@ -237,6 +237,9 @@ class RegisterGuru extends StatelessWidget {
                                   if(value){
                                     Get.toNamed(RouteName.verifyGuruPage);
                                     Get.snackbar(
+                                      backgroundColor: Colors.green,
+                                      duration: const Duration(seconds: 5),
+                                      colorText: white,
                                       'Email terkirim',
                                       'Email verifikasi telah dikirim ke $email.',
                                     );
