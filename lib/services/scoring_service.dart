@@ -135,7 +135,7 @@ class ScoringService{
       String downloadUrl = await fileRef.getDownloadURL();
       PlayerController c = PlayerController(url: downloadUrl, autoPlay: false);
       double duration = await c.getAudioDuration();
-      String totalDuration = '${duration > 60 ? duration / 60 : '00'}:${duration % 60}';
+      String totalDuration = '${duration > 60 ? (duration / 60).floor() : '00'}:${(duration % 60).floor()}';
       argument['duration'] = totalDuration;
       await setReadTestAssignment(
         downloadUrl: downloadUrl,
@@ -145,6 +145,7 @@ class ScoringService{
       });
       return v;
     }catch (e){
+      print(e);
       return false;
     }
   }
