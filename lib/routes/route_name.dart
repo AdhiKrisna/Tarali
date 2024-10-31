@@ -23,6 +23,7 @@ class RouteName {
     static const String videoContentPage = '/videoContentPage';
     static const String audioContentPage = '/audioContentPage';
     static const String quizPage = '/quizPage';
+    static const String quizAnswerPage = '/quizAnswerPage';
     static const String warmUpPage = '/warmUpPage';
     static const String readingTestPage = '/readingTestPage';
     static const String testResultPage = '/testResultPage';

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,19 +80,16 @@ class DashboardController extends GetxController {
   void initSpeech() async {
     try {
       speechEnabled = await speechToText.initialize();
-      //print(speechEnabled);
     } catch (e) {
-      //print('Error in initSpeech: $e');
+        log(e.toString());
     }
   }
 
   void startListening() async {
     isListening.value = true;
     try {
-      //print('isListening issss: ${isListening.value}');
       await speechToText.listen(
         listenOptions: SpeechListenOptions(
-          // autoPunctuation: true,
           partialResults: true,
           cancelOnError: false,
           listenMode: ListenMode.search,
@@ -99,7 +97,7 @@ class DashboardController extends GetxController {
         onResult: (onSpeechResult),
       );
     } catch (e) {
-      //print('Error in startListening: $e');
+      log(e.toString());
       isListening.value = false;
     }
   }
@@ -108,26 +106,24 @@ class DashboardController extends GetxController {
     try {
       if (result.finalResult) {
         confidenceLevel = result.confidence;
-        //print(confidenceLevel);
         searchController.text = result.recognizedWords;
-        //print(searchController.text + ' from speech to text');
         stopListening();
         searchContent(value: result.recognizedWords); //ini pr
       }
     } catch (e) {
+      log(e.toString());
       stopListening();
-      //print('Error in onSpeechResult: $e');
+
     }
   }
 
   void stopListening() async {
     isListening.value = false;
     try {
-      //print('isListening issss: ${isListening.value}');
       await speechToText.stop();
     } catch (e) {
+      log(e.toString());
       isListening.value = false;
-      //print('Error in stopListening: $e');
     }
   }
 }

@@ -1,1 +1,0 @@
-isinya adalah fungsi atau class yang bertujuan untuk menyambungkan dari app ke backend

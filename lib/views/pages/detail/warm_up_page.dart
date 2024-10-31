@@ -9,7 +9,6 @@ import 'package:tarali/views/widgets/background_widget.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
 
-
 class WarmUpPage extends StatelessWidget {
   const WarmUpPage({super.key});
 

@@ -177,29 +177,6 @@ class ReadingTestPage extends StatelessWidget {
                                 ),
                               );
                       }),
-                      // ElevatedButton(
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: lightBlue,
-                      //     shape: const CircleBorder(),
-                      //     padding: const EdgeInsets.all(10),
-                      //   ),
-                      //   onPressed: () {
-                      //     // Start recording audio
-                      //     readTestController.isRecording.isFalse
-                      //         ? readTestController.startVoiceStream()
-                      //         : readTestController.stopVoiceStream();
-
-                      //   },
-                      //   child: Obx(
-                      //     () => Icon(
-                      //       readTestController.isRecording.isTrue
-                      //           ? Icons.stop
-                      //           : Icons.mic,
-                      //       size: 30,
-                      //       color: white,
-                      //     ),
-                      //   ),
-                      // ),
                       const SizedBox(
                         height: 20,
                       ),

@@ -5,7 +5,6 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/views/controllers/video_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-// import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatelessWidget {
   const VideoPage({super.key});

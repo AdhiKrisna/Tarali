@@ -1,6 +1,6 @@
 
 import 'dart:io';
-
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/scoring_model.dart';
@@ -67,6 +67,22 @@ class ScoringService{
         .limit(1)
         .get();
     if(snapshot.docs.isNotEmpty && snapshot.docs[0].data().containsKey('readTest')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Future<bool> checkQuizDone({
+    required String uid,
+    required String contentId
+  })async{
+    var snapshot = await _fireStore.collection('scoring')
+        .where('uId', isEqualTo: uid)
+        .where('contentId', isEqualTo: contentId)
+        .limit(1)
+        .get();
+    if(snapshot.docs.isNotEmpty && snapshot.docs[0].data().containsKey('quiz')){
       return true;
     }else{
       return false;
@@ -145,12 +161,12 @@ class ScoringService{
       });
       return v;
     }catch (e){
-      print(e);
+      log(e.toString());
       return false;
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>  getAllHistory(String uId) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllHistory(String uId) {
     try{
       return _fireStore.collection('scoring').where('uId', isEqualTo: uId).snapshots();
     }catch (e){
@@ -237,4 +253,31 @@ class ScoringService{
       return false;
     }
   }
+
+  Future<Map<String, dynamic>?> getScoringData({dynamic arguments}) async {
+    var snapshot = await _fireStore.collection('scoring')
+        .where('uId', isEqualTo: arguments['uId'])
+        .limit(1)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      return snapshot.docs.first.data();
+    } else {
+      return null;
+    }
+  }
+  Future<List<int>?> getQuizAnswers({dynamic arguments}) async {
+    var snapshot = await _fireStore.collection('scoring')
+        .where('uId', isEqualTo: arguments['uId'])
+        .where('contentId', isEqualTo: arguments['contentId'])
+        .limit(1)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      var data = snapshot.docs.first.data();
+      if (data.containsKey('quiz') && data['quiz'].containsKey('jawaban')) {
+        return List<int>.from(data['quiz']['jawaban']);
+      }
+    }
+    return null;
+  }
+
 }

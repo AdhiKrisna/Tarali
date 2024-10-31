@@ -15,14 +15,12 @@ class _VerifyGuruPageState extends State<VerifyGuruPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _authController.startEmailVerificationPolling();
   }
 
   @override
   void dispose()async{
-    // TODO: implement dispose
     _authController.stopEmailVerificationPolling();
     super.dispose();
   }

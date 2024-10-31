@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
@@ -58,7 +60,7 @@ class PlayerController extends GetxController {
         timer?.cancel();
       }
     } catch (e) {
-      print(e);
+      log(e.toString());
       isPlaying.value = false; // Mark as not playing on error
     }
   }
@@ -73,8 +75,7 @@ class PlayerController extends GetxController {
         await audioPlayer.seek(Duration(seconds: duration.value.toInt()));
       }
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -92,8 +93,7 @@ class PlayerController extends GetxController {
         await audioPlayer.seek(const Duration(seconds: 0));
       }
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -102,8 +102,7 @@ class PlayerController extends GetxController {
       currentSecond.value = value;
       await audioPlayer.seek(Duration(seconds: value.toInt()));
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -119,7 +118,7 @@ class PlayerController extends GetxController {
       }
       return '$minute:$second';
     } catch (e) {
-      print(e);
+      log(e.toString());
       return '00:00'; // Return default value on error
     }
   }
@@ -136,7 +135,7 @@ class PlayerController extends GetxController {
       }
       return '$minute:$second';
     } catch (e) {
-      print(e);
+      log(e.toString());
       return '00:00'; // Return default value on error
     }
   }
@@ -159,7 +158,7 @@ class PlayerController extends GetxController {
         }
       });
     } catch (e) {
-      print(e);
+      log(e.toString());
       isPlaying.value = false; // Mark as not playing on error
     }
   }
@@ -170,8 +169,7 @@ class PlayerController extends GetxController {
       isReplay.value = false;
       onPlaying();
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -182,8 +180,8 @@ class PlayerController extends GetxController {
       audioPlayer.dispose();
       super.onClose();
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
+
     }
   }
 }

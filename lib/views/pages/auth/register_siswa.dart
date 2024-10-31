@@ -8,8 +8,7 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class RegisterSiswa extends StatelessWidget {
   RegisterSiswa({super.key});
-  final RegisterSiswaController formRegisterController =
-      Get.put(RegisterSiswaController());
+  final RegisterSiswaController formRegisterController = Get.put(RegisterSiswaController());
 
   @override
   Widget build(BuildContext context) {

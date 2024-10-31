@@ -77,7 +77,7 @@ class TestResultPage extends StatelessWidget {
                                   color: blackText,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Text(

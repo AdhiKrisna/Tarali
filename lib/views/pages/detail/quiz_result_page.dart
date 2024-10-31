@@ -259,7 +259,7 @@ class QuizResultPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: (){
-                            Get.offNamed(RouteName.quizPage, arguments: argument);
+                            Get.offNamed(RouteName.quizAnswerPage, arguments: argument);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -293,7 +293,7 @@ class QuizResultPage extends StatelessWidget {
                             backgroundColor: lightBlue,
                           ),
                           child:  Text(
-                            'Menu Utama',
+                            'Halaman Buku',
                             style: PoppinsStyle.stylePoppins(
                               color: white,
                             ),

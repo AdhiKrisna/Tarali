@@ -9,8 +9,7 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class RegisterGuru extends StatelessWidget {
   RegisterGuru({super.key});
-  final RegisterGuruController formRegisterController =
-      Get.put(RegisterGuruController());
+  final RegisterGuruController formRegisterController = Get.put(RegisterGuruController());
 
   @override
   Widget build(BuildContext context) {

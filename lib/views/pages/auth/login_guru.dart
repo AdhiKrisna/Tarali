@@ -9,12 +9,10 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginGuru extends StatelessWidget {
   LoginGuru({super.key});
-  final LoginGuruController formLoginController =
-      Get.put(LoginGuruController());
+  final LoginGuruController formLoginController = Get.put(LoginGuruController());
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(LocalController());
     return PopScope(
       onPopInvoked: (v)async {
         Future.microtask(() => Get.offNamedUntil(RouteName.loginSiswa, ModalRoute.withName(RouteName.loginSiswa)));
@@ -191,7 +189,6 @@ class LoginGuru extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),

@@ -9,7 +9,6 @@ import 'package:tarali/services/user_service.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
-
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -383,6 +382,10 @@ class DashboardPage extends StatelessWidget {
                                 contentId: args['contentId'],
                               );
                               args['isFinishedReadTest'] = await dashboardController.ss.checkCanQuiz(
+                                uid: args['uId'],
+                                contentId: args['contentId'],
+                              );
+                              args['isFinishedQuiz'] = await dashboardController.ss.checkQuizDone(
                                 uid: args['uId'],
                                 contentId: args['contentId'],
                               );

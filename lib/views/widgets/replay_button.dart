@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/views/controllers/player_controller.dart';
 
-
-
 class ReplayButton extends StatelessWidget {
   const ReplayButton({
     super.key,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
@@ -79,7 +81,6 @@ class DetailPage extends StatelessWidget {
                             future: dashboardController.cs.getDetailCover(argument['pathStorage']),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                print(snapshot.data);
                                 return const Center(
                                     child: CircularProgressIndicator());
                               }
@@ -212,7 +213,7 @@ class DetailPage extends StatelessWidget {
                                   arguments: argument,
                                 );
                               } catch (e) {
-                                print('Failed to retrieve video URL: $e');
+                                log(e.toString());
                               }
                             },
                             icon: const Icon(
@@ -300,12 +301,19 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () {
-                              if(argument['isFinishedReadTest'] || argument['role'] == 1){
+                              if(argument['isFinishedQuiz'] || argument['role'] == 1){
                                 Get.toNamed(
+                                  RouteName.quizAnswerPage,
+                                  arguments: argument,
+                                );
+                              }
+                              else if(argument['isFinishedReadTest'] || argument['role'] == 1){
+                                 Get.toNamed(
                                   RouteName.quizPage,
                                   arguments: argument,
                                 );
-                              }else{
+                              }
+                              else{
                                 Get.snackbar(
                                   backgroundColor: Colors.red,
                                   duration: const Duration(seconds: 2),

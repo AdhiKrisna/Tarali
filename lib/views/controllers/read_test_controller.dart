@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,27 +22,25 @@ class ReadTestController extends GetxController {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       counterSecond++;
-      print(counterSecond);
     });
   }
 
   Future<void> startVoiceStream() async {
     try {
       if (await recorder.hasPermission()) {
-        print("Permission granted");
+        log("Permission granted");
         isRecording.value = true;
         final Directory appDocDir = await getApplicationDocumentsDirectory();
         final String filePath = path.join(appDocDir.path,
             "audio_${DateTime.now().millisecondsSinceEpoch}.wav");
         await recorder.start(const RecordConfig(), path: filePath);
         recordingPath = ''.obs;
-        print("Voice stream started");
-        print("Filepath : $filePath");
+        log("Voice stream started");
         startTimer();
       }
       update();
     } catch (e) {
-      print("Error starting voice stream: $e");
+      log(e.toString());
     }
   }
 
@@ -52,13 +51,12 @@ class ReadTestController extends GetxController {
       if (filePath != null) {
         isRecording.value = false;
         recordingPath = filePath.obs;
-        print("Voice stream stopped");
+        log("Voice stream stopped");
         timer.cancel();
         counterSecond.value = 0;
-        print("Recording path : $recordingPath");
       }
     } catch (e) {
-      print("Error stopping voice stream: $e");
+      log(e.toString());
     }
   }
 
@@ -96,10 +94,10 @@ class ReadTestController extends GetxController {
         await recorder.pause();
         isPaused.value = true;
         timer.cancel();
-        print("Voice stream paused");
+        log("Voice stream paused");
       }
     } catch (e) {
-      print("Error pausing voice stream: $e");
+      log(e.toString());
     }
   }
 
@@ -109,10 +107,10 @@ class ReadTestController extends GetxController {
         await recorder.resume();
         isPaused.value = false;
         startTimer();
-        print("Voice stream resumed");
+        log("Voice stream resumed");
       }
     } catch (e) {
-      print("Error resuming voice stream: $e");
+      log(e.toString());
     }
   }
 
@@ -124,7 +122,6 @@ class ReadTestController extends GetxController {
 
       if (result != null && result.files.single.path != null) {
         String filePath = result.files.single.path!;
-        print("Picked file path: $filePath");
         Get.defaultDialog(
           title: "Konfirmasi Pengumpulan",
           middleText:
@@ -169,10 +166,10 @@ class ReadTestController extends GetxController {
           },
         );
       } else {
-        print("No file selected");
+        log("No file selected");
       }
     } catch (e) {
-      print("Error picking file: $e");
+      log(e.toString());
     }
   }
 

@@ -14,14 +14,12 @@ class VideoController extends GetxController{
 
   @override
   void onInit(){
-    // TODO: implement onInit
     super.onInit();
     initializePlayer();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
     videoController.dispose();
   }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
+import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-import '../../../constants/constant_colors.dart';
-import '../../dialog/list_dialog.dart';
 
 class QuizPage extends StatelessWidget {
-  // final bool isSubmitted;
   const QuizPage({super.key});
 
   @override
@@ -17,16 +16,6 @@ class QuizPage extends StatelessWidget {
     List<QuizExamModel> dataSoal = argument['kuis'];
     final quizController = Get.put(QuizController());
     quizController.setData(lengthData: dataSoal.length);
-   
-    // if (isSubmitted) {
-    //   dynamic kunciJawaban = [];
-    //   dynamic jawaban = [];
-    //   isSubmitted ? kunciJawaban = argument['kunciJawaban'] : null;
-    //   isSubmitted ? jawaban = argument['answers'] : null;
-    //   print(kunciJawaban);
-    //   print(jawaban);
-    // }
-    // print(isSubmitted);
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -195,7 +184,7 @@ class QuizPage extends StatelessWidget {
                                     ),
                                   ),
                                   child:  Text(
-                                    'Selanjutnya',
+                                    quizController.index.value == quizController.totalIndex - 1 ? 'Selesai' : 'Selanjutnya',
                                     textAlign: TextAlign.left,
                                     style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,

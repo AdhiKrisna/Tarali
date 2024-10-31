@@ -7,7 +7,6 @@ class LoginSiswaController extends GetxController {
   final absenController = TextEditingController();
   final sekolahController = TextEditingController();
   final UserService as = UserService();
-  // final formKey = GlobalKey<FormState>();
 
   @override
   void onClose() {

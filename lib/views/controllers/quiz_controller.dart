@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/scoring_service.dart';
@@ -21,11 +21,13 @@ class QuizController extends GetxController {
       counterSecond++;
     });
   }
+
   @override
   void onClose() {
     timer.cancel();
     super.onClose();
   }
+
   void setData({required int lengthData}) {
     totalIndex = lengthData;
     for (int i = 0; i < totalIndex; i++) {
@@ -64,7 +66,7 @@ class QuizController extends GetxController {
     }
   }
 
-  Future<void> scoring(kunciJawaban, argument) async{
+  Future<void> scoring(kunciJawaban, argument) async {
     setAnswer();
     int benar = 0;
     for (int i = 0; i < totalIndex; i++) {
@@ -76,24 +78,47 @@ class QuizController extends GetxController {
     double score = (benar / totalIndex * 100);
     argument['benar'] = benar;
     argument['quizScore'] = score;
-    argument['quizJawaban'] = answers.toList();
+    argument['quizJawaban'] = answers.toList(); //KEMUNGKINAN TIDA PERLU
     argument['totalSoal'] = totalIndex;
     argument['counterSecond'] = counterSecond;
 
-    ss.setQuizTestAssignment(argument: argument).then((value){
-      if(value){
+    await ss.setQuizTestAssignment(argument: argument).then((value) {
+      if (value) {
         Get.offNamed(RouteName.quizResultPage, arguments: argument);
         Get.snackbar(
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
           'Sukses',
           'Selamat, anda berhasil mengerjakan kuis.',
         );
-      }else{
+      } else {
         Get.snackbar(
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
           'Gagal',
           'Kuis gagal diproses, periksa kembali jaringan anda.',
         );
       }
     });
-
   }
+
+  Future<RxList<int>> getUserAnswer(dynamic arguments) async {
+    RxList<int> jawaban = <int>[].obs;
+    try {
+      var value = await ss.getQuizAnswers(arguments: arguments);
+      if (value != null) {
+        jawaban.addAll(value.cast<int>());
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to get quiz answers: $e',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+    return jawaban;
+  }
+
+  
 }
