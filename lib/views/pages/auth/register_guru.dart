@@ -62,7 +62,6 @@ class RegisterGuru extends StatelessWidget {
                          Text(
                           'Registrasi sebagai Guru',
                           style: PoppinsStyle.stylePoppins(
-                            
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -70,7 +69,6 @@ class RegisterGuru extends StatelessWidget {
                          Text(
                           'Isi data diri terlebih dahulu',
                           style: PoppinsStyle.stylePoppins(
-                            
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
                           ),

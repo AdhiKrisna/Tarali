@@ -240,13 +240,6 @@ class DashboardPage extends StatelessWidget {
                                         padding:
                                         const EdgeInsets.only(left: 8),
                                         child: TextField(
-                                          // onChanged: (value) {
-                                          //   dashboardController
-                                          //       .searchController
-                                          //       .text = value;
-                                          //   dashboardController
-                                          //       .searchContent();
-                                          // },
                                           onSubmitted: (value) {
                                             dashboardController.searchContent(value: value);
                                           },
