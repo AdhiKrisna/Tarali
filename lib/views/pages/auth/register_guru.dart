@@ -178,7 +178,7 @@ class RegisterGuru extends StatelessWidget {
                                     duration: Duration(seconds: 1),
                                   ),
                                 );
-                              }else if(!email.contains('@gmail.com')){
+                              }else if(!email.contains('@belajar.id')) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content:
@@ -242,6 +242,9 @@ class RegisterGuru extends StatelessWidget {
                                     );
                                   }else{
                                     Get.snackbar(
+                                      backgroundColor: Colors.red,
+                                      duration: const Duration(seconds: 5),
+                                      colorText: white,
                                       'Failed',
                                       'Gagal melakukan registrasi.',
                                     );
