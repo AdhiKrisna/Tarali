@@ -1,3 +1,4 @@
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,9 @@ class VideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var argument = Get.arguments;
-    final String url = argument['videoUrl'];
-    final String title = argument['title'];
+    final String url = argument != null ? argument['videoUrl'] ?? '' : '';
+    final String title = argument != null ? argument['title'] ?? 'No Title' : 'No Title';
+
     return Scaffold(
       backgroundColor: white,
       body: BackgroundWidget.setMainBackground(
@@ -55,14 +57,16 @@ class VideoPage extends StatelessWidget {
                 if (url.isNotEmpty) ...[
                   GetBuilder(
                     init: VideoController(url),
-                    builder: (c) => Expanded(
-                      child: c.videoController.value.isInitialized
-                          ? AspectRatio(
-                              aspectRatio: c.videoController.value.aspectRatio,
-                              child: Chewie(controller: c.chewieController),
-                            )
-                          : const Center(child: CircularProgressIndicator()),
-                    ),
+                    builder: (c) {
+                      return Expanded(
+                        child: c.videoController.value.isInitialized
+                            ? AspectRatio(
+                                aspectRatio: c.videoController.value.aspectRatio,
+                                child: Chewie(controller: c.chewieController),
+                              )
+                            : const Center(child: CircularProgressIndicator()),
+                      );
+                    },
                   ),
                 ] else ...[
                   const Center(child: Text("Video URL is not available")),

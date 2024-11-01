@@ -64,17 +64,23 @@ class ReadTestController extends GetxController {
   Future<void> uploadVoiceStream(dynamic arguments) async {
     final recordingPath = this.recordingPath;
     if (recordingPath != null) {
-      ss.uploadTestReadAssignment(
+      Get.defaultDialog(
+        title: "Sedang mengupload file",
+        middleText: "Rekaman suaramu sedang diupload. Tunggu sebentar ya!",
+        barrierDismissible: false,
+      );
+      ss
+          .uploadTestReadAssignment(
         path: recordingPath.value,
         argument: arguments,
       )
           .then((value) {
         if (value) {
-           arguments['isFinishedReadTest'] = true;
-              Get.offNamed(
-                RouteName.testResultPage,
-                arguments: arguments,
-              );
+          arguments['isFinishedReadTest'] = true;
+          Get.offNamed(
+            RouteName.testResultPage,
+            arguments: arguments,
+          );
         } else {
           Get.snackbar(
             duration: const Duration(seconds: 2),
@@ -134,12 +140,20 @@ class ReadTestController extends GetxController {
           buttonColor: lightBlue,
           onCancel: () {},
           onConfirm: () async {
-            ss.uploadTestReadAssignment(
+            Get.defaultDialog(
+              title: "Sedang mengupload file",
+              middleText:
+                  "Rekaman suaramu sedang diupload. Tunggu sebentar ya!",
+              barrierDismissible: false,
+            );
+            ss
+                .uploadTestReadAssignment(
               path: filePath,
               argument: arguments,
-            ).then((value){
+            )
+                .then((value) {
               Get.back();
-              if(value){
+              if (value) {
                 Get.back();
                 arguments['isFinishedReadTest'] = true;
                 Get.offNamed(
@@ -154,7 +168,7 @@ class ReadTestController extends GetxController {
                   'Kegiatan "Mari Bercerita" Sudah Selesai',
                   'Tunggu hingga gurumu memberimu nilai ya!',
                 );
-              }else{
+              } else {
                 Get.snackbar(
                   duration: const Duration(seconds: 2),
                   backgroundColor: Colors.red,

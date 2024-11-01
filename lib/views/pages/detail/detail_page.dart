@@ -78,7 +78,7 @@ class DetailPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: FutureBuilder<String>(
-                            future: dashboardController.cs.getDetailCover(argument['pathStorage']),
+                            future: argument != null ? dashboardController.cs.getDetailCover(argument['pathStorage']) : Future.value(''),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return const Center(
@@ -140,7 +140,7 @@ class DetailPage extends StatelessWidget {
                                       .getWarmUpImageAfter(
                                           argument['pathStorage']);
                               if (!context.mounted) return;
-                              Navigator.of(context).pop();
+                              Get.back();
                               Get.toNamed(
                                 RouteName.readContentPage,
                                 arguments: argument,
@@ -260,7 +260,7 @@ class DetailPage extends StatelessWidget {
                                     .getWarmUpImageAfter(
                                     argument['pathStorage']);
                                 if (!context.mounted) return;
-                                Navigator.of(context).pop();
+                                Get.back();
                                 Get.toNamed(
                                   RouteName.warmUpPage,
                                   arguments: argument,
@@ -278,7 +278,7 @@ class DetailPage extends StatelessWidget {
                             icon: Icon(
                               Icons.voicemail,
                               size: 28,
-                              color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                              color: (argument != null && argument['isFinishedRead'] != null && argument['role'] != null && (argument['isFinishedRead'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -292,7 +292,7 @@ class DetailPage extends StatelessWidget {
                               textAlign: TextAlign.left,
                               style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
-                                color: argument['isFinishedRead'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                                color: (argument != null && (argument['isFinishedRead'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),
@@ -301,7 +301,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () async{
-                              if(argument['isFinishedQuiz'] || argument['role'] == 1){
+                              if(argument != null && (argument['isFinishedQuiz'] || argument['role'] == 1)){
                                 showDialog(
                                   context: context,
                                   barrierDismissible: false,
@@ -312,13 +312,13 @@ class DetailPage extends StatelessWidget {
                                   },
                                 );
                                 argument['resultQuiz'] = await dashboardController.ss.getQuizAnswers(arguments: argument);
-                                Navigator.of(context).pop();
+                                Get.back();
                                 Get.toNamed(
                                   RouteName.quizAnswerPage,
                                   arguments: argument,
                                 );
                               }
-                              else if(argument['isFinishedReadTest'] || argument['role'] == 1){
+                              else if(argument != null && (argument['isFinishedReadTest'] || argument['role'] == 1)){
                                  Get.toNamed(
                                   RouteName.quizPage,
                                   arguments: argument,
@@ -337,7 +337,7 @@ class DetailPage extends StatelessWidget {
                             icon: Icon(
                               Icons.edit,
                               size: 28,
-                              color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                              color: (argument != null && (argument['isFinishedReadTest'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -351,7 +351,7 @@ class DetailPage extends StatelessWidget {
                               textAlign: TextAlign.left,
                               style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
-                                color: argument['isFinishedReadTest'] || argument['role'] == 1 ? Colors.lightBlue : greyText,
+                                color: (argument != null && argument['isFinishedReadTest'] != null && argument['role'] != null && (argument['isFinishedReadTest'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),

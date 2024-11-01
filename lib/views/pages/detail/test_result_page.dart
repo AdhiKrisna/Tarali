@@ -39,7 +39,7 @@ class TestResultPage extends StatelessWidget {
                     ),
                   ),
                    Text(
-                    "Kamu baru saja selesai mengikuti tes membaca!",
+                    'Kamu baru saja selesai mengikuti menyelesaikan "Mari Bercerita"!',
                     style: PoppinsStyle.stylePoppins(
                       fontSize: 12,
                       color: blackText,
@@ -70,7 +70,7 @@ class TestResultPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '80% terdeteksi',
+                                'Fitur deteksi dan penilaian otomatis Segera Hadir!',
                                 style: PoppinsStyle.stylePoppins(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -81,7 +81,7 @@ class TestResultPage extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                'Bacaanmu benar, gurumu juga akan menilai keterampilan membacamu dan segera memberikan komentar',
+                                'Gurumu akan menilai keterampilan membacamu dan segera memberikan komentar!',
                                 style: PoppinsStyle.stylePoppins(
                                   fontSize: 12,
                                   color: greyText,
