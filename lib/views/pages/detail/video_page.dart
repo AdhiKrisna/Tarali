@@ -56,6 +56,7 @@ class VideoPage extends StatelessWidget {
                 ),
                 if (url.isNotEmpty) ...[
                   GetBuilder(
+                    key: ValueKey(url),
                     init: VideoController(url),
                     builder: (c) {
                       return Expanded(

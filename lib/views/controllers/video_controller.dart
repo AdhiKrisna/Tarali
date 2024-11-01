@@ -20,16 +20,18 @@ class VideoController extends GetxController{
 
   @override
   void onClose() {
-    super.onClose();
+    if (chewieController != null) {
+      chewieController.dispose();
+    }
     videoController.dispose();
+    super.onClose();
   }
 
   Future<void> initializePlayer() async {
     videoController = VideoPlayerController.networkUrl(
       Uri.parse(url),
     );
-
-    await Future.wait([videoController.initialize()]);
+    await videoController.initialize();
     chewieController = ChewieController(
       videoPlayerController: videoController,
       autoPlay: true,
