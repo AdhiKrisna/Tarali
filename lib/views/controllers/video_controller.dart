@@ -27,6 +27,8 @@ class VideoController extends GetxController{
     super.onClose();
   }
 
+
+
   Future<void> initializePlayer() async {
     videoController = VideoPlayerController.networkUrl(
       Uri.parse(url),
