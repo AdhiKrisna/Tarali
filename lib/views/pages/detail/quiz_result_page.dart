@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/scoring_service.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 import 'package:tarali/constants/constant_colors.dart';
 
@@ -12,6 +13,7 @@ class QuizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     var seconds = argument['counterSecond'];
+    ScoringService ss = ScoringService();
     var minutes = 0;
     if(seconds > 60){
        minutes = (seconds / 60).toInt();
@@ -258,7 +260,9 @@ class QuizResultPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){
+                          onPressed: ()async{
+                            argument['isFinishedRead'] = true;
+                            argument['resultQuiz'] = await ss.getQuizAnswers(arguments: argument);
                             Get.offNamed(RouteName.quizAnswerPage, arguments: argument);
                           },
                           style: ElevatedButton.styleFrom(
@@ -278,13 +282,16 @@ class QuizResultPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: (){
+                            argument['isFinishedQuiz'] = true;
                             Get.snackbar(
                               "Nilai Tersimpan",
                               "Silahkan cek nilaimu pada menu \"Riwayat\"",
                               backgroundColor: Colors.green,
                               colorText: Colors.white,
                             );
-                            Get.offNamed(
+                            Get.offAllNamed(RouteName.dashboard);
+                            Get.reload();
+                            Get.toNamed(
                               RouteName.detailContentPage,
                               arguments: argument,
                             );

@@ -102,23 +102,5 @@ class QuizController extends GetxController {
     });
   }
 
-  Future<RxList<int>> getUserAnswer(dynamic arguments) async {
-    RxList<int> jawaban = <int>[].obs;
-    try {
-      var value = await ss.getQuizAnswers(arguments: arguments);
-      if (value != null) {
-        jawaban.addAll(value.cast<int>());
-      }
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to get quiz answers: $e',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-    return jawaban;
-  }
-
   
 }

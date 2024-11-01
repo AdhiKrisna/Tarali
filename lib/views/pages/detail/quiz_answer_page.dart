@@ -16,11 +16,7 @@ class QuizAnswerPage extends StatelessWidget {
     // List<QuizResultModel> dataJawaban = argument['dataJawaban'];
     final quizController = Get.put(QuizController());
     quizController.setData(lengthData: dataSoal.length);
-    List<int> answers = [];
-    answers = List<int>.filled(dataSoal.length, -1);
-    quizController.getUserAnswer(argument).then((data) {
-      answers = List<int>.from(data);
-    });
+    List<int> answers = argument['resultQuiz'] ?? List<int>.filled(dataSoal.length, -1);
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,

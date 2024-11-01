@@ -300,8 +300,19 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
+                            onPressed: () async{
                               if(argument['isFinishedQuiz'] || argument['role'] == 1){
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                );
+                                argument['resultQuiz'] = await dashboardController.ss.getQuizAnswers(arguments: argument);
+                                Navigator.of(context).pop();
                                 Get.toNamed(
                                   RouteName.quizAnswerPage,
                                   arguments: argument,
