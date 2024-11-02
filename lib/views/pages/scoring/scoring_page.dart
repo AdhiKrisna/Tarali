@@ -440,6 +440,16 @@ class ScoringPage extends StatelessWidget {
                                                 0.02),
                                     ElevatedButton(
                                       onPressed: () async {
+                                        if(scoringController.scoreController.text.isEmpty || scoringController.noteController.text.isEmpty){
+                                          Get.snackbar(
+                                            backgroundColor: Colors.red,
+                                            duration: const Duration(seconds: 5),
+                                            colorText: Colors.white,
+                                            'Gagal',
+                                            'Nilai dan catatan tidak boleh kosong.',
+                                          );
+                                          return;
+                                        }
                                         showDialog(
                                           context: context,
                                           barrierDismissible: false,
