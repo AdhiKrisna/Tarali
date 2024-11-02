@@ -3,12 +3,16 @@ import 'package:get/get.dart';
 import 'package:tarali/services/scoring_service.dart';
 
 class ScoringController extends GetxController {
-  final scoreController = TextEditingController();
-  final noteController = TextEditingController();
+  late TextEditingController scoreController;
+  late TextEditingController noteController;
   final ss = ScoringService();
-  final sortBy = "".obs;
 
-  void setSortBy({required String sortBy}){
-    this.sortBy.value = sortBy;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    var arg = Get.arguments;
+    scoreController = TextEditingController(text: arg['readTestScore'].toString());
+    noteController = TextEditingController(text: arg['readTestMessage'].toString());
   }
 }

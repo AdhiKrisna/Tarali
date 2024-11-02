@@ -18,7 +18,7 @@ class ScoringPage extends StatelessWidget {
     final String nama = arguments['nama'];
     final PlayerController controller =
         Get.put(PlayerController(url: arguments['readTestSource']));
-    final ScoringController scoringController = Get.put(ScoringController());
+    ScoringController scoringController = Get.put(ScoringController());
     return Scaffold(
       body: BackgroundWidget.setMeruBg(
         context: context,

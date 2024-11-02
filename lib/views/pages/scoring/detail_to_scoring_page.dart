@@ -4,8 +4,8 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/scoring_service.dart';
-import 'package:tarali/views/controllers/scoring/scoring_controller.dart';
 import 'package:tarali/models/scoring_model.dart';
+import 'package:tarali/views/controllers/scoring/to_scoring_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
 class DetailToScoringPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class DetailToScoringPage extends StatelessWidget {
     final ss = ScoringService();
     final arguments = Get.arguments;
     final String title = arguments['title'];
-    ScoringController scoringController = Get.put(ScoringController());
+    ToScoringController scoringController = Get.put(ToScoringController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
