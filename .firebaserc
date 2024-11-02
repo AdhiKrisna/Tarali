@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "tarali-c7634"
+  },
+  "targets": {},
+  "etags": {
+    "tarali-c7634": {
+      "extensionInstances": {
+        "speech-to-text": "6dcb67c096624d7aa286a4440d2cacb29cb0cc6dd41c3e9e39b8a8d1fdbc740d"
+      }
+    }
+  },
+  "dataconnectEmulatorConfig": {}
+}

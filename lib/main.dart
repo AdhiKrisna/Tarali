@@ -1,11 +1,44 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:tarali/firebase_options.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/routes/route_page.dart';
 import 'package:flutter/services.dart';
+import 'package:tarali/services/notification_service.dart';
+
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // Inisialisasi Firebase jika diperlukan
+  await Firebase.initializeApp();
+
+  // Tambahkan logika untuk menangani pesan di sini
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/logo');
+
+  const InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+
+  // Inisialisasi plugin
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  await flutterLocalNotificationsPlugin.show(
+      message.notification.hashCode,
+      message.notification!.title,
+      message.notification!.body,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          "CHANNEL ID",
+          "SCORING TARALI",
+          // other properties...
+        ),
+      ));
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,11 +50,13 @@ void main() async {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ],
-  ).then(
-    (_) {
-      runApp(const MyApp());
-    },
   );
+  NotificationService notificationService = NotificationService();
+  await notificationService.requestPermission();
+  notificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

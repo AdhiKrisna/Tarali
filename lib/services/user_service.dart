@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
 class UserService{
@@ -73,6 +74,10 @@ class UserService{
     int absen = -1,
     String kelas = '-1 a',
   })async{
+    // Inisialisasi Firebase Messaging
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    // Dapatkan token FCM
+    String? fcmToken = await messaging.getToken();
     await _fireStore.collection('user').doc(id).set({
       'email': email,
       'nama': nama,
@@ -80,6 +85,7 @@ class UserService{
       'role': role,
       'absen': absen,
       'kelas': kelas,
+      'fcmToken': fcmToken,
       'isFinishedRead': false,
       'creationTime': DateTime.now(),
     });
@@ -96,6 +102,7 @@ class UserService{
         password: password,
       ).then((v) async {
         if(v.user != null && v.user!.emailVerified){
+          await updateFCMToken(v.user!.uid);
           value = true;
         }
       });
@@ -156,7 +163,9 @@ class UserService{
         email: email,
         password: pass,
       ).then((v) async {
-        if(v.user != null){
+        final user = v.user;
+        if(user != null){
+          await updateFCMToken(user.uid);
           value = true;
         }
       });
@@ -166,6 +175,17 @@ class UserService{
       }
     }
     return value;
+  }
+
+  Future<void> updateFCMToken(String userId) async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? newToken = await messaging.getToken();
+
+    if (newToken != null) {
+      await FirebaseFirestore.instance.collection('user').doc(userId).update({
+        'fcmToken': newToken,
+      });
+    }
   }
 
   Future<void> logout()async{
