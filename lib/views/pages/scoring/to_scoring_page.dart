@@ -137,10 +137,15 @@ class ToScoringPage extends StatelessWidget {
                                   SizedBox(
                                     height: double.infinity,
                                     child: ElevatedButton(
-                                      onPressed: () => Get.toNamed(
-                                        RouteName.detailToScoringPage,
-                                        arguments: Map.from(content.toMap())..addAll(argument),
-                                      ),
+                                      onPressed: () {
+                                        var args = Map.from(content.toMap())..addAll(argument);
+                                        args['contentId'] = content.contentId;
+                                        args['title'] = content.title;
+                                        Get.toNamed(
+                                          RouteName.detailToScoringPage,
+                                          arguments: args,
+                                        );
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: MediaQuery.of(context)

@@ -13,10 +13,10 @@ class DetailToScoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ss = ScoringService();
-    final arguments = Get.arguments;
+    var arguments = Get.arguments;
     final String title = arguments['title'];
     ToScoringController scoringController = Get.put(ToScoringController());
+    final ss = ScoringService();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -26,7 +26,9 @@ class DetailToScoringPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.03),
           icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            Get.back();
+          }
         ),
         title: Text(
           title,

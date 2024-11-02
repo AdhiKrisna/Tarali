@@ -459,13 +459,14 @@ class ScoringPage extends StatelessWidget {
                                               .noteController.value.text,
                                         )
                                             .then((value) {
-                                          Navigator.of(context).pop();
+                                          Get.back();
                                           if (value) {
+                                            Get.delete();
                                             Get.back();
                                             Get.snackbar(
                                               backgroundColor: Colors.green,
                                               duration:
-                                                  const Duration(seconds: 5),
+                                              const Duration(seconds: 5),
                                               colorText: Colors.white,
                                               'Sukses',
                                               'Nilai berhasil dikirim kepada siswa.',
