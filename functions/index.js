@@ -29,8 +29,8 @@ exports.sendNotificationOnGrading = functions.firestore
       const message = {
         token: fcmToken,
         notification: {
-          title: "Penilaian",
-          body: `Anda telah mendapatkan nilai pada Tes Bercerita ${title}.`,
+          title: "Yuk Cek Nilaimu!",
+          body: `Gurumu telah memberikanmu nilai dan komentar pada "Mari Bercerita" ${title}.`,
         },
         data: {
           scoreId: context.params.scoreId,

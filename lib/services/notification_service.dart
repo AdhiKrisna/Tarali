@@ -1,31 +1,33 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/views/controllers/dashboard_controller.dart';
 
 class NotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final dashboardController = Get.put(DashboardController());
   Future<void> initialize() async {
     // Mendapatkan FCM Token jika diperlukan
-    String? token = await _firebaseMessaging.getToken();
-    print("FCM Token: $token");
+    // String? token = await _firebaseMessaging.getToken();
 
     // Listener notifikasi saat aplikasi di foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-
       RemoteNotification? notification = message.notification;
-      print('Pesan diterima di foreground: ${message.notification?.body}');
-      if(notification != null){
-        FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      if (notification != null) {
+        FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+            FlutterLocalNotificationsPlugin();
         const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/logo');
+            AndroidInitializationSettings('@mipmap/logo');
 
-        const InitializationSettings initializationSettings = InitializationSettings(
+        const InitializationSettings initializationSettings =
+            InitializationSettings(
           android: initializationSettingsAndroid,
         );
 
         // Inisialisasi plugin
-        await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+        await flutterLocalNotificationsPlugin
+            .initialize(initializationSettings);
 
         await flutterLocalNotificationsPlugin.show(
             message.notification.hashCode,
@@ -45,6 +47,10 @@ class NotificationService {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('Pesan di-tap di background: ${message.notification?.body}');
       //Klo pesan nya di tap, nanti bakal ngarah kemana, itu kmu detailin
+      Get.toNamed(
+        RouteName.history,
+        arguments: dashboardController.userModel.toMap(),
+      );
     });
   }
 
@@ -61,7 +67,8 @@ class NotificationService {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print("User granted permission");
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
       print("User granted provisional permission");
     } else {
       print("User declined or has not accepted permission");

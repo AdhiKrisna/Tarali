@@ -20,9 +20,7 @@ class VideoController extends GetxController{
 
   @override
   void onClose() {
-    if (chewieController != null) {
-      chewieController.dispose();
-    }
+    chewieController.dispose();
     videoController.dispose();
     super.onClose();
   }

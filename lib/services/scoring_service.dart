@@ -1,5 +1,4 @@
 
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -221,7 +220,7 @@ class ScoringService{
         kelas: e['kelas'],
         title: e['title'],
         quizScore: (e.data() as Map<String, dynamic>).containsKey('quiz') ? e['quiz']['score'] : 0,
-        readTestScore: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['score'] : 0,
+        readTestScore: (e.data() as Map<String, dynamic>).containsKey('readTest') ? (e['readTest']['score'] as num).toDouble() : 0.0,
         readTestMessage: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['message'] : '',
         readTestSource: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['source'] : '',
         readTestDuration: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['duration'] : '00:00',
