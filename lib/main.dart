@@ -8,6 +8,7 @@ import 'package:tarali/firebase_options.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/routes/route_page.dart';
 import 'package:flutter/services.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/services/notification_service.dart';
 
 
@@ -55,7 +56,7 @@ void main() async {
   await notificationService.requestPermission();
   notificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
+  Get.put(AudioService());
   runApp(const MyApp());
 }
 

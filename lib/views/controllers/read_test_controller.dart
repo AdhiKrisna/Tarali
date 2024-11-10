@@ -9,6 +9,7 @@ import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/services/scoring_service.dart';
 
 class ReadTestController extends GetxController {
@@ -18,6 +19,7 @@ class ReadTestController extends GetxController {
   RxString? recordingPath;
   late Timer timer;
   var counterSecond = 0.obs;
+  final AudioService audioService = Get.find<AudioService>();
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -27,6 +29,7 @@ class ReadTestController extends GetxController {
 
   Future<void> startVoiceStream() async {
     try {
+      audioService.pause();
       if (await recorder.hasPermission()) {
         log("Permission granted");
         isRecording.value = true;
@@ -46,6 +49,7 @@ class ReadTestController extends GetxController {
 
   Future<void> stopVoiceStream() async {
     timer.cancel();
+    audioService.resume();
     try {
       String? filePath = await recorder.stop();
       if (filePath != null) {

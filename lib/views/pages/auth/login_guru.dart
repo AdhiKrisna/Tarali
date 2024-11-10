@@ -78,7 +78,7 @@ class LoginGuru extends StatelessWidget {
                           ),
                           AuthTextField(
                             label: 'Email',
-                            hint: 'Masukkan email (@belajar.id)',
+                            hint: 'Masukkan email (@guru.sd.belajar.id)',
                             controller: formLoginController.emailController,
                             isDense: true,
                             pFontSize: 0.0175,

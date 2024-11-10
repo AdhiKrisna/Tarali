@@ -165,7 +165,7 @@ class ReadPage extends StatelessWidget {
                                               }
                                             );
                                             readController.ss.createScoringTemplate(argument: argument).then((value){
-                                              Navigator.of(context).pop();
+                                              Get.back();
                                               argument['isFinishedRead'] = value;
                                               if(value){
                                                 Get.offAllNamed(RouteName.dashboard);

@@ -80,7 +80,7 @@ class RegisterGuru extends StatelessWidget {
                             SizedBox(
                               child: AuthTextField(
                                 label: 'Email',
-                                hint: 'Masukkan email (@belajar.id)',
+                                hint: 'Masukkan email (@guru.sd.belajar.id)',
                                 controller: formRegisterController.emailController,
                                 isDense: true,
                                 pFontSize: 0.0175,
@@ -178,7 +178,7 @@ class RegisterGuru extends StatelessWidget {
                                     duration: Duration(seconds: 1),
                                   ),
                                 );
-                              }else if(!email.contains('@belajar.id')) {
+                              }else if(!email.contains('@guru.sd.belajar.id')) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content:
