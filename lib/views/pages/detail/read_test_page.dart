@@ -12,6 +12,8 @@ class ReadingTestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var argument = Get.arguments;
+    final story = argument['ayoBercerita'].toString().replaceAll(r'\n', '\n')
+        .replaceAll(r'\t', '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0');
     final ReadTestController readTestController = Get.put(ReadTestController());
     return BackgroundWidget.setWhiteBackground(
       context: context,
@@ -52,7 +54,7 @@ class ReadingTestPage extends StatelessWidget {
                 ListView(
                   children: [
                     Text(
-                      argument['ayoBercerita'],
+                      story,
                       textAlign: TextAlign.justify,
                       style:  PoppinsStyle.stylePoppins(
                         fontSize: 14,
