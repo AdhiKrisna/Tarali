@@ -29,4 +29,8 @@ class QuizExamModel{
     };
   }
 
+  String getSoal() {
+    return soal;
+  }
+
 }
