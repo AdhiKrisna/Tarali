@@ -118,33 +118,77 @@ class DetailPage extends StatelessWidget {
                         children: [
                           ElevatedButton.icon(
                             onPressed: () async {
-                              showDialog(
-                                  context: context,
+                              if(dashboardController.as.authRef.currentUser == null){
+                                Get.defaultDialog(
+                                  title: "Belum Login",
+                                  middleText: "Anda belum login, apakah yakin ingin melanjutkan?",
+                                  textCancel: "Tidak",
+                                  textConfirm: "Ya",
                                   barrierDismissible: false,
-                                  builder: (context) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
+                                  confirmTextColor: Colors.white,
+                                  cancelTextColor: blackText,
+                                  buttonColor: lightBlue,
+                                  onCancel: () {},
+                                  onConfirm: ()async {
+                                    Get.back(); // Panggil fungsi logout
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        });
+                                    argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
+                                    argument['readContent'] = await dashboardController.cs.getAllReadContent(
+                                      path: argument['pathStorage'],
+                                      totalPage: argument['pageTotal'],
                                     );
-                                  });
-                              argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
-                              argument['readContent'] = await dashboardController.cs.getAllReadContent(
-                                path: argument['pathStorage'],
-                                totalPage: argument['pageTotal'],
-                              );
-                              argument['warmUpBefore'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageBefore(
-                                          argument['pathStorage']);
-                              argument['warmUpAfter'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageAfter(
-                                          argument['pathStorage']);
-                              if (!context.mounted) return;
-                              Get.back();
-                              Get.toNamed(
-                                RouteName.readContentPage,
-                                arguments: argument,
-                              );
+                                    argument['warmUpBefore'] =
+                                    await dashboardController.cs
+                                        .getWarmUpImageBefore(
+                                        argument['pathStorage']);
+                                    argument['warmUpAfter'] =
+                                    await dashboardController.cs
+                                        .getWarmUpImageAfter(
+                                        argument['pathStorage']);
+                                    if (!context.mounted) return;
+                                    Get.back();
+                                    Get.toNamed(
+                                      RouteName.readContentPage,
+                                      arguments: argument,
+                                    );
+                                  },
+                                );
+                              }else{
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    });
+                                argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
+                                argument['readContent'] = await dashboardController.cs.getAllReadContent(
+                                  path: argument['pathStorage'],
+                                  totalPage: argument['pageTotal'],
+                                );
+                                argument['warmUpBefore'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageBefore(
+                                    argument['pathStorage']);
+                                argument['warmUpAfter'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageAfter(
+                                    argument['pathStorage']);
+                                if (!context.mounted) return;
+                                Get.back();
+                                Get.toNamed(
+                                  RouteName.readContentPage,
+                                  arguments: argument,
+                                );
+                              }
                             },
                             icon: const Icon(
                               Icons.menu_book,
