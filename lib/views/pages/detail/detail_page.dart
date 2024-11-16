@@ -121,16 +121,19 @@ class DetailPage extends StatelessWidget {
                               if(dashboardController.as.authRef.currentUser == null){
                                 Get.defaultDialog(
                                   title: "Belum Login",
-                                  middleText: "Anda belum login, apakah yakin ingin melanjutkan?",
-                                  textCancel: "Tidak",
-                                  textConfirm: "Ya",
+                                  middleText: "Ups, kamu belum login. Silahkan login terlebih dahulu untuk bisa mengikuti 'Mari Bercerita' dan 'Kuis' setelah membaca buku ini.",
+                                  textCancel: "Login Dulu",
+                                  textConfirm: "Tetap Lanjut Membaca",
                                   barrierDismissible: false,
                                   confirmTextColor: Colors.white,
                                   cancelTextColor: blackText,
                                   buttonColor: lightBlue,
-                                  onCancel: () {},
+                                  onCancel: () {
+                                    Get.back();
+                                    Get.back();
+                                  },
                                   onConfirm: ()async {
-                                    Get.back(); // Panggil fungsi logout
+                                    Get.back(); 
                                     showDialog(
                                         context: context,
                                         barrierDismissible: false,
