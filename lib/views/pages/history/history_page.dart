@@ -4,6 +4,7 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/scoring_model.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/controllers/history_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -14,6 +15,7 @@ class HistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     final HistoryController historyController = Get.put(HistoryController());
+    final audioService = Get.find<AudioService>();
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -24,7 +26,10 @@ class HistoryPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.03),
           icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            audioService.audioPlayer.resume();
+            Get.back();
+          }
         ),
         title:  Text(
           'Riwayat Kuis dan Tes Bercerita',

@@ -28,9 +28,11 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
+    // audioService.audioPlayer.resume();
     initSpeech();
     super.onInit();
   }
+
 
   @override
   void onClose() {

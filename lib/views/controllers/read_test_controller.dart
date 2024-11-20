@@ -29,7 +29,7 @@ class ReadTestController extends GetxController {
 
   Future<void> startVoiceStream() async {
     try {
-      audioService.pause();
+      // audioService.pause();
       if (await recorder.hasPermission()) {
         log("Permission granted");
         isRecording.value = true;
@@ -49,7 +49,7 @@ class ReadTestController extends GetxController {
 
   Future<void> stopVoiceStream() async {
     timer.cancel();
-    audioService.resume();
+    // audioService.resume();
     try {
       String? filePath = await recorder.stop();
       if (filePath != null) {

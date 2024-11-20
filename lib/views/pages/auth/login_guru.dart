@@ -10,7 +10,6 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 class LoginGuru extends StatelessWidget {
   LoginGuru({super.key});
   final LoginGuruController formLoginController = Get.put(LoginGuruController());
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -25,8 +24,31 @@ class LoginGuru extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                   Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: white,
+                        backgroundColor: white,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        size: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.03
+                            : MediaQuery.of(context).size.width * 0.025,
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: MediaQuery.of(context).size.height,

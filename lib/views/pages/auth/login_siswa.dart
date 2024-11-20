@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/controllers/auth_controllers/login_siswa_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginSiswa extends StatelessWidget {
   LoginSiswa({super.key});
-  final LoginSiswaController formLoginController =
-      Get.put(LoginSiswaController());
+  final LoginSiswaController formLoginController = Get.put(LoginSiswaController());
+  final audioService = Get.find<AudioService>();
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -24,7 +25,31 @@ class LoginSiswa extends StatelessWidget {
               scrollDirection: Axis.vertical,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: white,
+                        backgroundColor: white,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        audioService.audioPlayer.resume();  
+                        Get.back();
+                      },
+                      child: Icon(
+                        size: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.03
+                            : MediaQuery.of(context).size.width * 0.025,
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: MediaQuery.of(context).size.height,
@@ -56,14 +81,14 @@ class LoginSiswa extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Text(
+                          Text(
                             'Masuk',
                             style: PoppinsStyle.stylePoppins(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                           Text(
+                          Text(
                             'Isi data diri kamu dulu yuk!',
                             style: PoppinsStyle.stylePoppins(
                               fontSize: 16,
@@ -143,19 +168,21 @@ class LoginSiswa extends StatelessWidget {
                                               absen: absen,
                                               sekolah: sekolah)
                                           .then((value) {
-                                        Navigator.of(context).pop();
+                                        Get.back();
                                         if (value) {
                                           Get.offAllNamed(RouteName.dashboard);
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                             SnackBar(
+                                            SnackBar(
                                               content: Text(
                                                 'Data tidak sesuai atau salah. Jika merasa belum memiliki akun, registrasi terlebih dahulu.',
-                                                style: PoppinsStyle.stylePoppins(),
+                                                style:
+                                                    PoppinsStyle.stylePoppins(),
                                               ),
                                               backgroundColor: Colors.red,
-                                              duration: const Duration(seconds: 1),
+                                              duration:
+                                                  const Duration(seconds: 1),
                                             ),
                                           );
                                         }
