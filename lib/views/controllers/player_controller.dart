@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:tarali/services/content_service.dart';
-import 'package:tarali/services/music_service.dart';
 
 class PlayerController extends GetxController {
   Timer? timer;
@@ -12,7 +11,6 @@ class PlayerController extends GetxController {
   final String url;
   final bool autoPlay;
   PlayerController({required this.url, this.autoPlay = true});
-  final AudioService audioService = Get.find();
 
   @override
   void onInit() {
@@ -145,7 +143,6 @@ class PlayerController extends GetxController {
 
   void onPlaying() async {
     try {
-      // audioService.pause();
       await playAudio();
       timer?.cancel(); //biar pasti reset timer
       timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -179,7 +176,6 @@ class PlayerController extends GetxController {
   @override
   void onClose() {
     try {
-      // audioService.resume();
       timer?.cancel(); // timer diclose saat controller di dispose
       audioPlayer.dispose();
       super.onClose();

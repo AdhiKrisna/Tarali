@@ -38,6 +38,11 @@ class NotificationService {
                 "CHANNEL ID",
                 "SCORING TARALI",
                 // other properties...
+                playSound: true,
+                enableVibration: true,
+                priority: Priority.high,
+                importance: Importance.max,
+                showWhen: true,
               ),
             ));
       }

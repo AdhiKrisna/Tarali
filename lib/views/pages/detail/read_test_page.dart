@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
@@ -83,7 +82,7 @@ class ReadingTestPage extends StatelessWidget {
                           child: FutureBuilder<String>(
                             future: argument != null
                                 ? dashboardController.cs
-                                    .getDetailCover(argument['pathStorage'])
+                                    .getImageAyoBercerita(argument['pathStorage'])
                                 : Future.value(''),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==

@@ -54,7 +54,9 @@ void main() async {
   );
   NotificationService notificationService = NotificationService();
   await notificationService.requestPermission();
-  notificationService.initialize();
+  
+  // Tunda inisialisasi layanan notifikasi
+  await notificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Get.put(AudioService());
   runApp(const MyApp());

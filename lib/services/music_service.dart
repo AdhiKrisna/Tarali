@@ -20,7 +20,7 @@ class AudioService extends GetxService with WidgetsBindingObserver  {
         stayAwake: true,
         contentType: AndroidContentType.music,
         usageType: AndroidUsageType.media,
-        audioFocus: AndroidAudioFocus.gain,
+        audioFocus: AndroidAudioFocus.gainTransient,
       ),
     ));
 
@@ -35,7 +35,7 @@ class AudioService extends GetxService with WidgetsBindingObserver  {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.hidden) {
       // Pause audio ketika aplikasi dikirim ke background
       pause();
     } else if (state == AppLifecycleState.resumed) {
