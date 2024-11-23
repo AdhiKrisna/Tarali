@@ -9,7 +9,6 @@ class ScoringController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     var arg = Get.arguments;
     scoreController = TextEditingController(text: arg['readTestScore'].toString());

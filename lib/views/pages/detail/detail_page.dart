@@ -131,6 +131,8 @@ class DetailPage extends StatelessWidget {
                                   cancelTextColor: blackText,
                                   buttonColor: lightBlue,
                                   onCancel: () {
+                                    Get.back();
+                                    Get.back();
                                     Get.offNamed(RouteName.loginSiswa);
                                   },
                                   onConfirm: ()async {

@@ -9,7 +9,8 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginSiswa extends StatelessWidget {
   LoginSiswa({super.key});
-  final LoginSiswaController formLoginController = Get.put(LoginSiswaController());
+  final LoginSiswaController formLoginController =
+      Get.put(LoginSiswaController());
   final audioService = Get.find<AudioService>();
   @override
   Widget build(BuildContext context) {
@@ -38,8 +39,14 @@ class LoginSiswa extends StatelessWidget {
                         shape: const CircleBorder(),
                       ),
                       onPressed: () {
-                        audioService.audioPlayer.resume();  
-                        Get.back();
+                        audioService.audioPlayer.resume();
+                        if (Get.previousRoute.toString() != RouteName.dashboard) {
+                          Get.back();
+                          return;
+                        } else {
+                          Get.offAllNamed(RouteName.dashboard);
+                          return;
+                        }
                       },
                       child: Icon(
                         size: MediaQuery.of(context).size.width < 760
