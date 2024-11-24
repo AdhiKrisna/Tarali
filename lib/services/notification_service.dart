@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -63,13 +65,12 @@ class NotificationService {
 
   Future<void> requestPermission() async {
     if (_isRequestingPermission) {
-      print("Permission request is already running.");
+      log("Permission request is already running.");
       return;
     }
     _isRequestingPermission = true;
     try {
-      NotificationSettings settings =
-          await _firebaseMessaging.requestPermission(
+      NotificationSettings settings =  await _firebaseMessaging.requestPermission(
         alert: true,
         announcement: false,
         badge: true,
@@ -80,15 +81,14 @@ class NotificationService {
       );
 
       if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-        print("User granted permission");
-      } else if (settings.authorizationStatus ==
-          AuthorizationStatus.provisional) {
-        print("User granted provisional permission");
+        log("User granted permission");
+      } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+        log("User granted provisional permission");
       } else {
-        print("User declined or has not accepted permission");
+        log("User declined or has not accepted permission");
       }
     } catch (e) {
-      print("Error requesting permission: $e");
+      log("Error requesting permission: $e");
     } finally {
       _isRequestingPermission = false;
     }

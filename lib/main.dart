@@ -57,13 +57,15 @@ void main() async {
       DeviceOrientation.landscapeLeft,
     ],
   );
+
+  
   NotificationService notificationService = NotificationService();
-  await notificationService.requestPermission();
-  // Tunda inisialisasi layanan notifikasi
-  await notificationService.initialize();
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  Get.put(AudioService());
+  await notificationService.requestPermission();
+  await notificationService.initialize();
   runApp(const MyApp());
+  // Tunda inisialisasi layanan notifikasi
 }
 
 class MyApp extends StatelessWidget {
@@ -72,6 +74,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AudioService());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: RoutePages().routes,
