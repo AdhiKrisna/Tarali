@@ -81,7 +81,7 @@ class ScoringService{
         .where('uId', isEqualTo: uid)
         .limit(1)
         .get();
-    if(snapshot.docs.isNotEmpty && snapshot.docs[0].data().containsKey('quiz') && snapshot.docs[0].data()['quiz'] >= 80){
+    if(snapshot.docs.isNotEmpty && snapshot.docs[0].data().containsKey('quiz') && snapshot.docs[0].data()['quiz']['score'] >= 80){
       return true;
     }else{
       return false;

@@ -16,31 +16,30 @@ class AudioService extends GetxService with WidgetsBindingObserver  {
     // Atur AudioContext agar audio otomatis pause saat ada interupsi
     audioPlayer.setAudioContext(AudioContext(
       android: const AudioContextAndroid(
-        isSpeakerphoneOn: false,
-        stayAwake: true,
-        contentType: AndroidContentType.music,
-        usageType: AndroidUsageType.media,
-        audioFocus: AndroidAudioFocus.gainTransient,
+      isSpeakerphoneOn: false,
+      stayAwake: true,
+      contentType: AndroidContentType.music,
+      usageType: AndroidUsageType.media,
+      audioFocus: AndroidAudioFocus.gainTransient,
       ),
     ));
 
     audioPlayer.onPlayerStateChanged.listen((state) {
       if (state == PlayerState.completed) {
-        audioPlayer.stop();
+      audioPlayer.stop();
       }
-    });
-  }
+    }); 
+    }
 
-  // Deteksi perubahan status lifecycle
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Deteksi perubahan status lifecycle
+    @override
+    void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.hidden) {
+    if (state == AppLifecycleState.paused) {
       // Pause audio ketika aplikasi dikirim ke background
       pause();
     } else if (state == AppLifecycleState.resumed) {
-      // Resume audio jika dibutuhkan saat aplikasi kembali aktif
-      resume();
+      // Jangan resume audio secara otomatis saat aplikasi kembali aktif
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_text_style.dart';
@@ -14,6 +15,7 @@ class QuizResultPage extends StatelessWidget {
     final argument = Get.arguments;
     var seconds = argument['counterSecond'];
     ScoringService ss = ScoringService();
+    final AudioPlayer audioPlayer = AudioPlayer();
     var minutes = 0;
     if(seconds > 60){
        minutes = (seconds / 60).toInt();
@@ -261,12 +263,14 @@ class QuizResultPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: ()async{
+                              audioPlayer.play(AssetSource('audio/salah.mp3'));
+
                             if(argument['quizScore'] < 80){
                               Get.snackbar(
                                 backgroundColor: Colors.red,
                                 colorText: Colors.white,
-                                'Gagal',
-                                'Nilai anda kurang dari 80, coba lagi.',
+                                'Gagal Melihat Jawaban',
+                                'Nilaimu belum mencapai 80, silahkan coba lagi.',
                               );
                             }else{
                               argument['isFinishedQuiz'] = true;
