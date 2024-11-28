@@ -77,6 +77,7 @@ class ContentService {
   }) async {
     List<String> data = [];
     for (var i = 1; i <= totalPage; i++) {
+      print(i);
       data.add(
           await storageRef.child('konten/$path/baca/$i.png').getDownloadURL());
     }

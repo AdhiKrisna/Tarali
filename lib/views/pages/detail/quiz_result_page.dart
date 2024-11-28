@@ -261,9 +261,18 @@ class QuizResultPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: ()async{
-                            argument['isFinishedRead'] = true;
-                            argument['resultQuiz'] = await ss.getQuizAnswers(arguments: argument);
-                            Get.offNamed(RouteName.quizAnswerPage, arguments: argument);
+                            if(argument['quizScore'] < 80){
+                              Get.snackbar(
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                'Gagal',
+                                'Nilai anda kurang dari 80, coba lagi.',
+                              );
+                            }else{
+                              argument['isFinishedQuiz'] = true;
+                              argument['resultQuiz'] = await ss.getQuizAnswers(arguments: argument);
+                              Get.offNamed(RouteName.quizAnswerPage, arguments: argument);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -282,13 +291,15 @@ class QuizResultPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: (){
-                            argument['isFinishedQuiz'] = true;
                             Get.snackbar(
                               "Nilai Tersimpan",
                               "Silahkan cek nilaimu pada menu \"Riwayat\"",
                               backgroundColor: Colors.green,
                               colorText: Colors.white,
                             );
+                            if(argument['quizScore'] >= 80){
+                              argument['isFinishedQuiz'] = true;
+                            }
                             Get.offAllNamed(RouteName.dashboard);
                             Get.reload();
                             Get.toNamed(
