@@ -39,7 +39,7 @@ class QuizResultPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                    Text(
-                    "Selamat!",
+                    argument['quizScore'] < 80 ? 'Coba Lagi, Semangat!' : 'Selamat!',
                     style: PoppinsStyle.stylePoppins(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
@@ -47,7 +47,7 @@ class QuizResultPage extends StatelessWidget {
                     ),
                   ),
                    Text(
-                    "Kamu berhasil menyelesaikan kuis, ini hasilmu:",
+                     argument['quizScore'] < 80 ? 'Sayang sekali, kuismu belum mencapai nilai minimum 80, silahkan coba kuis lagi. Ini hasilmu:' : 'Kamu berhasil menyelesaikan kuis, ini hasilmu:',
                     style: PoppinsStyle.stylePoppins(
                       fontSize: 12,
                       color: blackText,
