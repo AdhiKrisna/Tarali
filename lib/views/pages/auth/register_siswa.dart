@@ -9,7 +9,6 @@ import 'package:tarali/views/widgets/auth_textfield.dart';
 class RegisterSiswa extends StatelessWidget {
   RegisterSiswa({super.key});
   final RegisterSiswaController formRegisterController = Get.put(RegisterSiswaController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,30 @@ class RegisterSiswa extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: white,
+                        backgroundColor: white,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        size: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.03
+                            : MediaQuery.of(context).size.width * 0.025,
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height,

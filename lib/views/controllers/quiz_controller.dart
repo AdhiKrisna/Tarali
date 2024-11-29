@@ -85,12 +85,21 @@ class QuizController extends GetxController {
     await ss.setQuizTestAssignment(argument: argument).then((value) {
       if (value) {
         Get.offNamed(RouteName.quizResultPage, arguments: argument);
-        Get.snackbar(
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          'Sukses',
-          'Selamat, anda berhasil mengerjakan kuis.',
-        );
+        if(score >= 70){
+          Get.snackbar(
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            'Kuismu Berhasil',
+            'Selamat, kamu telah berhasil mengerjakan kuis dengan baik. Nilaimu telah mencapai $score',
+          );
+        } else {
+          Get.snackbar(
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            'Kuismu Gagal',
+            'Sayang sekali, kamu belum berhasil mengerjakan kuis dengan baik. Coba lagi ya!',
+          );
+        }
       } else {
         Get.snackbar(
           backgroundColor: Colors.red,

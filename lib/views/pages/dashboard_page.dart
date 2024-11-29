@@ -5,6 +5,8 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/content_model.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
+// import 'package:tarali/services/music_service.dart';
 import 'package:tarali/services/user_service.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
@@ -15,6 +17,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DashboardController dashboardController = Get.put(DashboardController());
+    final audioService = Get.find<AudioService>();
     dashboardController.getUserData();
     final UserService authService = UserService();
     return Scaffold(
@@ -37,6 +40,7 @@ class DashboardPage extends StatelessWidget {
                         ),
                         onPressed: dashboardController.isSearching.isTrue
                             ? () {
+                          audioService.audioPlayer.resume();
                           dashboardController.searchController.text = '';
                           dashboardController.searchContent(value: '');
                           dashboardController.toggleSearch();
@@ -104,6 +108,7 @@ class DashboardPage extends StatelessWidget {
                                               leading: const Icon(Icons.login),
                                               title: const Text('Login'),
                                               onTap: () {
+                                                audioService.audioPlayer.pause();
                                                 Get.back();
                                                 Get.toNamed(RouteName.loginSiswa);
                                               },
@@ -118,6 +123,7 @@ class DashboardPage extends StatelessWidget {
                                               leading: const Icon(Icons.history),
                                               title: const Text('Riwayat'),
                                               onTap: () {
+                                                audioService.audioPlayer.pause();
                                                 Get.back();
                                                 Get.toNamed(
                                                   RouteName.history,
@@ -135,6 +141,7 @@ class DashboardPage extends StatelessWidget {
                                               title:
                                               const Text('Nilai Tes Membaca'),
                                               onTap: () {
+                                                audioService.audioPlayer.pause();
                                                 Get.back();
                                                 Get.toNamed(
                                                   RouteName.toScoringPage,
@@ -266,6 +273,7 @@ class DashboardPage extends StatelessWidget {
                                                 color: Colors.black,
                                               ),
                                               onPressed: () {
+                                                audioService.audioPlayer.pause();
                                                 dashboardController.isListening.isTrue && dashboardController.speechToText.isListening
                                                     ? dashboardController.stopListening()
                                                     : dashboardController.startListening();
@@ -383,7 +391,8 @@ class DashboardPage extends StatelessWidget {
                                 contentId: args['contentId'],
                               );
                               if (!context.mounted) return;
-                              Navigator.of(context).pop();
+                              audioService.audioPlayer.pause();
+                              Get.back();
                               Get.toNamed(
                                 RouteName.detailContentPage,
                                 arguments: args,

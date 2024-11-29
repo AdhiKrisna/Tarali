@@ -61,6 +61,18 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+       applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                // Ubah nama APK menjadi Tarali.apk
+                outputFileName = "Tarali.apk"
+            } else if (variant.buildType.name == "debug") {
+                // Opsional: Berikan nama APK khusus untuk debug
+                outputFileName = "Tarali-debug.apk"
+            }
+        }
+    }
 }
 
 flutter {

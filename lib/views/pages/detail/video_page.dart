@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
-import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -20,12 +19,9 @@ class _VideoPageState extends State<VideoPage> {
   var argument = Get.arguments;
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
-  final AudioService audioService = Get.find<AudioService>();
-
 
   @override
   initState(){
-    audioService.pause();
     super.initState();
     initializePlayer();
   }
@@ -100,7 +96,6 @@ class _VideoPageState extends State<VideoPage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          audioService.resume();
                           Get.back();
                         },
                         icon: const Icon(

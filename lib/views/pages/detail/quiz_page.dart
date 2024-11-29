@@ -161,13 +161,12 @@ class QuizPage extends StatelessWidget {
                                             ListDialog.contentDialog(
                                                 context: context,
                                                 imageName: 'kuis_dialog',
-                                                message:
-                                                    'Yakin sudah selesai mengerjakan kuis? Kamu hanya bisa mengumpulkan jawaban satu kali.\nPastikan semua soal sudah dijawab dengan benar.',
-                                                cancelLabel: 'Belum Selesai',
+                                                message: 'Yakin sudah selesai mengerjakan kuis? Nilaimu tidak boleh kurang dari 80 untuk lulus kuis ini',
+                                                cancelLabel: 'Periksa Dulu',
                                                 onCancel: () {
                                                   Get.back();
                                                 },
-                                                successLabel: 'Sudah Selesai',
+                                                successLabel: 'Kumpulkan Kuis',
                                                 onSuccess: () async{
                                                   quizController.timer.cancel();
                                                   Get.back();

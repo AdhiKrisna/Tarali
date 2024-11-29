@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -16,7 +17,7 @@ class DetailPage extends StatelessWidget {
     final argument = Get.arguments;
     final String title = argument?['title'] ?? 'Detail';
     final DashboardController dashboardController = Get.put(DashboardController());
-
+    final audioService = Get.find<AudioService>();
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -33,6 +34,7 @@ class DetailPage extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
+                      audioService.audioPlayer.resume();
                       Get.back();
                     },
                     icon: const Icon(
@@ -131,6 +133,7 @@ class DetailPage extends StatelessWidget {
                                   onCancel: () {
                                     Get.back();
                                     Get.back();
+                                    Get.offNamed(RouteName.loginSiswa);
                                   },
                                   onConfirm: ()async {
                                     Get.back(); 

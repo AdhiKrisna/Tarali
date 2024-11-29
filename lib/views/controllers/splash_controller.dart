@@ -9,6 +9,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("harusnya play");
     audioService.play('audio/lagu.mp3');
     showSplash();
   }

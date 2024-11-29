@@ -71,6 +71,10 @@ class ContentService {
     return storageRef.child('konten/$path/baca/cover.png').getDownloadURL();
   }
 
+  Future<String> getImageAyoBercerita(String path) async {
+    return storageRef.child('konten/$path/baca/imageAB.png').getDownloadURL();
+  }
+
   Future<List<String>> getAllReadContent({
     required String path,
     required int totalPage,
