@@ -79,9 +79,10 @@ class ScoringService{
   })async{
     var snapshot = await _fireStore.collection('scoring')
         .where('uId', isEqualTo: uid)
+        .where('contentId', isEqualTo: contentId)
         .limit(1)
         .get();
-    if(snapshot.docs.isNotEmpty && snapshot.docs[0].data().containsKey('quiz') && snapshot.docs[0].data()['quiz']['score'] >= 80){
+    if(snapshot.docs.isNotEmpty && snapshot.docs.first.data().containsKey('quiz') && snapshot.docs.first.data()['quiz']['score'] >= 80){
       return true;
     }else{
       return false;
