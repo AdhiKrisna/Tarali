@@ -93,4 +93,9 @@ class NotificationService {
       _isRequestingPermission = false;
     }
   }
+
+  Future<bool> hasPermission() async {
+    NotificationSettings settings = await _firebaseMessaging.getNotificationSettings();
+    return settings.authorizationStatus == AuthorizationStatus.authorized;
+  }
 }

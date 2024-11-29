@@ -9,7 +9,7 @@ import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/routes/route_page.dart';
 import 'package:flutter/services.dart';
 import 'package:tarali/services/music_service.dart';
-import 'package:tarali/services/notification_service.dart';
+// import 'package:tarali/services/notification_service.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -58,14 +58,13 @@ void main() async {
     ],
   );
 
-  
-  NotificationService notificationService = NotificationService();
+  // NotificationService notificationService = NotificationService();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await notificationService.requestPermission();
-  await notificationService.initialize();
   runApp(const MyApp());
-  // Tunda inisialisasi layanan notifikasi
+  // // Tunda inisialisasi layanan notifikasi
+  // await notificationService.requestPermission();
+  // await notificationService.initialize();
 }
 
 class MyApp extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'package:tarali/constants/constant_colors.dart';
 import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/services/music_service.dart';
+import 'package:tarali/services/notification_service.dart';
 import 'package:tarali/views/controllers/auth_controllers/login_siswa_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
 
@@ -40,7 +41,8 @@ class LoginSiswa extends StatelessWidget {
                       ),
                       onPressed: () {
                         audioService.audioPlayer.resume();
-                        if (Get.previousRoute.toString() != RouteName.dashboard) {
+                        if (Get.previousRoute.toString() !=
+                            RouteName.dashboard) {
                           Get.back();
                           return;
                         } else {
@@ -178,6 +180,8 @@ class LoginSiswa extends StatelessWidget {
                                         Get.back();
                                         if (value) {
                                           Get.offAllNamed(RouteName.dashboard);
+                                          // Tunda inisialisasi layanan notifikasi
+                                          _initializeNotificationService();
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -263,5 +267,13 @@ class LoginSiswa extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _initializeNotificationService() async {
+    NotificationService notificationService = NotificationService();
+    if (!await notificationService.hasPermission()) {
+      await notificationService.requestPermission();
+    }
+    await notificationService.initialize();
   }
 }
