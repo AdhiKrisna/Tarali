@@ -21,7 +21,7 @@ class SplashController extends GetxController {
       opacity.value = 0.0;
     });
     Timer(const Duration(milliseconds: 5000), () {
-      Get.offNamed(RouteName.dashboard);
+      Get.offNamed(RouteName.entry);
     });
   }
 }

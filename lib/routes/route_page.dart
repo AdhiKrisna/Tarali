@@ -16,6 +16,7 @@ import 'package:tarali/views/pages/detail/read_test_page.dart';
 import 'package:tarali/views/pages/detail/test_result_page.dart';
 import 'package:tarali/views/pages/detail/video_page.dart';
 import 'package:tarali/views/pages/detail/warm_up_page.dart';
+import 'package:tarali/views/pages/entry_page.dart';
 import 'package:tarali/views/pages/splash_page.dart';
 import 'package:tarali/views/pages/history/history_page.dart';
 import 'package:tarali/views/pages/history/detail_history_page.dart';
@@ -29,6 +30,12 @@ class RoutePages {
       name: RouteName.splash,
       page: () => const SplashPage(),
       transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.entry,
+      page: () => const EntryPage(),
+      transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
     GetPage(
