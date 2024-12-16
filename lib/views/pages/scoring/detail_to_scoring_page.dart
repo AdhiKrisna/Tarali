@@ -77,7 +77,7 @@ class DetailToScoringPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       content: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.55,
+                        height: MediaQuery.of(context).size.height * 0.65,
                         width: MediaQuery.of(context).size.width * 0.3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,6 +108,15 @@ class DetailToScoringPage extends StatelessWidget {
                               title: const Text('Absen'),
                               onTap: () {
                                 scoringController.setSortBy(sortBy: 'absen');
+                                Get.back();
+                              },
+                            ),
+                            ListTile(
+                              visualDensity: const VisualDensity(vertical: -4),
+                              contentPadding: EdgeInsets.zero,
+                              title: const Text('Kelas'),
+                              onTap: () {
+                                scoringController.setSortBy(sortBy: 'kelas');
                                 Get.back();
                               },
                             ),
@@ -164,18 +173,17 @@ class DetailToScoringPage extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
                   return Obx(() {
-                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(
-                        data: snapshot.data!.docs);
+                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(data: snapshot.data!.docs);
                     if (scoringController.sortBy.value == 'nama') {
                       model.sort((a, b) => a.nama.compareTo(b.nama));
                     } else if (scoringController.sortBy.value == 'check') {
-                      model.sort(
-                          (a, b) => b.readTestScore.compareTo(a.readTestScore));
+                      model.sort( (a, b) => b.readTestScore.compareTo(a.readTestScore));
                     } else if (scoringController.sortBy.value == 'unCheck') {
-                      model.sort(
-                          (a, b) => a.readTestScore.compareTo(b.readTestScore));
-                    } else {
+                      model.sort((a, b) => a.readTestScore.compareTo(b.readTestScore));
+                    } else if (scoringController.sortBy.value == 'absen') {
                       model.sort((a, b) => a.absen.compareTo(b.absen));
+                    } else if (scoringController.sortBy.value == 'kelas') {
+                      model.sort((a, b) => a.kelas.compareTo(b.kelas));
                     }
                     if (model.isNotEmpty) {
                       return ListView.builder(
@@ -192,7 +200,7 @@ class DetailToScoringPage extends StatelessWidget {
                                   child: Padding(
                                     padding: EdgeInsets.all(
                                         MediaQuery.of(context).size.width *
-                                            0.016),
+                                            0.012),
                                     child: Text(
                                       model[index].absen.toString(),
                                       style: PoppinsStyle.stylePoppins(
@@ -210,7 +218,7 @@ class DetailToScoringPage extends StatelessWidget {
                                   style: PoppinsStyle.stylePoppins(
                                     fontSize:
                                         MediaQuery.of(context).size.width *
-                                            0.025,
+                                            0.02,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
