@@ -8,6 +8,8 @@ import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
+import '../../../models/scoring_model.dart';
+
 class ToScoringPage extends StatelessWidget {
   ToScoringPage({super.key});
   final DashboardController dashboardController = Get.put(DashboardController());
@@ -103,7 +105,6 @@ class ToScoringPage extends StatelessWidget {
                                           StreamBuilder(
                                             stream: dashboardController.ss.getAllReadTestAssignment(
                                               contentId: content.contentId,
-                                              sekolah: argument['sekolah'],
                                             ),
                                             builder: (content, snapshot){
                                               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -118,16 +119,30 @@ class ToScoringPage extends StatelessWidget {
                                                   ),
                                                 );
                                               }
-                                              return Text(
-                                                snapshot.data?.docs.length.toString() ?? '0',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                      0.0225,
-                                                ),
-                                              );
+                                              if(snapshot.data == null){
+                                                return Text(
+                                                  '0',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                        0.0225,
+                                                  ),
+                                                );
+                                              }else{
+                                                List<ScoringModel> model = dashboardController.ss.getAllReadTestAssignmentData(data: snapshot.data!.docs, sekolah: argument['sekolah']);
+                                                return Text(
+                                                  model.length.toString(),
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                        0.0225,
+                                                  ),
+                                                );
+                                              }
                                             },
                                           )
                                         ],

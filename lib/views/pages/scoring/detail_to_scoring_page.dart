@@ -166,14 +166,13 @@ class DetailToScoringPage extends StatelessWidget {
               child: StreamBuilder(
                 stream: ss.getAllReadTestAssignment(
                   contentId: arguments['contentId'],
-                  sekolah: arguments['sekolah'],
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   return Obx(() {
-                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(data: snapshot.data!.docs);
+                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(data: snapshot.data!.docs, sekolah: arguments['sekolah']);
                     if (scoringController.sortBy.value == 'nama') {
                       model.sort((a, b) => a.nama.compareTo(b.nama));
                     } else if (scoringController.sortBy.value == 'check') {

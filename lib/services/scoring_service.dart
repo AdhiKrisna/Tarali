@@ -196,12 +196,10 @@ class ScoringService{
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getAllReadTestAssignment({
     required String contentId,
-    required String sekolah,
   }) {
     try{
       return _fireStore.collection('scoring')
           .where('contentId', isEqualTo: contentId)
-          .where('sekolah', isEqualTo: sekolah)
           .where('kelas', isNotEqualTo: "-1 a")
           .snapshots();
     }catch (e){
@@ -209,22 +207,31 @@ class ScoringService{
     }
   }
 
-  List<ScoringModel> getAllReadTestAssignmentData({required List<QueryDocumentSnapshot> data}){
-    return data.map((e){
+  List<ScoringModel> getAllReadTestAssignmentData({required List<QueryDocumentSnapshot> data, required String sekolah}){
+    // Format sekolah untuk perbandingan (lowercase dan tanpa spasi)
+    String formattedSekolah = sekolah.replaceAll(' ', '').toLowerCase();
+
+    return data.where((doc) {
+      // Ambil dan format sekolah dari dokumen
+      String docSekolah = (doc['sekolah'] as String).replaceAll(' ', '').toLowerCase();
+
+      // Bandingkan sekolah dengan format yang konsisten
+      return docSekolah == formattedSekolah;
+    }).map((doc) {
       return ScoringModel(
-        uId: e['uId'],
-        contentId: e['contentId'],
-        cover: e['cover'],
-        absen: e['absen'],
-        nama: e['nama'],
-        kelas: e['kelas'],
-        title: e['title'],
-        quizScore: (e.data() as Map<String, dynamic>).containsKey('quiz') ? e['quiz']['score'] : 0,
-        readTestScore: (e.data() as Map<String, dynamic>).containsKey('readTest') ? (e['readTest']['score'] as num).toDouble() : 0.0,
-        readTestMessage: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['message'] : '',
-        readTestSource: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['source'] : '',
-        readTestDuration: (e.data() as Map<String, dynamic>).containsKey('readTest') ? e['readTest']['duration'] : '00:00',
-        sekolah: e['sekolah'],
+        uId: doc['uId'],
+        contentId: doc['contentId'],
+        cover: doc['cover'],
+        absen: doc['absen'],
+        nama: doc['nama'],
+        kelas: doc['kelas'],
+        title: doc['title'],
+        quizScore: (doc.data() as Map<String, dynamic>).containsKey('quiz') ? doc['quiz']['score'] : 0,
+        readTestScore: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['score'] as num).toDouble() : 0.0,
+        readTestMessage: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['message'] : '',
+        readTestSource: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['source'] : '',
+        readTestDuration: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['duration'] : '00:00',
+        sekolah: doc['sekolah'],
       );
     }).toList();
   }
