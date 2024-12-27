@@ -253,7 +253,7 @@ class ReadingTestPage extends StatelessWidget {
                       textAlign: TextAlign.justify,
                       style: PoppinsStyle.stylePoppins(
                         fontSize: 14,
-                        color: blackText,
+                        color: Colors.white,
                         decoration: TextDecoration.none,
                       ),
                     ),
