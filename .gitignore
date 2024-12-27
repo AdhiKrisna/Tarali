@@ -48,3 +48,4 @@ app.*.map.json
 firebase.json
 lib/firebase_options.dart
 pubspec.lock
+functions/package-lock.json
