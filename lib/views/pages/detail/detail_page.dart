@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/music_service.dart';
 import 'package:tarali/views/controllers/dashboard_controller.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -11,8 +16,8 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     final String title = argument?['title'] ?? 'Detail';
-    final DashboardController dashboardController = Get.find<DashboardController>();
-
+    final DashboardController dashboardController = Get.put(DashboardController());
+    final audioService = Get.find<AudioService>();
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
         context: context,
@@ -29,6 +34,7 @@ class DetailPage extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
+                      audioService.audioPlayer.resume();
                       Get.back();
                     },
                     icon: const Icon(
@@ -41,7 +47,8 @@ class DetailPage extends StatelessWidget {
                   ),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: PoppinsStyle.stylePoppins(
+                      color: blackText,
                       fontSize: 22,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.w800,
@@ -73,10 +80,9 @@ class DetailPage extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: FutureBuilder<String>(
-                            future: dashboardController.cs.getDetailCover(argument['pathStorage']),
+                            future: argument != null ? dashboardController.cs.getDetailCover(argument['pathStorage']) : Future.value(''),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                print(snapshot.data);
                                 return const Center(
                                     child: CircularProgressIndicator());
                               }
@@ -114,33 +120,81 @@ class DetailPage extends StatelessWidget {
                         children: [
                           ElevatedButton.icon(
                             onPressed: () async {
-                              showDialog(
-                                  context: context,
+                              if(dashboardController.as.authRef.currentUser == null){
+                                Get.defaultDialog(
+                                  title: "Belum Login",
+                                  middleText: "Ups, kamu belum login. Silahkan login terlebih dahulu untuk bisa mengikuti 'Mari Bercerita' dan 'Kuis' setelah membaca buku ini.",
+                                  textCancel: "Login Dulu",
+                                  textConfirm: "Tetap Lanjut Membaca",
                                   barrierDismissible: false,
-                                  builder: (context) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
+                                  confirmTextColor: Colors.white,
+                                  cancelTextColor: blackText,
+                                  buttonColor: lightBlue,
+                                  onCancel: () {
+                                    Get.back();
+                                    Get.back();
+                                    Get.offNamed(RouteName.loginSiswa);
+                                  },
+                                  onConfirm: ()async {
+                                    Get.back(); 
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        });
+                                    argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
+                                    argument['readContent'] = await dashboardController.cs.getAllReadContent(
+                                      path: argument['pathStorage'],
+                                      totalPage: argument['pageTotal'],
                                     );
-                                  });
-                              argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
-                              argument['readContent'] = await dashboardController.cs.getAllReadContent(
-                                path: argument['pathStorage'],
-                                totalPage: argument['pageTotal'],
-                              );
-                              argument['warmUpBefore'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageBefore(
-                                          argument['pathStorage']);
-                              argument['warmUpAfter'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageAfter(
-                                          argument['pathStorage']);
-                              if (!context.mounted) return;
-                              Navigator.of(context).pop();
-                              Get.toNamed(
-                                RouteName.readContentPage,
-                                arguments: argument,
-                              );
+                                    argument['warmUpBefore'] =
+                                    await dashboardController.cs
+                                        .getWarmUpImageBefore(
+                                        argument['pathStorage']);
+                                    argument['warmUpAfter'] =
+                                    await dashboardController.cs
+                                        .getWarmUpImageAfter(
+                                        argument['pathStorage']);
+                                    if (!context.mounted) return;
+                                    Get.back();
+                                    Get.toNamed(
+                                      RouteName.readContentPage,
+                                      arguments: argument,
+                                    );
+                                  },
+                                );
+                              }else{
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    });
+                                argument['imageUrl'] = await dashboardController.cs.getDetailCover(argument['pathStorage']);
+                                argument['readContent'] = await dashboardController.cs.getAllReadContent(
+                                  path: argument['pathStorage'],
+                                  totalPage: argument['pageTotal'],
+                                );
+                                argument['warmUpBefore'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageBefore(
+                                    argument['pathStorage']);
+                                argument['warmUpAfter'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageAfter(
+                                    argument['pathStorage']);
+                                if (!context.mounted) return;
+                                Get.back();
+                                Get.toNamed(
+                                  RouteName.readContentPage,
+                                  arguments: argument,
+                                );
+                              }
                             },
                             icon: const Icon(
                               Icons.menu_book,
@@ -154,10 +208,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label:  Text(
                               'Baca',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -187,10 +241,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label:  Text(
                               'Dengar',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -209,7 +263,7 @@ class DetailPage extends StatelessWidget {
                                   arguments: argument,
                                 );
                               } catch (e) {
-                                print('Failed to retrieve video URL: $e');
+                                log(e.toString());
                               }
                             },
                             icon: const Icon(
@@ -224,10 +278,10 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Tonton',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: Colors.black,
                               ),
@@ -238,33 +292,43 @@ class DetailPage extends StatelessWidget {
                           ),
                           ElevatedButton.icon(
                             onPressed: () async {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  });
-                              argument['warmUpBefore'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageBefore(
-                                          argument['pathStorage']);
-                              argument['warmUpAfter'] =
-                                  await dashboardController.cs
-                                      .getWarmUpImageAfter(
-                                          argument['pathStorage']);
-                              if (!context.mounted) return;
-                              Navigator.of(context).pop();
-                              Get.toNamed(
-                                RouteName.warmUpPage,
-                                arguments: argument,
-                              );
+                              if(argument['isFinishedRead'] || argument['role'] == 1){
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    });
+                                argument['warmUpBefore'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageBefore(
+                                    argument['pathStorage']);
+                                argument['warmUpAfter'] =
+                                await dashboardController.cs
+                                    .getWarmUpImageAfter(
+                                    argument['pathStorage']);
+                                if (!context.mounted) return;
+                                Get.back();
+                                Get.toNamed(
+                                  RouteName.warmUpPage,
+                                  arguments: argument,
+                                );
+                              }else{
+                                Get.snackbar(
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(seconds: 2),
+                                  colorText: Colors.white,
+                                  'Gagal',
+                                  'Selesaikan baca buku terlebih dahulu untuk masuk kedalam "Ayo Bercerita"',
+                                );
+                              }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.voicemail,
                               size: 28,
-                              color: Colors.lightBlue,
+                              color: (argument != null && argument['isFinishedRead'] != null && argument['role'] != null && (argument['isFinishedRead'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -273,12 +337,12 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Ayo Bercerita',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
-                                color: Colors.lightBlue,
+                                color: (argument != null && (argument['isFinishedRead'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),
@@ -286,16 +350,44 @@ class DetailPage extends StatelessWidget {
                             height: 10,
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {
-                              Get.toNamed(
-                                RouteName.quizPage,
-                                arguments: argument,
-                              );
+                            onPressed: () async{
+                              if(argument != null && (argument['isFinishedQuiz'] || argument['role'] == 1)){
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                );
+                                argument['resultQuiz'] = await dashboardController.ss.getQuizAnswers(arguments: argument);
+                                Get.back();
+                                Get.toNamed(
+                                  RouteName.quizAnswerPage,
+                                  arguments: argument,
+                                );
+                              }
+                              else if(argument != null && (argument['isFinishedReadTest'] || argument['role'] == 1)){
+                                 Get.toNamed(
+                                  RouteName.quizPage,
+                                  arguments: argument,
+                                );
+                              }
+                              else{
+                                Get.snackbar(
+                                  backgroundColor: Colors.red,
+                                  duration: const Duration(seconds: 2),
+                                  colorText: Colors.white,
+                                  'Gagal',
+                                  'Selesaikan "Ayo Bercerita" terlebih dahulu untuk masuk kedalam Quiz.',
+                                );
+                              }
                             },
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.edit,
                               size: 28,
-                              color: Colors.grey,
+                              color: (argument != null && (argument['isFinishedReadTest'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
@@ -304,12 +396,12 @@ class DetailPage extends StatelessWidget {
                               ),
                               alignment: Alignment.centerLeft,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Kuis',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: (argument != null && argument['isFinishedReadTest'] != null && argument['role'] != null && (argument['isFinishedReadTest'] || argument['role'] == 1)) ? Colors.lightBlue : greyText,
                               ),
                             ),
                           ),

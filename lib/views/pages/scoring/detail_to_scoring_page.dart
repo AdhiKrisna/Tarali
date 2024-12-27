@@ -1,30 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
-import 'package:tarali/views/widgets/background_screen.dart';
+import 'package:tarali/services/scoring_service.dart';
+import 'package:tarali/models/scoring_model.dart';
+import 'package:tarali/views/controllers/scoring/to_scoring_controller.dart';
+import 'package:tarali/views/widgets/background_widget.dart';
 
 class DetailToScoringPage extends StatelessWidget {
   const DetailToScoringPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dynamic arguments = Get.arguments;
-    final String title = arguments is List && arguments.isNotEmpty ? arguments[0] : (arguments ?? 'Judul Cerita');
+    var arguments = Get.arguments;
+    final String title = arguments['title'];
+    ToScoringController scoringController = Get.put(ToScoringController());
+    final ss = ScoringService();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.03),
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Get.back(),
-        ),
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.03),
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              Get.back();
+            }),
         title: Text(
           title,
-          style: const TextStyle(
+          style: PoppinsStyle.stylePoppins(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -63,14 +70,14 @@ class DetailToScoringPage extends StatelessWidget {
                   animatedController.forward();
 
                   return SlideTransition(
-                    position: offsetAnimation, 
+                    position: offsetAnimation,
                     child: AlertDialog(
                       alignment: Alignment.topRight,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                       content: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.55,
+                        height: MediaQuery.of(context).size.height * 0.65,
                         width: MediaQuery.of(context).size.width * 0.3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +85,9 @@ class DetailToScoringPage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
-                            const Text(
+                            Text(
                               "Urutkan Berdasarkan",
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -91,6 +98,7 @@ class DetailToScoringPage extends StatelessWidget {
                               contentPadding: EdgeInsets.zero,
                               title: const Text('Nama'),
                               onTap: () {
+                                scoringController.setSortBy(sortBy: 'nama');
                                 Get.back();
                               },
                             ),
@@ -99,6 +107,16 @@ class DetailToScoringPage extends StatelessWidget {
                               contentPadding: EdgeInsets.zero,
                               title: const Text('Absen'),
                               onTap: () {
+                                scoringController.setSortBy(sortBy: 'absen');
+                                Get.back();
+                              },
+                            ),
+                            ListTile(
+                              visualDensity: const VisualDensity(vertical: -4),
+                              contentPadding: EdgeInsets.zero,
+                              title: const Text('Kelas'),
+                              onTap: () {
+                                scoringController.setSortBy(sortBy: 'kelas');
                                 Get.back();
                               },
                             ),
@@ -107,6 +125,7 @@ class DetailToScoringPage extends StatelessWidget {
                               contentPadding: EdgeInsets.zero,
                               title: const Text('Diperiksa'),
                               onTap: () {
+                                scoringController.setSortBy(sortBy: 'check');
                                 Get.back();
                               },
                             ),
@@ -115,6 +134,7 @@ class DetailToScoringPage extends StatelessWidget {
                               contentPadding: EdgeInsets.zero,
                               title: const Text('Belum Diperiksa'),
                               onTap: () {
+                                scoringController.setSortBy(sortBy: 'unCheck');
                                 Get.back();
                               },
                             ),
@@ -134,196 +154,285 @@ class DetailToScoringPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          const BackgroundScreenWidget(),
-          SafeArea(
-            child: Container(
+      body: BackgroundWidget.setMeruBg(
+        context: context,
+        child: SafeArea(
+          child: Container(
               margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.01,
                 vertical: MediaQuery.of(context).size.height * 0.0125,
               ),
               width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  index++;
-                  return Column(
-                    children: [
-                      ListTile(
-                        leading: Container(
-                          decoration: const BoxDecoration(
-                            color: lightBlue,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.016),
-                            child: Text(
-                              '$index',
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.02,
-                                fontWeight: FontWeight.bold,
-                                color: white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          'Nama $index',
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.025,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        trailing: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.12,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+              child: StreamBuilder(
+                stream: ss.getAllReadTestAssignment(
+                  contentId: arguments['contentId'],
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Obx(() {
+                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(data: snapshot.data!.docs, sekolah: arguments['sekolah']);
+                    if (scoringController.sortBy.value == 'nama') {
+                      model.sort((a, b) => a.nama.compareTo(b.nama));
+                    } else if (scoringController.sortBy.value == 'check') {
+                      model.sort( (a, b) => b.readTestScore.compareTo(a.readTestScore));
+                    } else if (scoringController.sortBy.value == 'unCheck') {
+                      model.sort((a, b) => a.readTestScore.compareTo(b.readTestScore));
+                    } else if (scoringController.sortBy.value == 'absen') {
+                      model.sort((a, b) => a.absen.compareTo(b.absen));
+                    } else if (scoringController.sortBy.value == 'kelas') {
+                      model.sort((a, b) => a.kelas.compareTo(b.kelas));
+                    }
+                    if (model.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: model.length,
+                        itemBuilder: (context, index) {
+                          return Column(
                             children: [
-                              Container(
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              0.01),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: lightBlue,
-                                        size:
+                              ListTile(
+                                leading: Container(
+                                  decoration: const BoxDecoration(
+                                    color: lightBlue,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.width *
+                                            0.012),
+                                    child: Text(
+                                      model[index].absen.toString(),
+                                      style: PoppinsStyle.stylePoppins(
+                                        fontSize:
                                             MediaQuery.of(context).size.width *
-                                                0.025,
+                                                0.02,
+                                        fontWeight: FontWeight.bold,
+                                        color: white,
                                       ),
-                                      Text(
-                                        index == 1
-                                            ? '100'
-                                            : index == 3
-                                                ? '80'
-                                                : '-',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.0225,
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.01,
-                              ),
-                              Container(
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.circular(10),
+                                title: Text(
+                                  model[index].nama,
+                                  style: PoppinsStyle.stylePoppins(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.02,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              0.01),
+                                trailing: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.12,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Icon(
-                                        Icons.access_time_filled,
-                                        color: lightBlue,
-                                        size:
-                                            MediaQuery.of(context).size.width *
-                                                0.025,
+                                      Container(
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.01),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const ImageIcon(
+                                                AssetImage(
+                                                    'assets/icons/pencil.png'),
+                                                color: lightBlue,
+                                              ),
+                                              Text(
+                                                '${model[index].quizScore }',
+                                                style:
+                                                    PoppinsStyle.stylePoppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.0225,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.01,
                                       ),
-                                      Text(
-                                        index == 2
-                                            ? '7:17'
-                                            : index == 4
-                                                ? '5:14'
-                                                : '3:30',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.0225,
+                                      Container(
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.01),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: lightBlue,
+                                                size: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.025,
+                                              ),
+                                              Text(
+                                                '${model[index].readTestScore}',
+                                                style:
+                                                    PoppinsStyle.stylePoppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.0225,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                      ),
+                                      Container(
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.01),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.access_time_filled,
+                                                color: lightBlue,
+                                                size: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.025,
+                                              ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.01,
+                                              ),
+                                              Text(
+                                                model[index].readTestDuration,
+                                                style:
+                                                    PoppinsStyle.stylePoppins(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.0225,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
+                                      ),
+                                      SizedBox(
+                                        height: double.infinity,
+                                        child: ElevatedButton(
+                                          onPressed: () => Get.toNamed(
+                                            RouteName.scoringPage,
+                                            arguments: model[index].toMap(),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.02),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            disabledBackgroundColor: lightBlue,
+                                            backgroundColor: lightBlue,
+                                          ),
+                                          child: Text(
+                                            'Periksa',
+                                            style: PoppinsStyle.stylePoppins(
+                                              color: white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.025,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.01,
-                              ),
-                              SizedBox(
-                                height: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed: () => Get.toNamed(
-                                    RouteName.scoringPage,
-                                    arguments: [title , 'Nama $index'],
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            MediaQuery.of(context).size.width *
-                                                0.02),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    disabledBackgroundColor: lightBlue,
-                                    backgroundColor: lightBlue,
-                                  ),
-                                  child: Text(
-                                    'Periksa',
-                                    style: TextStyle(
-                                      color: white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.025,
-                                    ),
-                                  ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.025),
+                                child: const Divider(
+                                  thickness: 1,
+                                  color: bgBlue,
                                 ),
                               ),
                             ],
-                          ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: Text(
+                          'Tidak ada data yang akan dinilai.',
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.025),
-                        child: const Divider(
-                          thickness: 1,
-                          color: bgBlue,
-                        ),
-                      ),
-                    ],
-                  );
+                      );
+                    }
+                  });
                 },
-              ),
-            ),
-          ),
-        ],
+              )),
+        ),
       ),
     );
   }

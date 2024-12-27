@@ -1,6 +1,7 @@
 class RouteName {
-
     static const String splash = '/splash';
+    static const String entry = '/entry';
+    static const String entry2 = '/entry2';
     static const String dashboard = '/dashboard';  
     static const String history = '/history';
     static const String detailHistory = '/detailHistory';
@@ -23,6 +24,7 @@ class RouteName {
     static const String videoContentPage = '/videoContentPage';
     static const String audioContentPage = '/audioContentPage';
     static const String quizPage = '/quizPage';
+    static const String quizAnswerPage = '/quizAnswerPage';
     static const String warmUpPage = '/warmUpPage';
     static const String readingTestPage = '/readingTestPage';
     static const String testResultPage = '/testResultPage';

@@ -2,18 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/login_guru_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class LoginGuru extends StatelessWidget {
   LoginGuru({super.key});
-  final LoginGuruController formLoginController =
-      Get.put(LoginGuruController());
-
+  final LoginGuruController formLoginController = Get.put(LoginGuruController());
   @override
   Widget build(BuildContext context) {
-    // Get.put(LocalController());
     return PopScope(
       onPopInvoked: (v)async {
         Future.microtask(() => Get.offNamedUntil(RouteName.loginSiswa, ModalRoute.withName(RouteName.loginSiswa)));
@@ -26,8 +24,31 @@ class LoginGuru extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                   Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: white,
+                        backgroundColor: white,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        size: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.03
+                            : MediaQuery.of(context).size.width * 0.025,
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: MediaQuery.of(context).size.height,
@@ -60,18 +81,16 @@ class LoginGuru extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                           Text(
                             'Masuk sebagai Guru',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Text(
+                           Text(
                             'Silahkan login untuk melanjutkan',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
                             ),
@@ -81,7 +100,7 @@ class LoginGuru extends StatelessWidget {
                           ),
                           AuthTextField(
                             label: 'Email',
-                            hint: 'Masukkan email (@belajar.id)',
+                            hint: 'Masukkan email (@guru.sd.belajar.id)',
                             controller: formLoginController.emailController,
                             isDense: true,
                             pFontSize: 0.0175,
@@ -100,14 +119,14 @@ class LoginGuru extends StatelessWidget {
                               RichText(
                                   text: TextSpan(
                                 text: 'Belum punya akun guru? ',
-                                style: const TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                                 children: [
                                   TextSpan(
                                     text: 'Registrasi',
-                                    style: const TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       color: lightBlue,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -182,8 +201,7 @@ class LoginGuru extends StatelessWidget {
                               }, // methdod cek login nnti
                               child: Text(
                                 'Masuk',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                style: PoppinsStyle.stylePoppins(
                                   color: white,
                                   fontWeight: FontWeight.bold,
                                   fontSize:
@@ -193,7 +211,6 @@ class LoginGuru extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),

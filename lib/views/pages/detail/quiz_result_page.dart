@@ -1,8 +1,11 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/scoring_service.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-import '../../../constants/constant_colors.dart';
+import 'package:tarali/constants/constant_colors.dart';
 
 class QuizResultPage extends StatelessWidget {
   const QuizResultPage({super.key});
@@ -11,6 +14,8 @@ class QuizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final argument = Get.arguments;
     var seconds = argument['counterSecond'];
+    ScoringService ss = ScoringService();
+    final AudioPlayer audioPlayer = AudioPlayer();
     var minutes = 0;
     if(seconds > 60){
        minutes = (seconds / 60).toInt();
@@ -35,17 +40,17 @@ class QuizResultPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Selamat!",
-                    style: TextStyle(
+                   Text(
+                    argument['quizScore'] < 80 ? 'Coba Lagi, Semangat!' : 'Selamat!',
+                    style: PoppinsStyle.stylePoppins(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
                       color: blackText,
                     ),
                   ),
-                  const Text(
-                    "Kamu berhasil menyelesaikan kuis, ini hasilmu:",
-                    style: TextStyle(
+                   Text(
+                     argument['quizScore'] < 80 ? 'Sayang sekali, kuismu belum mencapai nilai minimum 80, silahkan coba kuis lagi. Ini hasilmu:' : 'Kamu berhasil menyelesaikan kuis, ini hasilmu:',
+                    style: PoppinsStyle.stylePoppins(
                       fontSize: 12,
                       color: blackText,
                     ),
@@ -78,7 +83,7 @@ class QuizResultPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     '${argument['totalSoal']} Soal',
-                                    style: const TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
@@ -87,9 +92,9 @@ class QuizResultPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
+                                   Text(
                                     'Jumlah Pertanyaan',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 12,
                                       color: greyText,
                                     ),
@@ -126,7 +131,7 @@ class QuizResultPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     minutes > 0 ? '$minutes Menit $seconds detik' : '$seconds Detik' ,
-                                    style:  TextStyle(
+                                    style:  PoppinsStyle.stylePoppins(
                                       fontSize: minutes > 0 ? 16 : 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
@@ -135,9 +140,9 @@ class QuizResultPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
+                                   Text(
                                     'Waktu Pengerjaan',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 12,
                                       color: greyText,
                                     ),
@@ -178,7 +183,7 @@ class QuizResultPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     "${argument['benar']} dari ${argument['totalSoal']}",
-                                    style: const TextStyle(
+                                    style:  PoppinsStyle.stylePoppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
@@ -187,9 +192,9 @@ class QuizResultPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
+                                   Text(
                                     'Benar Menjawab',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 12,
                                       color: greyText,
                                     ),
@@ -226,7 +231,7 @@ class QuizResultPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     "${argument['quizScore'].toStringAsFixed(2)} dari 100",
-                                    style: const TextStyle(
+                                    style:  PoppinsStyle.stylePoppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: blackText,
@@ -235,9 +240,9 @@ class QuizResultPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  const Text(
+                                   Text(
                                     'Total nilai',
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 12,
                                       color: greyText,
                                     ),
@@ -257,15 +262,28 @@ class QuizResultPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: (){
-                            Get.offNamed(RouteName.quizPage, arguments: argument);
+                          onPressed: ()async{
+                              audioPlayer.play(AssetSource('audio/salah.mp3'));
+
+                            if(argument['quizScore'] < 80){
+                              Get.snackbar(
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                'Gagal Melihat Jawaban',
+                                'Nilaimu belum mencapai 80, silahkan coba lagi.',
+                              );
+                            }else{
+                              argument['isFinishedQuiz'] = true;
+                              argument['resultQuiz'] = await ss.getQuizAnswers(arguments: argument);
+                              Get.offNamed(RouteName.quizAnswerPage, arguments: argument);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                           ),
-                          child: const Text(
+                          child:  Text(
                             'Lihat Jawaban',
-                            style: TextStyle(
+                            style: PoppinsStyle.stylePoppins(
                               color: white,
                             ),
                           ),
@@ -283,7 +301,12 @@ class QuizResultPage extends StatelessWidget {
                               backgroundColor: Colors.green,
                               colorText: Colors.white,
                             );
-                            Get.offNamed(
+                            if(argument['quizScore'] >= 80){
+                              argument['isFinishedQuiz'] = true;
+                            }
+                            Get.offAllNamed(RouteName.dashboard);
+                            Get.reload();
+                            Get.toNamed(
                               RouteName.detailContentPage,
                               arguments: argument,
                             );
@@ -291,9 +314,9 @@ class QuizResultPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: lightBlue,
                           ),
-                          child: const Text(
+                          child:  Text(
                             'Halaman Buku',
-                            style: TextStyle(
+                            style: PoppinsStyle.stylePoppins(
                               color: white,
                             ),
                           ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
+import 'package:tarali/routes/route_name.dart';
 
-import '../../routes/route_name.dart';
 
 class ListDialog{
   static Widget contentDialog({
@@ -59,7 +60,7 @@ class ListDialog{
                   children: [
                     Text(
                       message,
-                      style: const TextStyle(
+                      style:  PoppinsStyle.stylePoppins(
                         fontSize: 16,
                         color: blackText,
                         fontWeight: FontWeight.w500,
@@ -82,7 +83,7 @@ class ListDialog{
                             child: Text(
                               cancelLabel,
                               textAlign: TextAlign.left,
-                              style: const TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: lightBlue,
                               ),
@@ -105,7 +106,7 @@ class ListDialog{
                             child: Text(
                               successLabel,
                               textAlign: TextAlign.left,
-                              style: const TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 14,
                                 color: white,
                               ),
@@ -160,9 +161,9 @@ class ListDialog{
             crossAxisAlignment:
             CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Halo,\nAdhi Krisna!",
-                style: TextStyle(
+              Text(
+                "Halo!",
+                style: PoppinsStyle.stylePoppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),

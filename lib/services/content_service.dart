@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:tarali/models/content_model.dart';
-import 'package:tarali/models/kuis_model.dart';
+import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/models/warm_up_model.dart';
 
 class ContentService {
@@ -18,55 +18,21 @@ class ContentService {
     return FirebaseFirestore.instance.collection('content').snapshots();
   }
 
-  List<String> getSearchContentTitle(String search) {
-    search = search.toLowerCase().replaceAll(' ', '');
-    List<String> contentSnapshots = [];
-    FirebaseFirestore.instance.collection('content').get().then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        if(doc['title'].toString().toLowerCase().replaceAll(' ', '').contains(search) ){
-          //print(doc['title']);
-          contentSnapshots.add(doc['title']);
-        }
-      }
-      //print(contentSnapshots);
-    });
-    return contentSnapshots;
-  }
-  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
-    List<String> contentSnapshots = getSearchContentTitle(search);
-    //print(contentSnapshots);
-    try {
-      return FirebaseFirestore.instance
-        .collection('content')
-        .where('title', arrayContainsAny: contentSnapshots)
-        .snapshots();
-    } catch (e) {
-      //print('Error fetching search content: $e');
-      return const Stream.empty();
-    }
-  }
-  // Stream<QuerySnapshot<Map<String, dynamic>>> getSearchContent(String search) {
-  //   return FirebaseFirestore.instance
-  //       .collection('content')
-  //       .where('title', isGreaterThanOrEqualTo: search)
-  //       .where('title', isLessThanOrEqualTo: '$search\uf8ff')
-  //       .snapshots();
-  // }
 
-
-List<ContentModel> getAllContentData(
-      {required List<QueryDocumentSnapshot> data}) {
+  List<ContentModel> getAllContentData({
+    required List<QueryDocumentSnapshot> data,
+  }) {
     int noSoal = 1;
     WarmUpModel pemanasan;
     return data.map((e){
       noSoal = 1;
-      List<KuisModel> kuisModel =[];
+      List<QuizExamModel> kuisModel =[];
       List<dynamic> kuis = [];
 
       kuis = e['kuis'];
       for(var i in kuis){
         kuisModel.add(
-          KuisModel(
+          QuizExamModel(
             noSoal: noSoal,
             soal: i['soal'],
             jawaban: i['jawaban'],
@@ -80,6 +46,7 @@ List<ContentModel> getAllContentData(
         opsi: e['pemanasan']['opsi'],
       );
       return ContentModel(
+        contentId: e.id,
         title: e['title'] ?? 'Test',
         pathStorage: e['pathStorage'] ?? 'null',
         coverDashboard: e['coverDashboard'] ?? 'null',
@@ -104,12 +71,17 @@ List<ContentModel> getAllContentData(
     return storageRef.child('konten/$path/baca/cover.png').getDownloadURL();
   }
 
+  Future<String> getImageAyoBercerita(String path) async {
+    return storageRef.child('konten/$path/baca/imageAB.png').getDownloadURL();
+  }
+
   Future<List<String>> getAllReadContent({
     required String path,
     required int totalPage,
   }) async {
     List<String> data = [];
     for (var i = 1; i <= totalPage; i++) {
+      print(i);
       data.add(
           await storageRef.child('konten/$path/baca/$i.png').getDownloadURL());
     }

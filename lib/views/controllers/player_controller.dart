@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
@@ -7,12 +9,15 @@ class PlayerController extends GetxController {
   Timer? timer;
   var cs = ContentService();
   final String url;
-  PlayerController({required this.url});
+  final bool autoPlay;
+  PlayerController({required this.url, this.autoPlay = true});
 
   @override
   void onInit() {
     super.onInit();
-    onPlaying();
+    if(autoPlay){
+      onPlaying();
+    }
   }
 
   final audioPlayer = AudioPlayer();
@@ -39,6 +44,12 @@ class PlayerController extends GetxController {
     }
   }
 
+  Future<double> getAudioDuration() async{
+    await audioPlayer.setSourceUrl(url);
+    Duration? dr = await audioPlayer.getDuration();
+    return dr?.inSeconds.toDouble() ?? 0.0;
+  }
+
   void togglePlaying() async {
     try {
       isPlaying.value = !isPlaying.value;
@@ -49,7 +60,7 @@ class PlayerController extends GetxController {
         timer?.cancel();
       }
     } catch (e) {
-      print(e);
+      log(e.toString());
       isPlaying.value = false; // Mark as not playing on error
     }
   }
@@ -64,8 +75,7 @@ class PlayerController extends GetxController {
         await audioPlayer.seek(Duration(seconds: duration.value.toInt()));
       }
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -83,8 +93,7 @@ class PlayerController extends GetxController {
         await audioPlayer.seek(const Duration(seconds: 0));
       }
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -93,8 +102,7 @@ class PlayerController extends GetxController {
       currentSecond.value = value;
       await audioPlayer.seek(Duration(seconds: value.toInt()));
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -110,7 +118,7 @@ class PlayerController extends GetxController {
       }
       return '$minute:$second';
     } catch (e) {
-      print(e);
+      log(e.toString());
       return '00:00'; // Return default value on error
     }
   }
@@ -127,7 +135,7 @@ class PlayerController extends GetxController {
       }
       return '$minute:$second';
     } catch (e) {
-      print(e);
+      log(e.toString());
       return '00:00'; // Return default value on error
     }
   }
@@ -150,7 +158,7 @@ class PlayerController extends GetxController {
         }
       });
     } catch (e) {
-      print(e);
+      log(e.toString());
       isPlaying.value = false; // Mark as not playing on error
     }
   }
@@ -161,8 +169,7 @@ class PlayerController extends GetxController {
       isReplay.value = false;
       onPlaying();
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
     }
   }
 
@@ -173,8 +180,8 @@ class PlayerController extends GetxController {
       audioPlayer.dispose();
       super.onClose();
     } catch (e) {
-      print(e);
-      // Handle error if needed
+      log(e.toString());
+
     }
   }
 }

@@ -1,37 +1,37 @@
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:tarali/routes/route_name.dart';
+import 'package:tarali/services/scoring_service.dart';
 
 class QuizController extends GetxController {
   var index = 0.obs;
   var totalIndex = 0;
-  var choice = [].obs;
-  var answers = [].obs;
+  var choice = <int>[].obs;
+  var answers = <int>[].obs;
   var imageUrl = ''.obs;
   var counterSecond = 0;
   late Timer timer;
+  ScoringService ss = ScoringService();
 
   @override
   void onInit() {
     super.onInit();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       counterSecond++;
-      print(counterSecond);
     });
   }
+
   @override
   void onClose() {
     timer.cancel();
     super.onClose();
   }
+
   void setData({required int lengthData}) {
     totalIndex = lengthData;
-    print(totalIndex);
     for (int i = 0; i < totalIndex; i++) {
       choice.add(-1.obs);
-      print(choice);
     }
   }
 
@@ -66,26 +66,50 @@ class QuizController extends GetxController {
     }
   }
 
-  void scoring(kunciJawaban, argument) {
+  Future<void> scoring(kunciJawaban, argument) async {
     setAnswer();
     int benar = 0;
     for (int i = 0; i < totalIndex; i++) {
       if (answers[i] == kunciJawaban[i].jawaban) {
-        print(kunciJawaban[i].jawaban);
-        print('Benar');
         benar += 1;
       }
     }
 
-    print('Jumlah benar : $benar');
     double score = (benar / totalIndex * 100);
-    print('Score : $score');
     argument['benar'] = benar;
     argument['quizScore'] = score;
+    argument['quizJawaban'] = answers.toList(); //KEMUNGKINAN TIDA PERLU
     argument['totalSoal'] = totalIndex;
     argument['counterSecond'] = counterSecond;
-    // argument['kunciJawaban'] = kunciJawaban;
-    // argument['jawaban'] = answers;
-    Get.offNamed(RouteName.quizResultPage, arguments: argument);
+
+    await ss.setQuizTestAssignment(argument: argument).then((value) {
+      if (value) {
+        Get.offNamed(RouteName.quizResultPage, arguments: argument);
+        if(score >= 70){
+          Get.snackbar(
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            'Kuismu Berhasil',
+            'Selamat, kamu telah berhasil mengerjakan kuis dengan baik. Nilaimu telah mencapai $score',
+          );
+        } else {
+          Get.snackbar(
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            'Kuismu Gagal',
+            'Sayang sekali, kamu belum berhasil mengerjakan kuis dengan baik. Coba lagi ya!',
+          );
+        }
+      } else {
+        Get.snackbar(
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          'Gagal',
+          'Kuis gagal diproses, periksa kembali jaringan anda.',
+        );
+      }
+    });
   }
+
+  
 }

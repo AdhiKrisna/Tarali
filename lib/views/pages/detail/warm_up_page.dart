@@ -1,20 +1,21 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/models/warm_up_model.dart';
-
-import '../../../constants/constant_colors.dart';
-import '../../../routes/route_name.dart';
-import '../../controllers/quiz_controller.dart';
-import '../../dialog/list_dialog.dart';
-import '../../widgets/background_widget.dart';
+import 'package:tarali/views/controllers/quiz_controller.dart';
+import 'package:tarali/views/dialog/list_dialog.dart';
+import 'package:tarali/views/widgets/background_widget.dart';
+import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/routes/route_name.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class WarmUpPage extends StatelessWidget {
   const WarmUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AudioPlayer audioPlayer = AudioPlayer();
     var argument = Get.arguments;
     WarmUpModel pemanasan = argument['pemanasan'];
     final quizController = Get.put(QuizController());
@@ -43,9 +44,9 @@ class WarmUpPage extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text(
+                Text(
                   'Pemanasan',
-                  style: TextStyle(
+                  style: PoppinsStyle.stylePoppins(
                     fontSize: 22,
                     color: Colors.black,
                     decoration: TextDecoration.none,
@@ -81,9 +82,9 @@ class WarmUpPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            const Text(
+                            Text(
                               'Pemanasan dulu yuk, ayo main tebak gambar!',
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 fontSize: 10,
                                 color: greyText,
                               ),
@@ -93,7 +94,8 @@ class WarmUpPage extends StatelessWidget {
                             ),
                             Expanded(
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 3 / 5,
+                                height:
+                                    MediaQuery.of(context).size.height * 3 / 5,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -117,89 +119,128 @@ class WarmUpPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Obx((){
+                          child: Obx(() {
                             return ListView(
                               children: [
                                 ElevatedButton(
-                                  onPressed: (){
-                                    if(quizController.choice[quizController.index.value] == 0){
+                                  onPressed: () {
+                                    if (quizController.choice[
+                                            quizController.index.value] ==
+                                        0) {
                                       quizController.setChoice(-1);
-                                    }else{
+                                    } else {
                                       quizController.setChoice(0);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value] == 0 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[
+                                                quizController.index.value] ==
+                                            0
+                                        ? lightBlue
+                                        : white,
                                   ),
                                   child: Text(
                                     'A. ${pemanasan.opsi[0]}',
-                                    style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 0 ? white : blackText,
+                                    style: PoppinsStyle.stylePoppins(
+                                      color: quizController.choice[
+                                                  quizController.index.value] ==
+                                              0
+                                          ? white
+                                          : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: (){
-                                    if(quizController.choice[quizController.index.value] == 1){
+                                  onPressed: () {
+                                    if (quizController.choice[
+                                            quizController.index.value] ==
+                                        1) {
                                       quizController.setChoice(-1);
-                                    }else{
+                                    } else {
                                       quizController.setChoice(1);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value] == 1 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[
+                                                quizController.index.value] ==
+                                            1
+                                        ? lightBlue
+                                        : white,
                                   ),
                                   child: Text(
                                     'B. ${pemanasan.opsi[1]}',
-                                    style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 1 ? white : blackText,
+                                    style: PoppinsStyle.stylePoppins(
+                                      color: quizController.choice[
+                                                  quizController.index.value] ==
+                                              1
+                                          ? white
+                                          : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: (){
-                                    if(quizController.choice[quizController.index.value] == 2){
+                                  onPressed: () {
+                                    if (quizController.choice[
+                                            quizController.index.value] ==
+                                        2) {
                                       quizController.setChoice(-1);
-                                    }else{
+                                    } else {
                                       quizController.setChoice(2);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value] == 2 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[
+                                                quizController.index.value] ==
+                                            2
+                                        ? lightBlue
+                                        : white,
                                   ),
                                   child: Text(
                                     'C. ${pemanasan.opsi[2]}',
-                                    style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 2 ? white : blackText,
+                                    style: PoppinsStyle.stylePoppins(
+                                      color: quizController.choice[
+                                                  quizController.index.value] ==
+                                              2
+                                          ? white
+                                          : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: (){
-                                    if(quizController.choice[quizController.index.value] == 3){
+                                  onPressed: () {
+                                    if (quizController.choice[
+                                            quizController.index.value] ==
+                                        3) {
                                       quizController.setChoice(-1);
-                                    }else{
+                                    } else {
                                       quizController.setChoice(3);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     alignment: Alignment.centerLeft,
-                                    backgroundColor: quizController.choice[quizController.index.value] == 3 ? lightBlue : white,
+                                    backgroundColor: quizController.choice[
+                                                quizController.index.value] ==
+                                            3
+                                        ? lightBlue
+                                        : white,
                                   ),
                                   child: Text(
                                     'D. ${pemanasan.opsi[3]}',
-                                    style: TextStyle(
-                                      color: quizController.choice[quizController.index.value] == 3 ? white : blackText,
+                                    style: PoppinsStyle.stylePoppins(
+                                      color: quizController.choice[
+                                                  quizController.index.value] ==
+                                              3
+                                          ? white
+                                          : blackText,
                                       fontSize: 14,
                                     ),
                                   ),
-                                  
                                 ),
                               ],
                             );
@@ -211,61 +252,67 @@ class WarmUpPage extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: (){
-                              if(isCorrect){
+                            onPressed: () {
+                              if (isCorrect) {
                                 showDialog(
                                   context: context,
-                                  builder: (context) => ListDialog.contentDialog(
-                                      context: context,
-                                      imageName: 'warm_up_dialog',
-                                      message: 'Hore, pemanasannya sudah selesai!\nSudah siap untuk bercerita?',
-                                      cancelLabel: 'Batal',
-                                      onCancel: (){
-                                        Get.back();
-                                      },
-                                      successLabel: 'Ayo Bercerita',
-                                      onSuccess: (){
-                                        Get.back();
-                                        Get.offNamed(
-                                          RouteName.readingTestPage,
-                                          arguments: argument,
-                                        );
-                                      }
-                                  ),
+                                  builder: (context) =>
+                                      ListDialog.contentDialog(
+                                          context: context,
+                                          imageName: 'warm_up_dialog',
+                                          message:
+                                              'Hore, pemanasannya sudah selesai!\nSudah siap untuk bercerita?',
+                                          cancelLabel: 'Batal',
+                                          onCancel: () {
+                                            Get.back();
+                                          },
+                                          successLabel: 'Ayo Bercerita',
+                                          onSuccess: () {
+                                            Get.back();
+                                            Get.offNamed(
+                                              RouteName.readingTestPage,
+                                              arguments: argument,
+                                            );
+                                          }),
                                   barrierDismissible: false,
                                 );
-                              }else{
-                                if(quizController.choice[0] == pemanasan.jawaban){
+                              } else {
+                                if (quizController.choice[0] == pemanasan.jawaban) {
                                   isCorrect = true;
+                                  audioPlayer.play(AssetSource('audio/benar.mp3'));
                                   quizController.setImageUrl(url: argument['warmUpAfter']);
-                                    if (ScaffoldMessenger.of(context).mounted) {
+                                  if (ScaffoldMessenger.of(context).mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                      content: Text('Jawabanmu benar! Kamu siap untuk tes bercerita!'),
-                                      backgroundColor: Colors.green,
-                                      duration: Duration(seconds: 3),
+                                        content: Text(
+                                            'Jawabanmu benar! Kamu siap untuk tes bercerita!'),
+                                        backgroundColor: Colors.green,
+                                        duration: Duration(seconds: 3),
                                       ),
                                     );
-                                    }
-                                }else{
-                                    if (ScaffoldMessenger.of(context).mounted) {
+                                  }
+                                } else {
+                                  //soundeffect
+                                  audioPlayer.play(AssetSource('audio/salah.mp3'));
+                                  if (ScaffoldMessenger.of(context).mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                      content: Text('Jawabanmu salah. Jangan menyerah ayo coba lagi!'),
-                                      backgroundColor: Colors.red,
-                                      duration: Duration(seconds: 1),
+                                        content: Text(
+                                            'Jawabanmu salah. Jangan menyerah ayo coba lagi!'),
+                                        backgroundColor: Colors.red,
+                                        duration: Duration(seconds: 1),
                                       ),
                                     );
-                                    }
+                                  }
                                 }
                               }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: lightBlue,
                             ),
-                            child: const Text(
+                            child: Text(
                               'Selesai',
-                              style: TextStyle(
+                              style: PoppinsStyle.stylePoppins(
                                 color: white,
                                 fontSize: 14,
                               ),

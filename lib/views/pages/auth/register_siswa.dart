@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/controllers/auth_controllers/register_siswa_controller.dart';
 import 'package:tarali/views/widgets/auth_textfield.dart';
 
 class RegisterSiswa extends StatelessWidget {
   RegisterSiswa({super.key});
-  final RegisterSiswaController formRegisterController =
-      Get.put(RegisterSiswaController());
-
+  final RegisterSiswaController formRegisterController = Get.put(RegisterSiswaController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,30 @@ class RegisterSiswa extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                Padding(
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        disabledBackgroundColor: white,
+                        backgroundColor: white,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        size: MediaQuery.of(context).size.width < 760
+                            ? MediaQuery.of(context).size.width * 0.03
+                            : MediaQuery.of(context).size.width * 0.025,
+                        Icons.arrow_back_ios_new_sharp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height,
@@ -53,18 +75,16 @@ class RegisterSiswa extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                       Text(
                         'Registrasi',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
+                        style: PoppinsStyle.stylePoppins(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
+                       Text(
                         'Isi data diri kamu dulu yuk!',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
+                        style: PoppinsStyle.stylePoppins(
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),
@@ -130,8 +150,8 @@ class RegisterSiswa extends StatelessWidget {
                       ),
                       Text(
                         'Pastikan nama sekolah benar dan sesuai dengan arahan gurumu ya!',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
+                        style: PoppinsStyle.stylePoppins(
+                          
                           fontSize: MediaQuery.of(context).size.width * 0.0175,
                         ),
                       ),
@@ -211,8 +231,7 @@ class RegisterSiswa extends StatelessWidget {
                               }, // methdod daftar nnti
                               child: Text(
                                 'Registrasi',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                style: PoppinsStyle.stylePoppins(
                                   color: white,
                                   fontWeight: FontWeight.bold,
                                   fontSize:
@@ -232,8 +251,8 @@ class RegisterSiswa extends StatelessWidget {
                               ),
                               child: Text(
                                 'Masuk',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                style: PoppinsStyle.stylePoppins(
+                                  
                                   color: lightBlue,
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.02,
@@ -253,8 +272,8 @@ class RegisterSiswa extends StatelessWidget {
                           ),
                           child: Text(
                             'Registrasi sebagai guru',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
+                            style: PoppinsStyle.stylePoppins(
+                              
                               color: lightBlue,
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.02,

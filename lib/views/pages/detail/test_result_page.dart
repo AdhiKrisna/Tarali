@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
 
@@ -29,17 +30,17 @@ class TestResultPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                   Text(
                     "Selamat!",
-                    style: TextStyle(
+                    style: PoppinsStyle.stylePoppins(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
                       color: blackText,
                     ),
                   ),
-                  const Text(
-                    "Kamu baru saja selesai mengikuti tes membaca!",
-                    style: TextStyle(
+                   Text(
+                    'Kamu baru saja selesai mengikuti menyelesaikan "Mari Bercerita"!',
+                    style: PoppinsStyle.stylePoppins(
                       fontSize: 12,
                       color: blackText,
                     ),
@@ -53,15 +54,15 @@ class TestResultPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: const Row(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           size: 24,
                           color: lightBlue,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
@@ -69,19 +70,19 @@ class TestResultPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '80% terdeteksi',
-                                style: TextStyle(
+                                'Fitur deteksi dan penilaian otomatis Segera Hadir!',
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: blackText,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Text(
-                                'Bacaanmu benar, gurumu juga akan menilai keterampilan membacamu dan segera memberikan komentar',
-                                style: TextStyle(
+                                'Gurumu akan menilai keterampilan membacamu dan segera memberikan komentar!',
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: 12,
                                   color: greyText,
                                 ),
@@ -108,9 +109,9 @@ class TestResultPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             surfaceTintColor: Colors.white,
                           ),
-                          child: const Text(
+                          child:  Text(
                             'Ulangi Tes',
-                            style: TextStyle(
+                            style: PoppinsStyle.stylePoppins(
                               color: lightBlue,
                             ),
                           ),
@@ -130,9 +131,9 @@ class TestResultPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             surfaceTintColor: Colors.white,
                           ),
-                          child: const Text(
+                          child:  Text(
                             'Halaman Buku',
-                            style: TextStyle(
+                            style: PoppinsStyle.stylePoppins(
                               color: lightBlue,
                             ),
                           ),
@@ -155,9 +156,9 @@ class TestResultPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: lightBlue,
                       ),
-                      child: const Text(
+                      child:  Text(
                         'Lanjut ke kuis',
-                        style: TextStyle(
+                        style: PoppinsStyle.stylePoppins(
                           color: white,
                         ),
                       ),

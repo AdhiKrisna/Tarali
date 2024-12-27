@@ -8,6 +8,7 @@ import 'package:tarali/views/pages/dashboard_page.dart';
 import 'package:tarali/routes/route_name.dart';
 import 'package:tarali/views/pages/detail/audio_page.dart';
 import 'package:tarali/views/pages/detail/detail_page.dart';
+import 'package:tarali/views/pages/detail/quiz_answer_page.dart';
 import 'package:tarali/views/pages/detail/quiz_page.dart';
 import 'package:tarali/views/pages/detail/quiz_result_page.dart';
 import 'package:tarali/views/pages/detail/read_page.dart';
@@ -15,7 +16,9 @@ import 'package:tarali/views/pages/detail/read_test_page.dart';
 import 'package:tarali/views/pages/detail/test_result_page.dart';
 import 'package:tarali/views/pages/detail/video_page.dart';
 import 'package:tarali/views/pages/detail/warm_up_page.dart';
-import 'package:tarali/views/pages/splash_page.dart';
+import 'package:tarali/views/pages/splash/entry_page.dart';
+import 'package:tarali/views/pages/splash/entry_page2.dart';
+import 'package:tarali/views/pages/splash/splash_page.dart';
 import 'package:tarali/views/pages/history/history_page.dart';
 import 'package:tarali/views/pages/history/detail_history_page.dart';
 import 'package:tarali/views/pages/scoring/to_scoring_page.dart';
@@ -28,6 +31,18 @@ class RoutePages {
       name: RouteName.splash,
       page: () => const SplashPage(),
       transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.entry,
+      page: () => const EntryPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.entry2,
+      page: () => const EntryPage2(),
+      transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),
     GetPage(
@@ -158,6 +173,12 @@ class RoutePages {
     GetPage(
       name: RouteName.quizResultPage,
       page: () => const QuizResultPage(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 1000),
+    ),
+    GetPage(
+      name: RouteName.quizAnswerPage,
+      page: () => const QuizAnswerPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 1000),
     ),

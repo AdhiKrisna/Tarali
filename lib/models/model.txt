@@ -1,1 +1,0 @@
-ini nanti isinya tempat menyimpan semua data yang berasal atau menuju database / backend / api

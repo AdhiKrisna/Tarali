@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
 
 class AuthTextField extends StatelessWidget {
   final LocalController localC = LocalController();
@@ -28,7 +29,7 @@ class AuthTextField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: PoppinsStyle.stylePoppins(
             fontSize: MediaQuery.of(context).size.width * pLabelSize,
             fontWeight: FontWeight.bold,
           ),
@@ -40,7 +41,7 @@ class AuthTextField extends StatelessWidget {
             keyboardType: isNumber ? TextInputType.number : TextInputType.text,
             obscureText:
                 localC.isShowPassword.isFalse && isPassword ? true : false,
-            style: TextStyle(
+            style: PoppinsStyle.stylePoppins(
               fontSize: MediaQuery.of(context).size.width * pFontSize,
             ),
             decoration: InputDecoration(
@@ -49,7 +50,7 @@ class AuthTextField extends StatelessWidget {
               hintText: hint,
               isDense: isDense,
               contentPadding: const EdgeInsets.all(10),
-              hintStyle: TextStyle(
+              hintStyle: PoppinsStyle.stylePoppins(
                 fontSize: MediaQuery.of(context).size.width * pFontSize,
               ),
               border: OutlineInputBorder(

@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tarali/models/kuis_model.dart';
+import 'package:tarali/constants/constant_colors.dart';
+import 'package:tarali/constants/constant_text_style.dart';
+import 'package:tarali/models/quiz_exam_model.dart';
 import 'package:tarali/views/controllers/quiz_controller.dart';
+import 'package:tarali/views/dialog/list_dialog.dart';
 import 'package:tarali/views/widgets/background_widget.dart';
-import '../../../constants/constant_colors.dart';
-import '../../dialog/list_dialog.dart';
 
 class QuizPage extends StatelessWidget {
-  // final bool isSubmitted;
   const QuizPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final argument = Get.arguments;
-    List<KuisModel> dataSoal = argument['kuis'];
+    List<QuizExamModel> dataSoal = argument['kuis'];
     final quizController = Get.put(QuizController());
     quizController.setData(lengthData: dataSoal.length);
-   
-    // if (isSubmitted) {
-    //   dynamic kunciJawaban = [];
-    //   dynamic jawaban = [];
-    //   isSubmitted ? kunciJawaban = argument['kunciJawaban'] : null;
-    //   isSubmitted ? jawaban = argument['answers'] : null;
-    //   print(kunciJawaban);
-    //   print(jawaban);
-    // }
-    // print(isSubmitted);
 
     return Scaffold(
       body: BackgroundWidget.setMainBackground(
@@ -48,9 +38,9 @@ class QuizPage extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text(
+                 Text(
                   'Kuis',
-                  style: TextStyle(
+                  style: PoppinsStyle.stylePoppins(
                     fontSize: 22,
                     color: Colors.black,
                     decoration: TextDecoration.none,
@@ -87,16 +77,16 @@ class QuizPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 'Pertanyaan nomor ',
-                                style: TextStyle(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: 10,
                                   color: greyText,
                                 ),
                               ),
                               Text(
                                 quizController.detailPage(),
-                                style: const TextStyle(
+                                style:  PoppinsStyle.stylePoppins(
                                   fontSize: 10,
                                   color: lightBlue,
                                   fontWeight: FontWeight.w500,
@@ -111,8 +101,11 @@ class QuizPage extends StatelessWidget {
                             child: ListView(
                               children: [
                                 Text(
-                                  dataSoal[quizController.index.value].soal,
-                                  style: const TextStyle(
+                                  dataSoal[quizController.index.value].soal
+                                      .toString()
+                                      .replaceAll(r'\n', '\n')
+                                      .replaceAll(r'\t', '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'),
+                                  style:  PoppinsStyle.stylePoppins(
                                     fontSize: 16,
                                     color: blackText,
                                     fontWeight: FontWeight.w500,
@@ -134,10 +127,10 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child: const Text(
+                                  child:  Text(
                                     'Sebelumnya',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,
                                       color: lightBlue,
                                     ),
@@ -168,17 +161,16 @@ class QuizPage extends StatelessWidget {
                                             ListDialog.contentDialog(
                                                 context: context,
                                                 imageName: 'kuis_dialog',
-                                                message:
-                                                    'Yakin sudah selesai mengerjakan kuis? Kamu hanya bisa mengumpulkan jawaban satu kali.\nPastikan semua soal sudah dijawab dengan benar.',
-                                                cancelLabel: 'Belum Selesai',
+                                                message: 'Yakin sudah selesai mengerjakan kuis? Nilaimu tidak boleh kurang dari 80 untuk lulus kuis ini',
+                                                cancelLabel: 'Periksa Dulu',
                                                 onCancel: () {
                                                   Get.back();
                                                 },
-                                                successLabel: 'Sudah Selesai',
-                                                onSuccess: () {
+                                                successLabel: 'Kumpulkan Kuis',
+                                                onSuccess: () async{
                                                   quizController.timer.cancel();
                                                   Get.back();
-                                                  quizController.scoring(dataSoal, argument);
+                                                  await quizController.scoring(dataSoal, argument);
                                                 }),
                                         barrierDismissible: false,
                                       );
@@ -193,10 +185,10 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child: const Text(
-                                    'Selanjutnya',
+                                  child:  Text(
+                                    quizController.index.value == quizController.totalIndex - 1 ? 'Selesai' : 'Selanjutnya',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(
+                                    style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,
                                       color: white,
                                     ),
@@ -238,7 +230,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'A. ${dataSoal[quizController.index.value].opsi[0]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                                 quizController.index.value] ==
                                             0
@@ -275,7 +267,7 @@ class QuizPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'B. ${dataSoal[quizController.index.value].opsi[1]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
                                                 quizController.index.value] ==
                                             1
@@ -291,9 +283,7 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController
-                                        .choice[quizController.index.value] ==
-                                    2) {
+                                if (quizController.choice[quizController.index.value] == 2) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(2);
@@ -302,22 +292,18 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                            quizController.index.value] ==
-                                        2
-                                    ? lightBlue
-                                    : white,
+                                  quizController.index.value
+                                ] == 2 ? lightBlue : white,
                               ),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'C. ${dataSoal[quizController.index.value].opsi[2]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
-                                                quizController.index.value] ==
-                                            2
-                                        ? white
-                                        : blackText,
+                                      quizController.index.value
+                                    ] == 2 ? white : blackText,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -328,9 +314,7 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController
-                                        .choice[quizController.index.value] ==
-                                    3) {
+                                if (quizController.choice[quizController.index.value] == 3) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(3);
@@ -339,22 +323,18 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                            quizController.index.value] ==
-                                        3
-                                    ? lightBlue
-                                    : white,
+                                  quizController.index.value
+                                ] == 3 ? lightBlue : white,
                               ),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: Text(
                                   'D. ${dataSoal[quizController.index.value].opsi[3]}',
-                                  style: TextStyle(
+                                  style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
-                                                quizController.index.value] ==
-                                            3
-                                        ? white
-                                        : blackText,
+                                      quizController.index.value
+                                    ] == 3 ? white : blackText,
                                     fontSize: 14,
                                   ),
                                 ),
