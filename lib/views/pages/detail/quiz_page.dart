@@ -77,7 +77,7 @@ class QuizPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               Text(
+                              Text(
                                 'Pertanyaan nomor ',
                                 style: PoppinsStyle.stylePoppins(
                                   fontSize: 10,
@@ -86,7 +86,7 @@ class QuizPage extends StatelessWidget {
                               ),
                               Text(
                                 quizController.detailPage(),
-                                style:  PoppinsStyle.stylePoppins(
+                                style: PoppinsStyle.stylePoppins(
                                   fontSize: 10,
                                   color: lightBlue,
                                   fontWeight: FontWeight.w500,
@@ -101,11 +101,13 @@ class QuizPage extends StatelessWidget {
                             child: ListView(
                               children: [
                                 Text(
-                                  dataSoal[quizController.index.value].soal
+                                  dataSoal[quizController.index.value]
+                                      .soal
                                       .toString()
                                       .replaceAll(r'\n', '\n')
-                                      .replaceAll(r'\t', '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'),
-                                  style:  PoppinsStyle.stylePoppins(
+                                      .replaceAll(r'\t',
+                                          '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'),
+                                  style: PoppinsStyle.stylePoppins(
                                     fontSize: 16,
                                     color: blackText,
                                     fontWeight: FontWeight.w500,
@@ -127,7 +129,7 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child:  Text(
+                                  child: Text(
                                     'Sebelumnya',
                                     textAlign: TextAlign.left,
                                     style: PoppinsStyle.stylePoppins(
@@ -161,16 +163,18 @@ class QuizPage extends StatelessWidget {
                                             ListDialog.contentDialog(
                                                 context: context,
                                                 imageName: 'kuis_dialog',
-                                                message: 'Yakin sudah selesai mengerjakan kuis? Nilaimu tidak boleh kurang dari 80 untuk lulus kuis ini',
+                                                message:
+                                                    'Yakin sudah selesai mengerjakan kuis? Nilaimu tidak boleh kurang dari 80 untuk lulus kuis ini',
                                                 cancelLabel: 'Periksa Dulu',
                                                 onCancel: () {
                                                   Get.back();
                                                 },
                                                 successLabel: 'Kumpulkan Kuis',
-                                                onSuccess: () async{
+                                                onSuccess: () async {
                                                   quizController.timer.cancel();
                                                   Get.back();
-                                                  await quizController.scoring(dataSoal, argument);
+                                                  await quizController.scoring(
+                                                      dataSoal, argument);
                                                 }),
                                         barrierDismissible: false,
                                       );
@@ -185,8 +189,11 @@ class QuizPage extends StatelessWidget {
                                       horizontal: 20,
                                     ),
                                   ),
-                                  child:  Text(
-                                    quizController.index.value == quizController.totalIndex - 1 ? 'Selesai' : 'Selanjutnya',
+                                  child: Text(
+                                    quizController.index.value ==
+                                            quizController.totalIndex - 1
+                                        ? 'Selesai'
+                                        : 'Selanjutnya',
                                     textAlign: TextAlign.left,
                                     style: PoppinsStyle.stylePoppins(
                                       fontSize: 14,
@@ -283,7 +290,9 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController.choice[quizController.index.value] == 2) {
+                                if (quizController
+                                        .choice[quizController.index.value] ==
+                                    2) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(2);
@@ -292,8 +301,10 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                  quizController.index.value
-                                ] == 2 ? lightBlue : white,
+                                            quizController.index.value] ==
+                                        2
+                                    ? lightBlue
+                                    : white,
                               ),
                               child: Padding(
                                 padding:
@@ -302,8 +313,10 @@ class QuizPage extends StatelessWidget {
                                   'C. ${dataSoal[quizController.index.value].opsi[2]}',
                                   style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
-                                      quizController.index.value
-                                    ] == 2 ? white : blackText,
+                                                quizController.index.value] ==
+                                            2
+                                        ? white
+                                        : blackText,
                                     fontSize: 14,
                                   ),
                                 ),
@@ -314,7 +327,9 @@ class QuizPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (quizController.choice[quizController.index.value] == 3) {
+                                if (quizController
+                                        .choice[quizController.index.value] ==
+                                    3) {
                                   quizController.setChoice(-1);
                                 } else {
                                   quizController.setChoice(3);
@@ -323,8 +338,10 @@ class QuizPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 alignment: Alignment.centerLeft,
                                 backgroundColor: quizController.choice[
-                                  quizController.index.value
-                                ] == 3 ? lightBlue : white,
+                                            quizController.index.value] ==
+                                        3
+                                    ? lightBlue
+                                    : white,
                               ),
                               child: Padding(
                                 padding:
@@ -333,8 +350,10 @@ class QuizPage extends StatelessWidget {
                                   'D. ${dataSoal[quizController.index.value].opsi[3]}',
                                   style: PoppinsStyle.stylePoppins(
                                     color: quizController.choice[
-                                      quizController.index.value
-                                    ] == 3 ? white : blackText,
+                                                quizController.index.value] ==
+                                            3
+                                        ? white
+                                        : blackText,
                                     fontSize: 14,
                                   ),
                                 ),
