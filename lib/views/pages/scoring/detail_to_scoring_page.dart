@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tarali/constants/constant_colors.dart';
@@ -172,13 +174,17 @@ class DetailToScoringPage extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   }
                   return Obx(() {
-                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(data: snapshot.data!.docs, sekolah: arguments['sekolah']);
+                    List<ScoringModel> model = ss.getAllReadTestAssignmentData(
+                        data: snapshot.data!.docs,
+                        sekolah: arguments['sekolah']);
                     if (scoringController.sortBy.value == 'nama') {
                       model.sort((a, b) => a.nama.compareTo(b.nama));
                     } else if (scoringController.sortBy.value == 'check') {
-                      model.sort( (a, b) => b.readTestScore.compareTo(a.readTestScore));
+                      model.sort(
+                          (a, b) => b.readTestScore.compareTo(a.readTestScore));
                     } else if (scoringController.sortBy.value == 'unCheck') {
-                      model.sort((a, b) => a.readTestScore.compareTo(b.readTestScore));
+                      model.sort(
+                          (a, b) => a.readTestScore.compareTo(b.readTestScore));
                     } else if (scoringController.sortBy.value == 'absen') {
                       model.sort((a, b) => a.absen.compareTo(b.absen));
                     } else if (scoringController.sortBy.value == 'kelas') {
@@ -252,7 +258,7 @@ class DetailToScoringPage extends StatelessWidget {
                                                 color: lightBlue,
                                               ),
                                               Text(
-                                                '${model[index].quizScore }',
+                                                '${model[index].quizScore}',
                                                 style:
                                                     PoppinsStyle.stylePoppins(
                                                   fontWeight: FontWeight.bold,
@@ -350,7 +356,31 @@ class DetailToScoringPage extends StatelessWidget {
                                                     0.01,
                                               ),
                                               Text(
-                                                model[index].readTestDuration,
+                                                () {
+                                                  try {
+                                                    // Pisahkan string berdasarkan ':'
+                                                    List<String> parts =
+                                                        model[index]
+                                                            .readTestDuration
+                                                            .split(':');
+                                                    if (parts.length == 2) {
+                                                      int minute = int.parse(parts[
+                                                          0]); // Bagian sebelum ':' adalah menit
+                                                      int second = int.parse(parts[
+                                                          1]); // Bagian setelah ':' adalah detik
+
+                                                      // Format dengan penambahan nol jika diperlukan
+                                                      return '${minute < 10 ? '0$minute' : '$minute'}:${second < 10 ? '0$second' : '$second'}';
+                                                    } else {
+                                                      log("jika format tidak sesuai, gunakan default");
+                                                      // Jika format tidak sesuai, gunakan default
+                                                      return '00:00';
+                                                    }
+                                                  } catch (e) {
+                                                    log(e.toString());
+                                                    return '00:00'; // Default jika ada error
+                                                  }
+                                                }(),
                                                 style:
                                                     PoppinsStyle.stylePoppins(
                                                   fontWeight: FontWeight.bold,
