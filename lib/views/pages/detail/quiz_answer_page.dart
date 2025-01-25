@@ -101,7 +101,12 @@ class QuizAnswerPage extends StatelessWidget {
                             child: ListView(
                               children: [
                                 Text(
-                                  dataSoal[quizController.index.value].soal,
+                                  dataSoal[quizController.index.value]
+                                      .soal
+                                      .toString()
+                                      .replaceAll(r'\n', '\n')
+                                      .replaceAll(r'\t',
+                                          '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'),
                                   style: PoppinsStyle.stylePoppins(
                                     fontSize: 16,
                                     color: blackText,
