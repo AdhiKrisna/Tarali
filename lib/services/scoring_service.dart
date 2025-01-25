@@ -226,11 +226,11 @@ class ScoringService{
         nama: doc['nama'],
         kelas: doc['kelas'],
         title: doc['title'],
-        quizScore: (doc.data() as Map<String, dynamic>).containsKey('quiz') ? doc['quiz']['score'] : 0,
-        readTestScore: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['score'] as num).toDouble() : 0.0,
-        readTestMessage: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['message'] : '',
-        readTestSource: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['source'] : '',
-        readTestDuration: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? doc['readTest']['duration'] : '00:00',
+        quizScore: (doc.data() as Map<String, dynamic>).containsKey('quiz') ? (doc['quiz']['score'] ?? 0) : 0,
+        readTestScore: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['score'] as num?)?.toDouble() ?? 0.0 : 0.0,
+        readTestMessage: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['message'] ?? '') : '',
+        readTestSource: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['source'] ?? '') : '',
+        readTestDuration: (doc.data() as Map<String, dynamic>).containsKey('readTest') ? (doc['readTest']['duration'] ?? '00:00') : '00:00',
         sekolah: doc['sekolah'],
       );
     }).toList();
