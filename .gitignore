@@ -50,3 +50,6 @@ firebase.json
 lib/firebase_options.dart
 pubspec.lock
 functions/package-lock.json
+tarali_key_store.jks
+android/app/tarali_key_store.jks
+android/app/google-services.json
