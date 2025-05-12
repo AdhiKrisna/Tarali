@@ -60,6 +60,7 @@ Tarali is currently in the **preparation phase for Play Store release**, with on
 ---
 
 ## 📸 Screenshots  
-*Coming soon – will include UI previews from reading, storytelling, and quiz pages.*
+![Reading Page](assets/ss_view.png)
+
 
 ---
