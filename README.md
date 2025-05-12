@@ -2,10 +2,6 @@
 
 **Tarali** is an interactive e-book mobile application that brings **Balinese folklore** to life through reading, listening, watching, and storytelling features. Designed to enhance **literacy**, **public speaking**, and **cultural preservation**, this app provides a comprehensive and engaging platform for elementary school students to explore traditional stories in a modern format.
 
-<div align="center">
-  <img src="your_screenshot_image_path_here" width="300"/>
-</div>
-
 ---
 
 ## 📱 Features
@@ -67,16 +63,3 @@ Tarali is currently in the **preparation phase for Play Store release**, with on
 *Coming soon – will include UI previews from reading, storytelling, and quiz pages.*
 
 ---
-
-## 📂 Repository Structure
-```bash
-/lib
-  /screens
-  /widgets
-  /models
-  /services (Firebase)
-  main.dart
-/assets
-  /images
-  /audio
-  /videos
