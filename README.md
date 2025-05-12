@@ -60,7 +60,7 @@ Tarali is currently in the **preparation phase for Play Store release**, with on
 ---
 
 ## 📸 Screenshots  
-![Reading Page](assets/ss_view.png)
+![Tarali Pages](assets/ss_view.png)
 
 
 ---
